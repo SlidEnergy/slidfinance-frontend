@@ -9,11 +9,13 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { Account } from './account';
+import { User } from './user';
 
 
-export interface TransactionBindingModel {
-    dateTime?: Date;
-    amount?: number;
-    category?: string;
-    description?: string;
+export interface Bank {
+    id?: number;
+    title: string;
+    accounts: Array<Account>;
+    user: User;
 }

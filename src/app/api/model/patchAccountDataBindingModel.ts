@@ -9,11 +9,10 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { TransactionBindingModel } from './transactionBindingModel';
 
 
-export interface TransactionBindingModel {
-    dateTime?: Date;
-    amount?: number;
-    category?: string;
-    description?: string;
+export interface PatchAccountDataBindingModel {
+    balance?: number;
+    transactions?: Array<TransactionBindingModel>;
 }

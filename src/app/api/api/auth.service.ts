@@ -11,29 +11,29 @@
  */
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional } from '@angular/core';
-import {
-    HttpClient, HttpHeaders, HttpParams,
-    HttpResponse, HttpEvent
-} from '@angular/common/http';
-import { CustomHttpUrlEncodingCodec } from '../encoder';
+import { Inject, Injectable, Optional }                      from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams,
+         HttpResponse, HttpEvent }                           from '@angular/common/http';
+import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
-import { Observable } from 'rxjs';
+import { Observable }                                        from 'rxjs/Observable';
 
-import { Transaction } from '../model/transaction';
+import { ProblemDetails } from '../model/problemDetails';
+import { TokenInfo } from '../model/tokenInfo';
+import { UserBindingModel } from '../model/userBindingModel';
 
-import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
-import { Configuration } from '../configuration';
+import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
+import { Configuration }                                     from '../configuration';
 
 
 @Injectable()
-export class TransactionsService {
+export class AuthService {
 
     protected basePath = 'https://localhost';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
-    constructor(protected httpClient: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (basePath) {
             this.basePath = basePath;
         }
@@ -61,13 +61,14 @@ export class TransactionsService {
     /**
      * 
      * 
+     * @param userData 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getTransactions(observe?: 'body', reportProgress?: boolean): Observable<Array<Transaction>>;
-    public getTransactions(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Transaction>>>;
-    public getTransactions(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Transaction>>>;
-    public getTransactions(observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    public getToken(userData?: UserBindingModel, observe?: 'body', reportProgress?: boolean): Observable<TokenInfo>;
+    public getToken(userData?: UserBindingModel, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<TokenInfo>>;
+    public getToken(userData?: UserBindingModel, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<TokenInfo>>;
+    public getToken(userData?: UserBindingModel, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -89,9 +90,18 @@ export class TransactionsService {
 
         // to determine the Content-Type header
         let consumes: string[] = [
+            'application/json-patch+json',
+            'application/json',
+            'text/json',
+            'application/_*+json'
         ];
+        let httpContentTypeSelected:string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set("Content-Type", httpContentTypeSelected);
+        }
 
-        return this.httpClient.get<Array<Transaction>>(`${this.basePath}/api/v1/Transactions`,
+        return this.httpClient.post<TokenInfo>(`${this.basePath}/auth/v1/token`,
+            userData,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

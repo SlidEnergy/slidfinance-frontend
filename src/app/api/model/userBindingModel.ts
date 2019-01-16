@@ -11,9 +11,7 @@
  */
 
 
-export interface TransactionBindingModel {
-    dateTime?: Date;
-    amount?: number;
-    category?: string;
-    description?: string;
+export interface UserBindingModel {
+    email?: string;
+    password?: string;
 }
