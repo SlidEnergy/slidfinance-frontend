@@ -20,7 +20,7 @@ export class TransactionsHistoryComponent implements OnInit {
   // ссылка на таблицу, для обновления
   @ViewChild(MatTable) table: MatTable<any>;
   // Список колонок, которые нужно показать в таблице
-  columnsToDisplay = ['dateTime', 'correspondentName', 'senderName', 'amount', 'balance'];
+  columnsToDisplay = ['account', 'dateTime', 'category', 'description', 'amount'];
   loadingVisible = true;
 
   constructor() { }

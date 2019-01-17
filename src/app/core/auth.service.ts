@@ -137,8 +137,8 @@ export class AuthService {
 			auth = null;
 		}
 
-		if (auth && auth['access_token'] && AuthService.validateAccessToken(auth['access_token']))
-			return auth['access_token'];
+		if (auth && auth['token'] && AuthService.validateAccessToken(auth['token']))
+			return auth['token'];
 		else
 			null;
 	}

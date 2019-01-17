@@ -3,35 +3,35 @@
 </mat-toolbar>
 <table mat-table
        [dataSource]="transactions">
+    <ng-container matColumnDef="account">
+        <th mat-header-cell
+            *matHeaderCellDef> Аккаунт </th>
+        <td mat-cell
+            *matCellDef="let row"> {{row.account}} </td>
+    </ng-container>
     <ng-container matColumnDef="dateTime">
         <th mat-header-cell
             *matHeaderCellDef> Дата и время </th>
         <td mat-cell
             *matCellDef="let row"> {{row.dateTime | date: 'dd.MM.yyyy HH:mm:ss'}} </td>
     </ng-container>
-    <ng-container matColumnDef="correspondentName">
+    <ng-container matColumnDef="category">
         <th mat-header-cell
-            *matHeaderCellDef> Получатель </th>
+            *matHeaderCellDef> Категория </th>
         <td mat-cell
-            *matCellDef="let row"> {{row.correspondentName}} </td>
+            *matCellDef="let row"> {{row.category}} </td>
     </ng-container>
-    <ng-container matColumnDef="senderName">
+    <ng-container matColumnDef="description">
         <th mat-header-cell
-            *matHeaderCellDef> Отправитель </th>
+            *matHeaderCellDef> Описание </th>
         <td mat-cell
-            *matCellDef="let row"> {{row.senderName}} </td>
+            *matCellDef="let row"> {{row.description}} </td>
     </ng-container>
     <ng-container matColumnDef="amount">
         <th mat-header-cell
             *matHeaderCellDef> Количество </th>
         <td mat-cell
             *matCellDef="let row"> {{row.amount}} </td>
-    </ng-container>
-    <ng-container matColumnDef="balance">
-        <th mat-header-cell
-            *matHeaderCellDef> Баланс </th>
-        <td mat-cell
-            *matCellDef="let row"> {{row.balance}} </td>
     </ng-container>
 
     <tr mat-header-row

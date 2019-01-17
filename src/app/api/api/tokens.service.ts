@@ -1,18 +1,20 @@
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional }                      from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams,
-         HttpResponse, HttpEvent }                           from '@angular/common/http';
-import { CustomHttpUrlEncodingCodec }                        from '../encoder';
+import { Inject, Injectable, Optional } from '@angular/core';
+import {
+    HttpClient, HttpHeaders, HttpParams,
+    HttpResponse, HttpEvent
+} from '@angular/common/http';
+import { CustomHttpUrlEncodingCodec } from '../encoder';
 
-import { Observable }                                        from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { ProblemDetails } from '../model/problemDetails';
 import { TokenInfo } from '../model/tokenInfo';
 import { UserBindingModel } from '../model/userBindingModel';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
+import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
+import { Configuration } from '../configuration';
 
 
 @Injectable()
@@ -22,7 +24,7 @@ export class TokensService {
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected httpClient: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (basePath) {
             this.basePath = basePath;
         }
@@ -57,14 +59,9 @@ export class TokensService {
     public createToken(userData?: UserBindingModel, observe?: 'body', reportProgress?: boolean): Observable<TokenInfo>;
     public createToken(userData?: UserBindingModel, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<TokenInfo>>;
     public createToken(userData?: UserBindingModel, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<TokenInfo>>;
-    public createToken(userData?: UserBindingModel, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public createToken(userData?: UserBindingModel, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
-
-        // authentication (Bearer) required
-        if (this.configuration.apiKeys["Authorization"]) {
-            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -84,12 +81,12 @@ export class TokensService {
             'text/json',
             'application/_*+json'
         ];
-        let httpContentTypeSelected:string | undefined = this.configuration.selectHeaderContentType(consumes);
+        let httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
         if (httpContentTypeSelected != undefined) {
             headers = headers.set("Content-Type", httpContentTypeSelected);
         }
 
-        return this.httpClient.post<TokenInfo>(`${this.basePath}/api/v1`,
+        return this.httpClient.post<TokenInfo>(`${this.basePath}/api/v1/tokens`,
             userData,
             {
                 withCredentials: this.configuration.withCredentials,
