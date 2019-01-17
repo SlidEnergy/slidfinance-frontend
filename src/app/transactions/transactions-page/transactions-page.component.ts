@@ -16,7 +16,6 @@ export class TransactionsPageComponent implements OnInit {
     this.update();
   }
 
-  // обновляем список транзакций при инициализации и после платежа
   update() {
     this.transactions = this.transactionsService.getTransactions();
   }

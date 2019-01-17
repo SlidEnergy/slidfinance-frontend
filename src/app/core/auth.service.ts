@@ -3,8 +3,8 @@ import { throwError as observableThrowError, Observable, ReplaySubject } from 'r
 import { Injectable } from '@angular/core';
 
 import { catchError, map } from 'rxjs/operators';
-import { AuthenticationService } from '../api/api/authentication.service';
-import { UsersService } from '../api';
+import { TokensService } from '../api/api/tokens.service';
+import { UsersService } from '../api/api/users.service';
 
 import { MatSnackBar } from '@angular/material';
 
@@ -15,7 +15,7 @@ export class AuthService {
 	private _currentUser: ReplaySubject<User | null> = new ReplaySubject<User | null>(1);
 
 	constructor(
-		private authenticationService: AuthenticationService,
+		private tokensService: TokensService,
 		private usersService: UsersService,
 		private snackBar: MatSnackBar
 	) {
@@ -93,8 +93,8 @@ export class AuthService {
 	}
 
 	// Вход/получение токена
-	public login(userName: string, password: string): Observable<User> {
-		return this.authenticationService.getToken(userName, password, 'password').pipe(
+	public login(email: string, password: string): Observable<User> {
+		return this.tokensService.createToken({ email, password }).pipe(
 			map((data: any) => {
 				const user = new User(data.userName, data.balance);
 
@@ -112,12 +112,13 @@ export class AuthService {
 
 	// Регистрация/Создание нового пользователя
 	public register(userName: string, email: string, password: string, confirmPassword: string): Observable<User> {
-		return this.usersService.register({ userName, email, password, confirmPassword }).pipe(
-			map((data: any) => new User(data.userName, data.balance)),
-			catchError(error => {
-				console.error(`Произошла ошибка. errorCode: ${error.code}, errorMessage: ${error.message}`);
-				return observableThrowError(error);
-			}));
+		return null;
+		// return this.usersService.register({ userName, email, password, confirmPassword }).pipe(
+		// 	map((data: any) => new User(data.userName, data.balance)),
+		// 	catchError(error => {
+		// 		console.error(`Произошла ошибка. errorCode: ${error.code}, errorMessage: ${error.message}`);
+		// 		return observableThrowError(error);
+		// 	}));
 	}
 
 	// Выход/очистка токена
