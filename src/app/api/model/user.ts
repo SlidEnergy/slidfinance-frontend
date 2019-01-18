@@ -1,4 +1,5 @@
 import { Bank } from './bank';
+import { Category } from './category';
 
 
 export interface User {
@@ -6,4 +7,5 @@ export interface User {
     email: string;
     password: string;
     banks: Array<Bank>;
+    categories: Array<Category>;
 }

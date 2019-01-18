@@ -5,6 +5,7 @@ import { Configuration } from './configuration';
 
 import { AccountsService } from './api/accounts.service';
 import { BanksService } from './api/banks.service';
+import { CategoriesService } from './api/categories.service';
 import { TokensService } from './api/tokens.service';
 import { TransactionsService } from './api/transactions.service';
 import { UsersService } from './api/users.service';
@@ -16,6 +17,7 @@ import { UsersService } from './api/users.service';
   providers: [
     AccountsService,
     BanksService,
+    CategoriesService,
     TokensService,
     TransactionsService,
     UsersService ]
