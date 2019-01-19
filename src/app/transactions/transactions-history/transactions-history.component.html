@@ -4,40 +4,50 @@
 <table mat-table
        [dataSource]="transactions">
     <ng-container matColumnDef="account">
-        <th mat-header-cell
-            *matHeaderCellDef> Аккаунт </th>
-        <td mat-cell
-            *matCellDef="let row"> {{row.account}} </td>
+        <mat-header-cell
+            *matHeaderCellDef> Аккаунт </mat-header-cell>
+        <mat-cell
+            *matCellDef="let row"> {{row.account}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="dateTime">
-        <th mat-header-cell
-            *matHeaderCellDef> Дата и время </th>
-        <td mat-cell
-            *matCellDef="let row"> {{row.dateTime | date: 'dd.MM.yyyy HH:mm:ss'}} </td>
+        <mat-header-cell
+            *matHeaderCellDef> Дата и время </mat-header-cell>
+        <mat-cell
+            *matCellDef="let row"> {{row.dateTime | date: 'dd.MM.yyyy HH:mm:ss'}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="category">
-        <th mat-header-cell
-            *matHeaderCellDef> Категория </th>
-        <td mat-cell
-            *matCellDef="let row"> {{row.category}} </td>
+        <mat-header-cell
+            *matHeaderCellDef> Категория </mat-header-cell>
+        <mat-cell
+            *matCellDef="let row">
+            <mat-select [(ngModel)]="row.category"
+            (selectionChange)="category_Changed($event, row)"
+            [compareWith]="compareIds"
+            placeholder="Нет категории">
+                <mat-option [value]="null">Нет категории</mat-option>
+                <mat-option *ngFor="let category of categories" [value]="category">
+                {{category.title}}
+              </mat-option>
+            </mat-select>
+        </mat-cell>
     </ng-container>
     <ng-container matColumnDef="description">
-        <th mat-header-cell
-            *matHeaderCellDef> Описание </th>
-        <td mat-cell
-            *matCellDef="let row"> {{row.description}} </td>
+        <mat-header-cell
+            *matHeaderCellDef> Описание </mat-header-cell>
+        <mat-cell
+            *matCellDef="let row"> {{row.description}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="amount">
-        <th mat-header-cell
-            *matHeaderCellDef> Количество </th>
-        <td mat-cell
-            *matCellDef="let row"> {{row.amount}} </td>
+        <mat-header-cell mat-header-cell
+            *matHeaderCellDef> Сумма </mat-header-cell>
+        <mat-cell
+            *matCellDef="let row"> {{row.amount}} </mat-cell>
     </ng-container>
 
-    <tr mat-header-row
-        *matHeaderRowDef="columnsToDisplay"></tr>
-    <tr mat-row
-        *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+    <mat-header-row
+        *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+    <mat-row
+        *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
 </table>
 <mat-card *ngIf="loadingVisible"
           style="display: flex; justify-content: center; align-items: center">
