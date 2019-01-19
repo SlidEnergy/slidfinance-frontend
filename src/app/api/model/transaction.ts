@@ -6,7 +6,7 @@ export interface Transaction {
     id?: number;
     dateTime?: Date;
     amount?: number;
-    category?: Category;
+    categoryId?: number;
     description: string;
-    account: Account;
+    accountId: number;
 }

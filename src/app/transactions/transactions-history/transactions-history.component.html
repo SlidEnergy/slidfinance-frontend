@@ -20,13 +20,12 @@
             *matHeaderCellDef> Категория </mat-header-cell>
         <mat-cell
             *matCellDef="let row">
-            <mat-select [(ngModel)]="row.category"
-            (selectionChange)="category_Changed($event, row)"
-            [compareWith]="compareIds"
-            placeholder="Нет категории">
+            <mat-select [(value)]="row.categoryId"
+                        (selectionChange)="category_Changed($event, row)"
+                        placeholder="Нет категории">
                 <mat-option [value]="null">Нет категории</mat-option>
-                <mat-option *ngFor="let category of categories" [value]="category">
-                {{category.title}}
+                <mat-option *ngFor="let category of categories" [value]="category.id">
+                    {{category.title}}
               </mat-option>
             </mat-select>
         </mat-cell>

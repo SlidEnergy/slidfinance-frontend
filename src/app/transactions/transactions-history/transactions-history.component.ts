@@ -35,15 +35,11 @@ export class TransactionsHistoryComponent implements OnInit {
   }
 
   category_Changed(e: any, transaction: Transaction) {
-    this.transactionsService.patchTransaction(transaction.id, { categoryId: transaction.category && transaction.category.id})
+    this.transactionsService.patchTransaction(transaction.id, { categoryId: transaction.categoryId })
     .subscribe(() => {
       this.snackBar.open('Категория изменена', undefined, { duration: 5000, panelClass: ['background-green'] });
     }, () => {
       this.snackBar.open('Не удалось изменить категорию', undefined, { duration: 5000, panelClass: ['background-red'] });
     })
-  }
-
-  compareIds(v1: any, v2: any): boolean {
-    return v1 && v2 ? v1.id === v2.id : v1 === v2;
   }
 }
