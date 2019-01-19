@@ -7,7 +7,7 @@
         <mat-header-cell
             *matHeaderCellDef> Аккаунт </mat-header-cell>
         <mat-cell
-            *matCellDef="let row"> {{row.account}} </mat-cell>
+            *matCellDef="let row"> {{getAccountTitle(row.accountId)}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="dateTime">
         <mat-header-cell

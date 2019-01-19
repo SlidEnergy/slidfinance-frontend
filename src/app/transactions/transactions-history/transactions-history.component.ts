@@ -1,5 +1,8 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { Transaction, CategoriesService, Category, TransactionsService } from 'src/app/api';
+
+import { map } from 'rxjs/operators';
+
+import { Transaction, CategoriesService, Category, TransactionsService, AccountsService, Account } from 'src/app/api';
 import { MatTable, MatSnackBar } from '@angular/material';
 
 @Component({
@@ -11,6 +14,7 @@ export class TransactionsHistoryComponent implements OnInit {
   // список транзакций пользователя
   transactions: Transaction[];
   categories: Category[];
+  accounts: Map<number, Account>;
 
   @Input('transactions') set transactionsInput(value: Transaction[]) {
     if (value) {
@@ -28,10 +32,12 @@ export class TransactionsHistoryComponent implements OnInit {
     private categoriesService: CategoriesService,
     private transactionsService: TransactionsService,
     private snackBar: MatSnackBar,
+    private accountsService: AccountsService
     ) { }
 
   ngOnInit() {
     this.categoriesService.getCategory().subscribe(data => this.categories = data);
+    this.accountsService.getAccounts().pipe(map(x=> new Map(x.map(i=>[i.id, i] as [number, Account])))).subscribe(data => this.accounts = data);
   }
 
   category_Changed(e: any, transaction: Transaction) {
@@ -41,5 +47,9 @@ export class TransactionsHistoryComponent implements OnInit {
     }, () => {
       this.snackBar.open('Не удалось изменить категорию', undefined, { duration: 5000, panelClass: ['background-red'] });
     })
+  }
+
+  getAccountTitle(accountId: number) {
+    return this.accounts.get(accountId).title;
   }
 }
