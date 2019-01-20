@@ -1,8 +1,8 @@
 <mat-toolbar color="primary">
    <mat-toolbar-row>
-      <span class="title">PW system</span>
+      <span class="title">Slid Finance</span>
       <span class="user-info"
-            *ngIf="isLoggedIn | async">{{ (currentUser | async)?.userName }} : {{ (currentUser | async)?.balance }} PW</span>
+            *ngIf="isLoggedIn | async">{{(currentUser | async)?.email}}</span>
       <span class="spacer"></span>
       <a mat-button
          *ngIf="!(isLoggedIn | async)"
