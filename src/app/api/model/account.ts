@@ -1,11 +1,9 @@
-import { Bank } from './bank';
-import { Transaction } from './transaction';
 
 
 export interface Account {
-    id?: number;
+    id?: string;
     balance?: number;
-    title: string;
-    bank: Bank;
-    transactions: Array<Transaction>;
+    title?: string;
+    bankId?: string;
+    transactionIds?: Array<string>;
 }

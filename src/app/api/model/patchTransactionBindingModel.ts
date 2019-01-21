@@ -1,5 +1,5 @@
 
 
 export interface PatchTransactionBindingModel {
-    categoryId?: number;
+    categoryId?: string;
 }

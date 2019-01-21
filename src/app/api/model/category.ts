@@ -1,8 +1,6 @@
-import { User } from './user';
 
 
 export interface Category {
-    id?: number;
+    id?: string;
     title?: string;
-    user?: User;
 }

@@ -5,4 +5,5 @@ export interface TransactionBindingModel {
     amount?: number;
     category?: string;
     description?: string;
+    mcc?: number;
 }

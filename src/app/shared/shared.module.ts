@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import {
     MatNativeDateModule, MatDatepickerModule, MatIconModule, MatButtonModule, MatCheckboxModule, MatToolbarModule,
-    MatCardModule, MatFormFieldModule, MatInputModule, MatRadioModule, MatListModule, MatSnackBarModule, MatTableModule, MatAutocompleteModule, MatProgressSpinnerModule, MatSelectModule
+    MatCardModule, MatFormFieldModule, MatInputModule, MatRadioModule, MatListModule, MatSnackBarModule, MatTableModule, MatAutocompleteModule, MatProgressSpinnerModule, MatSelectModule, MatSortModule
 } from '@angular/material';
 
 import { MatProgressButtonsModule } from 'mat-progress-buttons'
@@ -40,7 +40,8 @@ import { MatProgressButtonsModule } from 'mat-progress-buttons'
         MatAutocompleteModule,
         MatProgressSpinnerModule,
         MatProgressButtonsModule,
-        MatSelectModule
+        MatSelectModule,
+        MatSortModule
     ],
     providers: [
     ]

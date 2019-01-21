@@ -1,18 +1,20 @@
 /* tslint:disable:no-unused-variable member-ordering */
 
-import { Inject, Injectable, Optional }                      from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams,
-         HttpResponse, HttpEvent }                           from '@angular/common/http';
-import { CustomHttpUrlEncodingCodec }                        from '../encoder';
+import { Inject, Injectable, Optional } from '@angular/core';
+import {
+    HttpClient, HttpHeaders, HttpParams,
+    HttpResponse, HttpEvent
+} from '@angular/common/http';
+import { CustomHttpUrlEncodingCodec } from '../encoder';
 
-import { Observable }                                        from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { Account } from '../model/account';
 import { PatchAccountDataBindingModel } from '../model/patchAccountDataBindingModel';
 import { ProblemDetails } from '../model/problemDetails';
 
-import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
-import { Configuration }                                     from '../configuration';
+import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
+import { Configuration } from '../configuration';
 
 
 @Injectable()
@@ -22,7 +24,7 @@ export class AccountsService {
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
+    constructor(protected httpClient: HttpClient, @Optional() @Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (basePath) {
             this.basePath = basePath;
         }
@@ -56,7 +58,7 @@ export class AccountsService {
     public getAccounts(observe?: 'body', reportProgress?: boolean): Observable<Array<Account>>;
     public getAccounts(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Account>>>;
     public getAccounts(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Account>>>;
-    public getAccounts(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAccounts(observe: any = 'body', reportProgress: boolean = false): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -101,17 +103,17 @@ export class AccountsService {
     /**
      * 
      * 
-     * @param id 
+     * @param code 
      * @param accountData 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public patchAccountData(id: number, accountData?: PatchAccountDataBindingModel, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public patchAccountData(id: number, accountData?: PatchAccountDataBindingModel, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public patchAccountData(id: number, accountData?: PatchAccountDataBindingModel, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public patchAccountData(id: number, accountData?: PatchAccountDataBindingModel, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling patchAccountData.');
+    public patchAccountData(code: string, accountData?: PatchAccountDataBindingModel, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public patchAccountData(code: string, accountData?: PatchAccountDataBindingModel, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public patchAccountData(code: string, accountData?: PatchAccountDataBindingModel, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public patchAccountData(code: string, accountData?: PatchAccountDataBindingModel, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+        if (code === null || code === undefined) {
+            throw new Error('Required parameter code was null or undefined when calling patchAccountData.');
         }
 
         let headers = this.defaultHeaders;
@@ -147,12 +149,12 @@ export class AccountsService {
             'text/json',
             'application/_*+json'
         ];
-        let httpContentTypeSelected:string | undefined = this.configuration.selectHeaderContentType(consumes);
+        let httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
         if (httpContentTypeSelected != undefined) {
             headers = headers.set("Content-Type", httpContentTypeSelected);
         }
 
-        return this.httpClient.patch<any>(`${this.basePath}/api/v1/Accounts/${encodeURIComponent(String(id))}`,
+        return this.httpClient.patch<any>(`${this.basePath}/api/v1/Accounts/${encodeURIComponent(String(code))}`,
             accountData,
             {
                 withCredentials: this.configuration.withCredentials,
