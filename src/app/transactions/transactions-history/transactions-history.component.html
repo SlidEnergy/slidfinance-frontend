@@ -2,25 +2,29 @@
     <span>История переводов</span>
 </mat-toolbar>
 <table mat-table
-       [dataSource]="transactions"
+       [dataSource]="dataSource"
+       matSort
        matSortActive="dateTime"
        matSortDirection="desc">
     <ng-container matColumnDef="account">
-        <mat-header-cell *matHeaderCellDef> Аккаунт </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef
+                         mat-sort-header> Аккаунт </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{getAccountTitle(row.accountId)}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="dateTime">
-        <mat-header-cell *matHeaderCellDef> Дата и время </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef
+                         mat-sort-header> Дата и время </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{row.dateTime | date: 'dd.MM.yyyy HH:mm:ss'}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="category">
-        <mat-header-cell *matHeaderCellDef> Категория </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef
+                         mat-sort-header> Категория </mat-header-cell>
         <mat-cell *matCellDef="let row">
             <mat-select [(value)]="row.categoryId"
                         (selectionChange)="category_Changed($event, row)"
                         placeholder="Нет категории">
                 <mat-option [value]="null">Нет категории</mat-option>
-                <mat-option *ngFor="let category of categories"
+                <mat-option *ngFor="let category of categories.values()"
                             [value]="category.id">
                     {{category.title}}
                 </mat-option>
@@ -28,20 +32,24 @@
         </mat-cell>
     </ng-container>
     <ng-container matColumnDef="mcc">
-        <mat-header-cell *matHeaderCellDef> МСС </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef
+                         mat-sort-header> МСС </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{row.mcc}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="bankCategory">
-        <mat-header-cell *matHeaderCellDef> Категория банка </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef
+                         mat-sort-header> Категория банка </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{row.bankCategory}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="description">
-        <mat-header-cell *matHeaderCellDef> Описание </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef
+                         mat-sort-header> Описание </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{row.description}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="amount">
         <mat-header-cell mat-header-cell
-                         *matHeaderCellDef> Сумма </mat-header-cell>
+                         *matHeaderCellDef
+                         mat-sort-header> Сумма </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{row.amount}} </mat-cell>
     </ng-container>
 

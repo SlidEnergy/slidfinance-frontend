@@ -3,7 +3,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { map } from 'rxjs/operators';
 
 import { Transaction, CategoriesService, Category, TransactionsService, AccountsService, Account } from 'src/app/api';
-import { MatTable, MatSnackBar } from '@angular/material';
+import { MatTable, MatSnackBar, MatTableDataSource, MatSort } from '@angular/material';
 
 @Component({
   selector: 'app-transactions-history',
@@ -11,15 +11,18 @@ import { MatTable, MatSnackBar } from '@angular/material';
   styleUrls: ['./transactions-history.component.scss']
 })
 export class TransactionsHistoryComponent implements OnInit {
-  // список транзакций пользователя
-  transactions: Transaction[];
-  categories: Category[];
+  @ViewChild(MatSort) sort: MatSort;
+
+  categories: Map<string, Category>;
   accounts: Map<string, Account>;
+
+  // список транзакций пользователя
+  dataSource = new MatTableDataSource<Transaction>();
 
   @Input('transactions') set transactionsInput(value: Transaction[]) {
     if (value) {
       this.loadingVisible = false;
-      this.transactions = value;
+      this.dataSource.data = value;
     }
   }
   // ссылка на таблицу, для обновления
@@ -36,8 +39,21 @@ export class TransactionsHistoryComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.categoriesService.getCategory().subscribe(data => this.categories = data);
+    this.categoriesService.getCategory().pipe(map(x => new Map(x.map(i => [i.id, i] as [string, Category])))).subscribe(data => this.categories = data);
     this.accountsService.getAccounts().pipe(map(x => new Map(x.map(i => [i.id, i] as [string, Account])))).subscribe(data => this.accounts = data);
+    this.dataSource.sort = this.sort;
+    this.dataSource.sortingDataAccessor = (item, property) => {
+      switch (property) {
+        case 'category': {
+          if (!item.categoryId)
+            return "";
+
+          return this.categories.get(item.categoryId) || "";
+        }
+
+        default: return item[property];
+      }
+    };
   }
 
   category_Changed(e: any, transaction: Transaction) {
