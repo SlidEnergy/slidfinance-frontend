@@ -21,7 +21,7 @@
                         (selectionChange)="category_Changed($event, row)"
                         placeholder="Нет категории">
                 <mat-option [value]="null">Нет категории</mat-option>
-                <mat-option *ngFor="let category of categories.values()"
+                <mat-option *ngFor="let category of getCategoriesArray()"
                             [value]="category.id">
                     {{category.title}}
                 </mat-option>

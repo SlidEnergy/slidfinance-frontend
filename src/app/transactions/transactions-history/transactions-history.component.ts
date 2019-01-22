@@ -48,15 +48,15 @@ export class TransactionsHistoryComponent implements OnInit {
           if (!item.categoryId)
             return '';
 
-            let category = this.categories.get(item.categoryId);
-            return category ? category.title : '';
+          let category = this.categories.get(item.categoryId);
+          return category ? category.title : '';
         }
         case 'account': {
           if (!item.accountId)
             return '';
 
-            let account = this.accounts.get(item.accountId);
-            return account ? account.title : '';
+          let account = this.accounts.get(item.accountId);
+          return account ? account.title : '';
         }
 
         default: return item[property];
@@ -74,6 +74,14 @@ export class TransactionsHistoryComponent implements OnInit {
   }
 
   getAccountTitle(accountId: string) {
-    return this.accounts.get(accountId).title;
+    if (!this.accounts)
+      return '';
+
+    let account = this.accounts.get(accountId);
+    return account ? account.title : '';
+  }
+
+  getCategoriesArray() {
+    return this.categories && Array.from(this.categories.values());
   }
 }
