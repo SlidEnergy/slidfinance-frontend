@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MonthStatistic, StatisticsService } from 'src/app/api';
+
 import { Observable } from 'rxjs';
+
+import { MonthStatistic, StatisticsService } from 'src/app/api';
 
 @Component({
   selector: 'app-category-statistic-page',

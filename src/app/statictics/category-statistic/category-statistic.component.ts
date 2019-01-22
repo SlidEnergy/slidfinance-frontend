@@ -1,7 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 
-import { Transaction, CategoriesService, Category, MonthStatistic} from 'src/app/api';
-import { MatSnackBar } from '@angular/material';
+import { map } from 'rxjs/operators';
+
+import { Transaction, CategoriesService, Category, MonthStatistic } from 'src/app/api';
+import { MatSnackBar, MatTableDataSource, MatSort } from '@angular/material';
 
 @Component({
   selector: 'app-category-statistic',
@@ -9,16 +11,22 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ['./category-statistic.component.scss']
 })
 export class CategoryStatisticComponent implements OnInit {
+  @ViewChild(MatSort) sort: MatSort;
+  
   categoryStatistic: MonthStatistic[];
-  categories: Category[];
+  categories: Map<string, Category>;
+  
+  dataSource = new MatTableDataSource<Transaction>();
 
   @Input('categoryStatistic') set categoryStatisticInput(value: MonthStatistic[]) {
     if (value) {
       this.loadingVisible = false;
-      this.categoryStatistic = value;
+      this.dataSource.data = value;
     }
   }
 
+  // Список колонок, которые нужно показать в таблице
+  columnsToDisplay = [ 'category', 'amount'];
   loadingVisible = true;
 
   constructor(
@@ -27,10 +35,26 @@ export class CategoryStatisticComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.categoriesService.getCategory().subscribe(data => this.categories = data);
+    this.categoriesService.getCategory().pipe(map(x => new Map(x.map(i => [i.id, i] as [string, Category])))).subscribe(data => this.categories = data);
+    this.dataSource.sort = this.sort;
+    this.dataSource.sortingDataAccessor = (item, property) => {
+      switch (property) {
+        case 'category': {
+          if (!item.categoryId || !this.categories)
+            return "";
+
+          return this.categories.get(item.categoryId) || "";
+        }
+
+        default: return item[property];
+      }
+    };
   }
 
-  getCategoryTitle(accountId: number) {
-    return this.categories.get(accountId).title;
+  getCategoryTitle(categoryId: string) {
+    if(!categoryId)
+      return "Без категории";
+
+    return this.categories && this.categories.get(categoryId).title;
   }
 }

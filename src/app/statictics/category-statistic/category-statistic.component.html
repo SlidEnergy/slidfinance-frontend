@@ -1,14 +1,19 @@
 <table mat-table
-       [dataSource]="categoryStatistic">
+       [dataSource]="dataSource"
+       matSort
+       matSortActive="category"
+       matSortDirection="asc">
     <ng-container matColumnDef="category">
         <mat-header-cell
-            *matHeaderCellDef> Категория </mat-header-cell>
+            *matHeaderCellDef
+            mat-sort-header> Категория </mat-header-cell>
         <mat-cell
-            *matCellDef="let row"> {{getCategoryTitle(row.accountId)}} </mat-cell>
+            *matCellDef="let row"> {{getCategoryTitle(row.categoryId)}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="amount">
-        <mat-header-cell mat-header-cell
-            *matHeaderCellDef> Сумма </mat-header-cell>
+        <mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header> Сумма </mat-header-cell>
         <mat-cell
             *matCellDef="let row"> {{row.amount}} </mat-cell>
     </ng-container>
