@@ -8,6 +8,7 @@ import { DateInterceptor } from './date-interceptor';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth-guard.service';
 import { HeaderComponent } from './header/header.component';
+import { InitializationService } from './initialization.service';
 
 @NgModule({
     imports: [
@@ -23,6 +24,7 @@ import { HeaderComponent } from './header/header.component';
     providers: [
         AuthService,
         AuthGuard,
+        InitializationService,
         // Регистрируем interceptor, который разбирает строки в виде даты в ответе от сервера и преобразует их в даты.
         {
             provide: HTTP_INTERCEPTORS,
@@ -35,10 +37,13 @@ import { HeaderComponent } from './header/header.component';
     ]
 })
 export class CoreModule {
-    constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
+    constructor(@Optional() @SkipSelf() parentModule: CoreModule,
+        initialization: InitializationService) {
         if (parentModule) {
             throw new Error(
                 'CoreModule is already loaded. Import it in the AppModule only');
         }
+
+        initialization.init();
     }
 }

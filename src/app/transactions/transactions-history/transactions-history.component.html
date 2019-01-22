@@ -46,7 +46,7 @@
     <ng-container matColumnDef="amount">
         <mat-header-cell *matHeaderCellDef
                          mat-sort-header> Сумма </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.amount}} </mat-cell>
+        <mat-cell *matCellDef="let row"> {{row.amount | currency : 'RUB' : 'symbol' : '1.2-2' : 'ru'}} </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
