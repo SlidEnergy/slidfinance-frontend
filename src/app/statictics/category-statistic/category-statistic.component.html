@@ -1,0 +1,26 @@
+<table mat-table
+       [dataSource]="categoryStatistic">
+    <ng-container matColumnDef="category">
+        <mat-header-cell
+            *matHeaderCellDef> Категория </mat-header-cell>
+        <mat-cell
+            *matCellDef="let row"> {{getCategoryTitle(row.accountId)}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="amount">
+        <mat-header-cell mat-header-cell
+            *matHeaderCellDef> Сумма </mat-header-cell>
+        <mat-cell
+            *matCellDef="let row"> {{row.amount}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row
+        *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+    <mat-row
+        *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
+</table>
+<mat-card *ngIf="loadingVisible"
+          style="display: flex; justify-content: center; align-items: center">
+    <mat-progress-spinner color="primary"
+                          mode="indeterminate">
+    </mat-progress-spinner>
+</mat-card>

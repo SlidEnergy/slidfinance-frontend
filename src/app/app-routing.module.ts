@@ -4,9 +4,10 @@ import { NotLoggedInGuard } from './core/not-logged-in-guard.service';
 import { AuthGuard } from './core/auth-guard.service';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'transactions', pathMatch: 'full' },
+  { path: '', redirectTo: 'statictics', pathMatch: 'full' },
   { path: "entry", loadChildren: './entry/entry.module#EntryModule', canActivate: [NotLoggedInGuard] },
-  { path: "transactions", loadChildren: './transactions/transactions.module#TransactionsModule', canActivate: [AuthGuard] }
+  { path: "transactions", loadChildren: './transactions/transactions.module#TransactionsModule', canActivate: [AuthGuard] },
+  { path: "statictics", loadChildren: './statictics/statictics.module#StaticticsModule', canActivate: [AuthGuard] }
 ];
 
 @NgModule({
