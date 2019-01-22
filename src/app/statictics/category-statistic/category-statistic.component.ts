@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 
 import { map } from 'rxjs/operators';
+import * as moment from 'moment';
 
-import { Transaction, CategoriesService, Category, MonthStatistic } from 'src/app/api';
+import { Transaction, CategoriesService, Category, CategoryStatistic } from 'src/app/api';
 import { MatSnackBar, MatTableDataSource, MatSort } from '@angular/material';
 
 @Component({
@@ -13,20 +14,22 @@ import { MatSnackBar, MatTableDataSource, MatSort } from '@angular/material';
 export class CategoryStatisticComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   
-  categoryStatistic: MonthStatistic[];
+  categoryStatistic: CategoryStatistic[];
   categories: Map<string, Category>;
   
   dataSource = new MatTableDataSource<Transaction>();
 
-  @Input('categoryStatistic') set categoryStatisticInput(value: MonthStatistic[]) {
+  @Input('categoryStatistic') set categoryStatisticInput(value: CategoryStatistic[]) {
     if (value) {
       this.loadingVisible = false;
       this.dataSource.data = value;
     }
   }
+  
+  @Input() startDate: moment.Moment;
 
   // Список колонок, которые нужно показать в таблице
-  columnsToDisplay = [ 'category', 'amount'];
+  columnsToDisplay = [ 'category', 'month2', 'month1', 'month0'];
   loadingVisible = true;
 
   constructor(
@@ -41,9 +44,10 @@ export class CategoryStatisticComponent implements OnInit {
       switch (property) {
         case 'category': {
           if (!item.categoryId || !this.categories)
-            return "";
+            return '';
 
-          return this.categories.get(item.categoryId) || "";
+          let category = this.categories.get(item.categoryId);
+          return category ? category.title : '';
         }
 
         default: return item[property];
@@ -54,7 +58,19 @@ export class CategoryStatisticComponent implements OnInit {
   getCategoryTitle(categoryId: string) {
     if(!categoryId)
       return "Без категории";
-
+    
     return this.categories && this.categories.get(categoryId).title;
+  }
+
+  getAmount(row: CategoryStatistic, date: moment.Moment) {
+    if(!row || !date)
+      return '';
+
+    for(let item of row.months) {
+      if(date.isSame(item.month, 'day'))
+        return item.amount;
+    }
+
+    return '';
   }
 }

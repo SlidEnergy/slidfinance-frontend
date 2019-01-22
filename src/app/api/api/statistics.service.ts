@@ -7,7 +7,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
-import { MonthStatistic } from '../model/monthStatistic';
+import { CategoryStatistic } from '../model/categoryStatistic';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -48,22 +48,22 @@ export class StatisticsService {
     /**
      * 
      * 
-     * @param year 
-     * @param month 
+     * @param startDate 
+     * @param endDate 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getCategoryStatistic(year?: number, month?: number, observe?: 'body', reportProgress?: boolean): Observable<Array<MonthStatistic>>;
-    public getCategoryStatistic(year?: number, month?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<MonthStatistic>>>;
-    public getCategoryStatistic(year?: number, month?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<MonthStatistic>>>;
-    public getCategoryStatistic(year?: number, month?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getCategoryStatistic(startDate?: Date, endDate?: Date, observe?: 'body', reportProgress?: boolean): Observable<Array<CategoryStatistic>>;
+    public getCategoryStatistic(startDate?: Date, endDate?: Date, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<CategoryStatistic>>>;
+    public getCategoryStatistic(startDate?: Date, endDate?: Date, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<CategoryStatistic>>>;
+    public getCategoryStatistic(startDate?: Date, endDate?: Date, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (year !== undefined) {
-            queryParameters = queryParameters.set('year', <any>year);
+        if (startDate !== undefined) {
+            queryParameters = queryParameters.set('startDate', <any>startDate.toISOString());
         }
-        if (month !== undefined) {
-            queryParameters = queryParameters.set('month', <any>month);
+        if (endDate !== undefined) {
+            queryParameters = queryParameters.set('endDate', <any>endDate.toISOString());
         }
 
         let headers = this.defaultHeaders;
@@ -96,7 +96,7 @@ export class StatisticsService {
         let consumes: string[] = [
         ];
 
-        return this.httpClient.get<Array<MonthStatistic>>(`${this.basePath}/api/v1/Statistics/category`,
+        return this.httpClient.get<Array<CategoryStatistic>>(`${this.basePath}/api/v1/Statistics/category`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,

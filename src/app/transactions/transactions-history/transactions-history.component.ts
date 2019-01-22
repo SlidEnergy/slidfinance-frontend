@@ -46,9 +46,17 @@ export class TransactionsHistoryComponent implements OnInit {
       switch (property) {
         case 'category': {
           if (!item.categoryId)
-            return "";
+            return '';
 
-          return this.categories.get(item.categoryId) || "";
+            let category = this.categories.get(item.categoryId);
+            return category ? category.title : '';
+        }
+        case 'account': {
+          if (!item.accountId)
+            return '';
+
+            let account = this.accounts.get(item.accountId);
+            return account ? account.title : '';
         }
 
         default: return item[property];

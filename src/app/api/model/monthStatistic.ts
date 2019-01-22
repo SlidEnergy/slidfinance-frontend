@@ -1,6 +1,6 @@
 
 
 export interface MonthStatistic {
-    categoryId?: string;
+    month?: Date;
     amount?: number;
 }

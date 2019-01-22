@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
+import * as moment from 'moment';
 
-import { MonthStatistic, StatisticsService } from 'src/app/api';
+import { CategoryStatistic, StatisticsService } from 'src/app/api';
 
 @Component({
   selector: 'app-category-statistic-page',
@@ -10,7 +11,9 @@ import { MonthStatistic, StatisticsService } from 'src/app/api';
   styleUrls: ['./category-statistic-page.component.scss']
 })
 export class CategoryStatisticPageComponent implements OnInit {
-  categoryStatistic: Observable<MonthStatistic[]>;
+  categoryStatistic: Observable<CategoryStatistic[]>;
+  startDate = moment.utc().add(-2, 'month').startOf('month');
+  endDate = moment.utc().endOf('month');
 
   constructor(private statisticsService: StatisticsService) { }
 
@@ -18,7 +21,7 @@ export class CategoryStatisticPageComponent implements OnInit {
     this.update();
   }
 
-  update() {
-    this.categoryStatistic = this.statisticsService.getCategoryStatistic(2019, 1);
+  update() {    
+    this.categoryStatistic = this.statisticsService.getCategoryStatistic(this.startDate.toDate(), this.endDate.toDate());
   }
 }

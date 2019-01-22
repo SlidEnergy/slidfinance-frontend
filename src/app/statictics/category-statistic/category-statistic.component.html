@@ -10,12 +10,26 @@
         <mat-cell
             *matCellDef="let row"> {{getCategoryTitle(row.categoryId)}} </mat-cell>
     </ng-container>
-    <ng-container matColumnDef="amount">
+    <ng-container matColumnDef="month2">
         <mat-header-cell
             *matHeaderCellDef
-            mat-sort-header> Сумма </mat-header-cell>
+            mat-sort-header> {{startDate.format('MMMM')}} </mat-header-cell>
         <mat-cell
-            *matCellDef="let row"> {{row.amount}} </mat-cell>
+            *matCellDef="let row"> {{getAmount(row, startDate)}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="month1">
+        <mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header> {{startDate.clone().add(1, 'month').format('MMMM')}} </mat-header-cell>
+        <mat-cell
+            *matCellDef="let row"> {{getAmount(row, startDate.clone().add(1, 'month'))}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="month0">
+        <mat-header-cell
+            *matHeaderCellDef
+            mat-sort-header> {{startDate.clone().add(2, 'month').format('MMMM')}} </mat-header-cell>
+        <mat-cell
+            *matCellDef="let row"> {{getAmount(row, startDate.clone().add(2, 'month'))}} </mat-cell>
     </ng-container>
 
     <mat-header-row
