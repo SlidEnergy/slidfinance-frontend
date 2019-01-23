@@ -1,3 +1,8 @@
+<mat-form-field>
+    <input matInput
+           (keyup)="applyFilter($event.target.value)"
+           placeholder="Filter">
+</mat-form-field>
 <table mat-table
        [dataSource]="dataSource"
        matSort
@@ -18,7 +23,7 @@
                          mat-sort-header> Категория </mat-header-cell>
         <mat-cell *matCellDef="let row">
             <mat-select [(value)]="row.categoryId"
-                        (selectionChange)="category_Changed($event, row)"
+                        (selectionChange)="category_Changed(row)"
                         placeholder="Нет категории">
                 <mat-option [value]="null">Нет категории</mat-option>
                 <mat-option *ngFor="let category of getCategoriesArray()"
