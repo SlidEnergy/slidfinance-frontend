@@ -11,7 +11,7 @@
     <ng-container matColumnDef="dateTime">
         <mat-header-cell *matHeaderCellDef
                          mat-sort-header> Дата и время </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.dateTime | date: 'dd.MM.yyyy HH:mm:ss'}} </mat-cell>
+        <mat-cell *matCellDef="let row"> {{row.dateTime | date: 'dd.MM.yyyy'}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="category">
         <mat-header-cell *matHeaderCellDef
