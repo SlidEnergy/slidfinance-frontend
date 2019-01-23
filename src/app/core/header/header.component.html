@@ -2,22 +2,48 @@
    <mat-toolbar-row>
       <span class="title">Slid Finance</span>
       <span class="user-info"
-         *ngIf="isLoggedIn | async">{{(currentUser | async)?.email}}</span>
+            *ngIf="isLoggedIn | async">{{(currentUser | async)?.email}}</span>
       <span class="spacer"></span>
-      <a mat-button
-         *ngIf="isLoggedIn | async"
-         routerLink="/statictics/category">Статистика по категориям</a>
-      <a mat-button
-         *ngIf="isLoggedIn | async"
-         routerLink="/transactions">Траты</a>
-      <a mat-button
-         *ngIf="!(isLoggedIn | async)"
-         routerLink="/entry/register">Регистрация</a>
-      <a mat-button
-         *ngIf="!(isLoggedIn | async)"
-         routerLink="/entry/login">Вход</a>
-      <a mat-button
-         *ngIf="isLoggedIn | async"
-         (click)="logout()">Выход</a>
+      <button mat-icon-button
+              fxShow="true"
+              fxHide.gt-sm
+              [matMenuTriggerFor]="appMenu">
+         <mat-icon>more_vert</mat-icon>
+      </button>
+      <div fxShow="true"
+           fxHide.lt-md>
+         <a mat-button
+            *ngIf="isLoggedIn | async"
+            routerLink="/statictics/category">Статистика по категориям</a>
+         <a mat-button
+            *ngIf="isLoggedIn | async"
+            routerLink="/transactions">Траты</a>
+         <a mat-button
+            *ngIf="!(isLoggedIn | async)"
+            routerLink="/entry/register">Регистрация</a>
+         <a mat-button
+            *ngIf="!(isLoggedIn | async)"
+            routerLink="/entry/login">Вход</a>
+         <a mat-button
+            *ngIf="isLoggedIn | async"
+            (click)="logout()">Выход</a>
+      </div>
    </mat-toolbar-row>
 </mat-toolbar>
+<mat-menu #appMenu="matMenu">
+   <a mat-menu-item
+      *ngIf="isLoggedIn | async"
+      routerLink="/statictics/category">Статистика по категориям</a>
+   <a mat-menu-item
+      *ngIf="isLoggedIn | async"
+      routerLink="/transactions">Траты</a>
+   <a mat-menu-item
+      *ngIf="!(isLoggedIn | async)"
+      routerLink="/entry/register">Регистрация</a>
+   <a mat-menu-item
+      *ngIf="!(isLoggedIn | async)"
+      routerLink="/entry/login">Вход</a>
+   <a mat-menu-item
+      *ngIf="isLoggedIn | async"
+      (click)="logout()">Выход</a>
+</mat-menu>

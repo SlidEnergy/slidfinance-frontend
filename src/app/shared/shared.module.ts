@@ -2,9 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { FlexLayoutModule } from "@angular/flex-layout";
 import {
     MatNativeDateModule, MatDatepickerModule, MatIconModule, MatButtonModule, MatCheckboxModule, MatToolbarModule,
-    MatCardModule, MatFormFieldModule, MatInputModule, MatRadioModule, MatListModule, MatSnackBarModule, MatTableModule, MatAutocompleteModule, MatProgressSpinnerModule, MatSelectModule, MatSortModule
+    MatCardModule, MatFormFieldModule, MatInputModule, MatRadioModule, MatListModule, MatSnackBarModule, MatTableModule, MatAutocompleteModule, MatProgressSpinnerModule, MatSelectModule, MatSortModule, MatMenuModule
 } from '@angular/material';
 
 import { MatProgressButtonsModule } from 'mat-progress-buttons'
@@ -22,6 +23,7 @@ import { MatProgressButtonsModule } from 'mat-progress-buttons'
         FormsModule,
         RouterModule,
         ReactiveFormsModule,
+        FlexLayoutModule,
 
         MatNativeDateModule,
         FormsModule,
@@ -41,7 +43,8 @@ import { MatProgressButtonsModule } from 'mat-progress-buttons'
         MatProgressSpinnerModule,
         MatProgressButtonsModule,
         MatSelectModule,
-        MatSortModule
+        MatSortModule,
+        MatMenuModule
     ],
     providers: [
     ]
