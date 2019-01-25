@@ -17,6 +17,9 @@
             routerLink="/statictics/category">Статистика по категориям</a>
          <a mat-button
             *ngIf="isLoggedIn | async"
+            routerLink="/transactions/banks">Мои банки</a>
+         <a mat-button
+            *ngIf="isLoggedIn | async"
             routerLink="/transactions">Траты</a>
          <a mat-button
             *ngIf="!(isLoggedIn | async)"
@@ -34,6 +37,9 @@
    <a mat-menu-item
       *ngIf="isLoggedIn | async"
       routerLink="/statictics/category">Статистика по категориям</a>
+   <a mat-menu-item
+      *ngIf="isLoggedIn | async"
+      routerLink="/transactions/banks">Мои банки</a>
    <a mat-menu-item
       *ngIf="isLoggedIn | async"
       routerLink="/transactions">Траты</a>

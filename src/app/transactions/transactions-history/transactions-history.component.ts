@@ -25,8 +25,7 @@ export class TransactionsHistoryComponent implements OnInit {
       this.dataSource.data = value;
     }
   }
-  // ссылка на таблицу, для обновления
-  @ViewChild(MatTable) table: MatTable<any>;
+
   // Список колонок, которые нужно показать в таблице
   columnsToDisplay = ['account', 'dateTime', 'category', 'mcc', 'bankCategory', 'description', 'amount'];
   loadingVisible = true;
