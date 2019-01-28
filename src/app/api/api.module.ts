@@ -6,6 +6,7 @@ import { Configuration } from './configuration';
 import { AccountsService } from './api/accounts.service';
 import { BanksService } from './api/banks.service';
 import { CategoriesService } from './api/categories.service';
+import { RulesService } from './api/rules.service';
 import { StatisticsService } from './api/statistics.service';
 import { TokensService } from './api/tokens.service';
 import { TransactionsService } from './api/transactions.service';
@@ -19,6 +20,7 @@ import { UsersService } from './api/users.service';
     AccountsService,
     BanksService,
     CategoriesService,
+    RulesService,
     StatisticsService,
     TokensService,
     TransactionsService,

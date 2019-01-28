@@ -6,14 +6,18 @@ import { TransactionsHistoryComponent } from './transactions-history/transaction
 import { Routes, RouterModule } from '@angular/router';
 import { BanksPageComponent } from './banks-page/banks-page.component';
 import { BankListComponent } from './bank-list/bank-list.component';
+import { RulesPageComponent } from './rules-page/rules-page.component';
+import { RuleListComponent } from './rule-list/rule-list.component';
+import { GeneratedRuleListComponent } from './generated-rule-list/generated-rule-list.component';
 
 const routes: Routes = [
   { path: '', component: TransactionsPageComponent },
   { path: 'banks', component: BanksPageComponent },
+  { path: 'rules', component: RulesPageComponent },
 ];
 
 @NgModule({
-  declarations: [TransactionsPageComponent, TransactionsHistoryComponent, BanksPageComponent, BankListComponent],
+  declarations: [TransactionsPageComponent, TransactionsHistoryComponent, BanksPageComponent, BankListComponent, RulesPageComponent, RuleListComponent, GeneratedRuleListComponent],
   imports: [
     CommonModule,
     SharedModule,

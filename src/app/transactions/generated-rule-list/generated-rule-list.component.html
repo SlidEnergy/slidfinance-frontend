@@ -1,0 +1,62 @@
+<table mat-table
+     [dataSource]="dataSource"
+     matSort
+     matSortActive="dateTime"
+     matSortDirection="desc">
+  <ng-container matColumnDef="account">
+      <mat-header-cell *matHeaderCellDef
+                       mat-sort-header> Аккаунт </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{getAccountTitle(row.accountId)}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="mcc">
+      <mat-header-cell *matHeaderCellDef
+                       mat-sort-header> МСС </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.mcc}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="bankCategory">
+      <mat-header-cell *matHeaderCellDef
+                       mat-sort-header> Категория банка </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.bankCategory}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef
+                       mat-sort-header> Описание </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.description}} </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="category">
+    <mat-header-cell *matHeaderCellDef
+                      mat-sort-header> Категория </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <div class="multirow-cell">
+        <div *ngFor="let category of row.categories">{{getCategoryTitle(category.categoryId)}}</div>
+      </div>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="count">
+    <mat-header-cell *matHeaderCellDef
+                     mat-sort-header> Точность </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <div class="multirow-cell">
+        <div *ngFor="let category of row.categories">{{category.count/row.count | percent}}</div>
+      </div>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef
+                       mat-sort-header> Действия </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <div class="multirow-cell">
+          <a *ngFor="let category of row.categories" href="javascript:void(0);" (click)="addRule_click(row, category.categoryId)">Добавить</a>
+        </div>
+      </mat-cell>
+    </ng-container>
+
+  <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+  <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
+</table>
+<mat-card *ngIf="loadingVisible"
+        style="display: flex; justify-content: center; align-items: center">
+  <mat-progress-spinner color="primary"
+                        mode="indeterminate">
+  </mat-progress-spinner>
+</mat-card>
