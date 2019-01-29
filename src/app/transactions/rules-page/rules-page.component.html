@@ -1,2 +1,8 @@
-<app-generated-rule-list [generatedRules]="generatedRules | async"></app-generated-rule-list>
-<app-rule-list></app-rule-list>
+<mat-toolbar>
+    <span>Правила для категоризации</span>
+</mat-toolbar>
+<app-generated-rule-list [generatedRules]="generatedRules | async" (addClick)="addGeneratedRule_Click($event)"></app-generated-rule-list>
+<mat-toolbar>
+    <span>Активные правила</span>
+</mat-toolbar>
+<app-rule-list [rules]="rules | async"></app-rule-list>

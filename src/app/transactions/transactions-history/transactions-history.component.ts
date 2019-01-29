@@ -27,7 +27,7 @@ export class TransactionsHistoryComponent implements OnInit {
   }
 
   // Список колонок, которые нужно показать в таблице
-  columnsToDisplay = ['account', 'dateTime', 'category', 'mcc', 'bankCategory', 'description', 'amount'];
+  columnsToDisplay = ['account', 'dateTime', 'category', 'mcc', 'bankCategory', 'description', 'income', 'outcome'];
   loadingVisible = true;
 
   constructor(

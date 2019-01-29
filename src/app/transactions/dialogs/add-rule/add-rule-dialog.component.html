@@ -1,0 +1,55 @@
+<div class="container">
+  <h3 mat-dialog-title>Добавить новое правило</h3>
+
+  <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <mat-select [(value)]="data.accountId"
+                    placeholder="Аккаунт">
+          <mat-option [value]="null">Не важно</mat-option>
+          <mat-option *ngFor="let account of getAccountsArray()"
+                      [value]="account.id">
+            {{account.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput placeholder="МСС" [(ngModel)]="data.mcc" name="mcc">
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput placeholder="Категория банка" [(ngModel)]="data.bankCategory" name="bankCategory" >
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput placeholder="Описание" [(ngModel)]="data.description" name="description">
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent" required>
+        <mat-select [(value)]="data.categoryId"
+                        placeholder="Категория">
+                <mat-option *ngFor="let category of getCategoriesArray()"
+                            [value]="category.id">
+                    {{category.title}}
+                </mat-option>
+            </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div mat-dialog-actions>
+      <button mat-button [type]="submit" [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="confirmAdd()">Save</button>
+      <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+    </div>
+  </form>
+</div>

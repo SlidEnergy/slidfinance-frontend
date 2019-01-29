@@ -5,7 +5,8 @@ import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
     MatNativeDateModule, MatDatepickerModule, MatIconModule, MatButtonModule, MatCheckboxModule, MatToolbarModule,
-    MatCardModule, MatFormFieldModule, MatInputModule, MatRadioModule, MatListModule, MatSnackBarModule, MatTableModule, MatAutocompleteModule, MatProgressSpinnerModule, MatSelectModule, MatSortModule, MatMenuModule
+    MatCardModule, MatFormFieldModule, MatInputModule, MatRadioModule, MatListModule, MatSnackBarModule, MatTableModule, 
+    MatAutocompleteModule, MatProgressSpinnerModule, MatSelectModule, MatSortModule, MatMenuModule, MatDialogModule, MatPaginatorModule
 } from '@angular/material';
 
 import { MatProgressButtonsModule } from 'mat-progress-buttons'
@@ -44,7 +45,9 @@ import { MatProgressButtonsModule } from 'mat-progress-buttons'
         MatProgressButtonsModule,
         MatSelectModule,
         MatSortModule,
-        MatMenuModule
+        MatMenuModule,
+        MatDialogModule,
+        MatPaginatorModule
     ],
     providers: [
     ]

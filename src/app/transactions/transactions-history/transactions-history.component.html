@@ -48,10 +48,15 @@
                          mat-sort-header> Описание </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{row.description}} </mat-cell>
     </ng-container>
-    <ng-container matColumnDef="amount">
+    <ng-container matColumnDef="income">
         <mat-header-cell *matHeaderCellDef
-                         mat-sort-header> Сумма </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.amount | currency : 'RUB' : 'symbol' : '1.2-2' : 'ru'}} </mat-cell>
+                         mat-sort-header> Приход </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{ row.amount > 0 ? (row.amount | currency : 'RUB' : 'symbol' : '1.2-2' : 'ru') : ''}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="outcome">
+        <mat-header-cell *matHeaderCellDef
+                         mat-sort-header> Расход </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{ row.amount < 0 ? (row.amount | currency : 'RUB' : 'symbol' : '1.2-2' : 'ru') : ''}} </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>

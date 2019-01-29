@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { MatSort, MatTableDataSource, MatSnackBar } from '@angular/material';
-import { Category, GeneratedRule, CategoriesService, AccountsService, Account } from 'src/app/api';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
+import { MatSort, MatTableDataSource, MatSnackBar, MatPaginator } from '@angular/material';
+import { Category, GeneratedRule, CategoriesService, AccountsService, Account, Rule } from 'src/app/api';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -10,6 +10,7 @@ import { map } from 'rxjs/operators';
 })
 export class GeneratedRuleListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   @Input('generatedRules') set generatedRulesInternal(value: GeneratedRule[]) {
     if (value) {
@@ -17,6 +18,7 @@ export class GeneratedRuleListComponent implements OnInit {
       this.dataSource.data = value;
     }
   }
+  @Output() addClick = new EventEmitter<{rule: GeneratedRule, categoryId: string}>();
 
   categories: Map<string, Category>;
   accounts: Map<string, Account>;
@@ -37,6 +39,7 @@ export class GeneratedRuleListComponent implements OnInit {
     this.categoriesService.getCategory().pipe(map(x => new Map(x.map(i => [i.id, i] as [string, Category])))).subscribe(data => this.categories = data);
     this.accountsService.getAccounts().pipe(map(x => new Map(x.map(i => [i.id, i] as [string, Account])))).subscribe(data => this.accounts = data);
     this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
   getAccountTitle(accountId: string) {
@@ -55,7 +58,7 @@ export class GeneratedRuleListComponent implements OnInit {
     return category ? category.title : '';
   }
 
-  addRule_click(rule: GeneratedRule, categoryId: number) {
-    
+  addRule_click(rule: GeneratedRule, categoryId: string) {
+    this.addClick.emit({rule, categoryId});
   }
 }

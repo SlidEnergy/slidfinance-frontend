@@ -1,4 +1,5 @@
 export * from './account';
+export * from './addRuleBindingModel';
 export * from './bank';
 export * from './category';
 export * from './categoryDistribution';
@@ -8,6 +9,7 @@ export * from './monthStatistic';
 export * from './patchAccountDataBindingModel';
 export * from './patchTransactionBindingModel';
 export * from './problemDetails';
+export * from './rule';
 export * from './tokenInfo';
 export * from './transaction';
 export * from './transactionBindingModel';

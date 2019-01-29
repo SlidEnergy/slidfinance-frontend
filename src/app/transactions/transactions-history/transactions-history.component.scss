@@ -4,11 +4,17 @@ table {
 mat-cell,
 mat-header-cell {
   padding-right: 20px;
-    flex: 1 1 30px;
+  flex: 1 1 30px;
 }
 mat-cell.mat-column-category,
 mat-header-cell.mat-column-category, {
   flex: 1 1 100px;
+}
+mat-cell.mat-column-income,
+mat-header-cell.mat-column-income,
+mat-cell.mat-column-outcome,
+mat-header-cell.mat-column-outcome {
+  flex: 1 1 20px;
 }
 .mat-form-field {
   font-size: 14px;
