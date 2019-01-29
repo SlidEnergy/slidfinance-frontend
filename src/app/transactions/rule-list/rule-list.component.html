@@ -1,8 +1,13 @@
 <table mat-table
      [dataSource]="dataSource"
      matSort
-     matSortActive="dateTime"
-     matSortDirection="desc">
+     matSortActive="order"
+     matSortDirection="asc">
+  <ng-container matColumnDef="order">
+    <mat-header-cell *matHeaderCellDef
+                      mat-sort-header> Порядок </mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{row.order}} </mat-cell>
+  </ng-container>
   <ng-container matColumnDef="account">
       <mat-header-cell *matHeaderCellDef
                        mat-sort-header> Аккаунт </mat-header-cell>

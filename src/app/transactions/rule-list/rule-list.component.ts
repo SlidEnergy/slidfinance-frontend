@@ -27,7 +27,7 @@ export class RuleListComponent implements OnInit {
   dataSource = new MatTableDataSource<Rule>();
 
   // Список колонок, которые нужно показать в таблице
-  columnsToDisplay = ['account', 'mcc', 'bankCategory', 'description', 'category', 'actions'];
+  columnsToDisplay = [ 'account', 'mcc', 'bankCategory', 'description', 'category', 'actions'];
   loadingVisible = true;
 
   constructor(
