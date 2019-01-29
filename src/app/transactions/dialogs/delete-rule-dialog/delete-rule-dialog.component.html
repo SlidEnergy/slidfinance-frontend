@@ -1,0 +1,20 @@
+<div class="container">
+  <h3 mat-dialog-title>Вы уверены?</h3>
+  <div mat-dialog-content>
+    Аккаунт: {{getAccountTitle(data.accountId)}}
+    <p></p>
+    МСС: {{data.mcc}}
+    <p></p>
+    Категория банка: {{data.bankCategory}}
+    <p></p>
+    Описание: {{data.description}}
+    <p></p>
+    Категория: {{getCategoryTitle(data.categoryId)}}
+    <p></p>
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="1" (click)="confirmDelete()">Delete</button>
+    <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+  </div>
+</div>

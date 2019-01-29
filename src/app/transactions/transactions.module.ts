@@ -9,7 +9,9 @@ import { BankListComponent } from './bank-list/bank-list.component';
 import { RulesPageComponent } from './rules-page/rules-page.component';
 import { RuleListComponent } from './rule-list/rule-list.component';
 import { GeneratedRuleListComponent } from './generated-rule-list/generated-rule-list.component';
-import { AddDialogComponent } from './dialogs/add-rule/add-rule-dialog.component';
+import { AddRuleDialogComponent } from './dialogs/add-rule/add-rule-dialog.component';
+import { DeleteRuleDialogComponent } from './dialogs/delete-rule-dialog/delete-rule-dialog.component';
+import { EditRuleDialogComponent } from './dialogs/edit-rule-dialog/edit-rule-dialog.component';
 
 const routes: Routes = [
   { path: '', component: TransactionsPageComponent },
@@ -26,7 +28,9 @@ const routes: Routes = [
     RulesPageComponent,
     RuleListComponent,
     GeneratedRuleListComponent,
-    AddDialogComponent
+    AddRuleDialogComponent,
+    DeleteRuleDialogComponent,
+    EditRuleDialogComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +38,9 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   entryComponents: [
-    AddDialogComponent
+    AddRuleDialogComponent,
+    EditRuleDialogComponent,
+    DeleteRuleDialogComponent
   ]
 })
 export class TransactionsModule { }

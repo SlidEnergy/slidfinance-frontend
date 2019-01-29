@@ -1,5 +1,5 @@
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {Component, Inject} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import { RulesService, Rule, Category, CategoriesService, AccountsService } from 'src/app/api';
 import { map } from 'rxjs/operators';
@@ -10,11 +10,11 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./add-rule-dialog.component.scss']
 })
 
-export class AddDialogComponent {
+export class AddRuleDialogComponent implements OnInit {
   categories: Map<string, Category>;
   accounts: Map<string, Account>;
 
-  constructor(public dialogRef: MatDialogRef<AddDialogComponent>,
+  constructor(public dialogRef: MatDialogRef<AddRuleDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: Rule,
               public rulesService: RulesService,
               private categoriesService: CategoriesService,

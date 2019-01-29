@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GeneratedRule, RulesService, Rule } from 'src/app/api';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material';
-import {AddDialogComponent} from '../dialogs/add-rule/add-rule-dialog.component';
+import {AddRuleDialogComponent} from '../dialogs/add-rule/add-rule-dialog.component';
 
 @Component({
   selector: 'app-rules-page',
@@ -33,7 +33,7 @@ export class RulesPageComponent implements OnInit {
   }
 
   addNew(rule: Rule) {
-    const dialogRef = this.dialog.open(AddDialogComponent, {
+    const dialogRef = this.dialog.open(AddRuleDialogComponent, {
       data: rule
     });
 

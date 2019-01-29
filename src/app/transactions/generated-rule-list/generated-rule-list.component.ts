@@ -39,8 +39,30 @@ export class GeneratedRuleListComponent implements OnInit {
     this.categoriesService.getCategory().pipe(map(x => new Map(x.map(i => [i.id, i] as [string, Category])))).subscribe(data => this.categories = data);
     this.accountsService.getAccounts().pipe(map(x => new Map(x.map(i => [i.id, i] as [string, Account])))).subscribe(data => this.accounts = data);
     this.dataSource.sort = this.sort;
+    this.dataSource.sortingDataAccessor = this.sortingDataAccessor.bind(this);
     this.dataSource.paginator = this.paginator;
   }
+
+sortingDataAccessor(rule: GeneratedRule, property: string) {
+  switch (property) {
+    case 'category': {
+      if (rule.categories.length > 1)
+        return '';
+
+      let category = this.categories.get(rule.categories[0].categoryId);
+      return category ? category.title : '';
+    }
+    case 'account': {
+      if (!rule.accountId)
+        return '';
+
+      let account = this.accounts.get(rule.accountId);
+      return account ? account.title : '';
+    }
+
+    default: return rule[property];
+  }
+}
 
   getAccountTitle(accountId: string) {
     if (!this.accounts)
