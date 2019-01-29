@@ -12,11 +12,17 @@ import { GeneratedRuleListComponent } from './generated-rule-list/generated-rule
 import { AddRuleDialogComponent } from './dialogs/add-rule/add-rule-dialog.component';
 import { DeleteRuleDialogComponent } from './dialogs/delete-rule-dialog/delete-rule-dialog.component';
 import { EditRuleDialogComponent } from './dialogs/edit-rule-dialog/edit-rule-dialog.component';
+import { CategoriesPageComponent } from './categories-page/categories-page.component';
+import { CategoryListComponent } from './category-list/category-list.component';
+import { DeleteCategoryDialogComponent } from './dialogs/delete-category-dialog/delete-category-dialog.component';
+import { AddCategoryDialogComponent } from './dialogs/add-category-dialog/add-category-dialog.component';
+import { EditCategoryDialogComponent } from './dialogs/edit-category-dialog/edit-category-dialog.component';
 
 const routes: Routes = [
   { path: '', component: TransactionsPageComponent },
   { path: 'banks', component: BanksPageComponent },
   { path: 'rules', component: RulesPageComponent },
+  { path: 'categories', component: CategoriesPageComponent },
 ];
 
 @NgModule({
@@ -30,7 +36,12 @@ const routes: Routes = [
     GeneratedRuleListComponent,
     AddRuleDialogComponent,
     DeleteRuleDialogComponent,
-    EditRuleDialogComponent
+    EditRuleDialogComponent,
+    CategoriesPageComponent,
+    CategoryListComponent,
+    DeleteCategoryDialogComponent,
+    AddCategoryDialogComponent,
+    EditCategoryDialogComponent
   ],
   imports: [
     CommonModule,
@@ -40,7 +51,10 @@ const routes: Routes = [
   entryComponents: [
     AddRuleDialogComponent,
     EditRuleDialogComponent,
-    DeleteRuleDialogComponent
+    DeleteRuleDialogComponent,
+    AddCategoryDialogComponent,
+    EditCategoryDialogComponent,
+    DeleteCategoryDialogComponent
   ]
 })
 export class TransactionsModule { }

@@ -48,13 +48,129 @@ export class CategoriesService {
     /**
      * 
      * 
+     * @param category 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getCategory(observe?: 'body', reportProgress?: boolean): Observable<Array<Category>>;
-    public getCategory(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Category>>>;
-    public getCategory(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Category>>>;
-    public getCategory(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public addCategory(category?: Category, observe?: 'body', reportProgress?: boolean): Observable<Category>;
+    public addCategory(category?: Category, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Category>>;
+    public addCategory(category?: Category, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Category>>;
+    public addCategory(category?: Category, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Bearer) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (Oauth2) required
+        if (this.configuration.accessToken) {
+            let accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+            'application/json-patch+json',
+            'application/json',
+            'text/json',
+            'application/_*+json'
+        ];
+        let httpContentTypeSelected:string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set("Content-Type", httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<Category>(`${this.basePath}/api/v1/Categories`,
+            category,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param id 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public deleteCategory(id: string, observe?: 'body', reportProgress?: boolean): Observable<Category>;
+    public deleteCategory(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Category>>;
+    public deleteCategory(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Category>>;
+    public deleteCategory(id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling deleteCategory.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Bearer) required
+        if (this.configuration.apiKeys && this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (Oauth2) required
+        if (this.configuration.accessToken) {
+            let accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.delete<Category>(`${this.basePath}/api/v1/Categories/${encodeURIComponent(String(id))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getList(observe?: 'body', reportProgress?: boolean): Observable<Array<Category>>;
+    public getList(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Category>>>;
+    public getList(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Category>>>;
+    public getList(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 

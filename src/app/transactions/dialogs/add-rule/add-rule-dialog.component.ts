@@ -21,7 +21,7 @@ export class AddRuleDialogComponent implements OnInit {
               private accountsService: AccountsService) { }
 
   ngOnInit() {
-    this.categoriesService.getCategory().pipe(map(x => new Map(x.map(i => [i.id, i] as [string, Category])))).subscribe(data => this.categories = data);
+    this.categoriesService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [string, Category])))).subscribe(data => this.categories = data);
     this.accountsService.getAccounts().pipe(map(x => new Map(x.map(i => [i.id, i] as [string, Account])))).subscribe(data => this.accounts = data);
   }
 
