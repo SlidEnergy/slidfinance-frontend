@@ -1,5 +1,5 @@
 <div class="container">
-  <h3 mat-dialog-title>Добавить новую категорию</h3>
+  <h3 mat-dialog-title>Привязать банк</h3>
 
   <form class="mat-dialog-content"
         (ngSubmit)="submit"
@@ -20,7 +20,7 @@
               [type]="submit"
               [disabled]="!formControl.valid"
               [mat-dialog-close]="1"
-              (click)="confirmAdd()">Добавить</button>
+              (click)="confirmAdd()">Привязать</button>
       <button mat-button
               (click)="onNoClick()"
               tabindex="-1">Отменить</button>

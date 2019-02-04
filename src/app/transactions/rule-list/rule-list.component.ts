@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Output, Input, ViewChild } from '@angular/core';
 import { MatSnackBar, MatTableDataSource, MatSort, MatDialog } from '@angular/material';
-import { AccountsService, CategoriesService, Rule, Category, Account } from 'src/app/api';
+import { AccountsService, CategoriesService, Rule, Category, BankAccount } from 'src/app/api';
 import { map } from 'rxjs/operators';
 import { DeleteRuleDialogComponent } from '../dialogs/delete-rule-dialog/delete-rule-dialog.component';
 import { EditRuleDialogComponent } from '../dialogs/edit-rule-dialog/edit-rule-dialog.component';
@@ -21,13 +21,13 @@ export class RuleListComponent implements OnInit {
   }
 
   categories: Map<string, Category>;
-  accounts: Map<string, Account>;
+  accounts: Map<string, BankAccount>;
 
   // список транзакций пользователя
   dataSource = new MatTableDataSource<Rule>();
 
   // Список колонок, которые нужно показать в таблице
-  columnsToDisplay = [ 'account', 'mcc', 'bankCategory', 'description', 'category', 'actions'];
+  columnsToDisplay = ['account', 'mcc', 'bankCategory', 'description', 'category', 'actions'];
   loadingVisible = true;
 
   constructor(
@@ -38,7 +38,7 @@ export class RuleListComponent implements OnInit {
 
   ngOnInit() {
     this.categoriesService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [string, Category])))).subscribe(data => this.categories = data);
-    this.accountsService.getAccounts().pipe(map(x => new Map(x.map(i => [i.id, i] as [string, Account])))).subscribe(data => this.accounts = data);
+    this.accountsService.getAccounts().pipe(map(x => new Map(x.map(i => [i.id, i] as [string, BankAccount])))).subscribe(data => this.accounts = data);
     this.dataSource.sort = this.sort;
   }
 

@@ -14,13 +14,13 @@ export class DeleteCategoryDialogComponent implements OnInit {
     private categoriesService: CategoriesService) { }
 
   ngOnInit() {
-}
+  }
 
-onNoClick(): void {
-  this.dialogRef.close();
-}
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 
-confirmDelete(): void {
-  this.categoriesService.deleteCategory(this.data.id).subscribe(x=>x);
-}
+  confirmDelete(): void {
+    this.categoriesService.deleteCategory(this.data.id).subscribe(x => x);
+  }
 }

@@ -1,6 +1,6 @@
 
 
-export interface Account {
+export interface BankAccount {
     id?: string;
     balance?: number;
     title?: string;

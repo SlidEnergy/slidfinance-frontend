@@ -4,8 +4,8 @@ import { SharedModule } from '../shared/shared.module';
 import { TransactionsPageComponent } from './transactions-page/transactions-page.component';
 import { TransactionsHistoryComponent } from './transactions-history/transactions-history.component';
 import { Routes, RouterModule } from '@angular/router';
-import { BanksPageComponent } from './banks-page/banks-page.component';
-import { BankListComponent } from './bank-list/bank-list.component';
+import { BanksPageComponent } from './banks/banks-page/banks-page.component';
+import { BankListComponent } from './banks/bank-list/bank-list.component';
 import { RulesPageComponent } from './rules-page/rules-page.component';
 import { RuleListComponent } from './rule-list/rule-list.component';
 import { GeneratedRuleListComponent } from './generated-rule-list/generated-rule-list.component';
@@ -17,6 +17,9 @@ import { CategoryListComponent } from './category-list/category-list.component';
 import { DeleteCategoryDialogComponent } from './dialogs/delete-category-dialog/delete-category-dialog.component';
 import { AddCategoryDialogComponent } from './dialogs/add-category-dialog/add-category-dialog.component';
 import { EditCategoryDialogComponent } from './dialogs/edit-category-dialog/edit-category-dialog.component';
+import { AddBankDialogComponent } from './banks/dialogs/add-bank-dialog/add-bank-dialog.component';
+import { EditBankDialogComponent } from './banks/dialogs/edit-bank-dialog/edit-bank-dialog.component';
+import { DeleteBankDialogComponent } from './banks/dialogs/delete-bank-dialog/delete-bank-dialog.component';
 
 const routes: Routes = [
   { path: '', component: TransactionsPageComponent },
@@ -29,7 +32,7 @@ const routes: Routes = [
   declarations: [
     TransactionsPageComponent,
     TransactionsHistoryComponent,
-    BanksPageComponent, 
+    BanksPageComponent,
     BankListComponent,
     RulesPageComponent,
     RuleListComponent,
@@ -41,7 +44,10 @@ const routes: Routes = [
     CategoryListComponent,
     DeleteCategoryDialogComponent,
     AddCategoryDialogComponent,
-    EditCategoryDialogComponent
+    EditCategoryDialogComponent,
+    AddBankDialogComponent,
+    EditBankDialogComponent,
+    DeleteBankDialogComponent
   ],
   imports: [
     CommonModule,
@@ -52,9 +58,14 @@ const routes: Routes = [
     AddRuleDialogComponent,
     EditRuleDialogComponent,
     DeleteRuleDialogComponent,
+
     AddCategoryDialogComponent,
     EditCategoryDialogComponent,
-    DeleteCategoryDialogComponent
+    DeleteCategoryDialogComponent,
+
+    AddBankDialogComponent,
+    EditBankDialogComponent,
+    DeleteBankDialogComponent
   ]
 })
 export class TransactionsModule { }

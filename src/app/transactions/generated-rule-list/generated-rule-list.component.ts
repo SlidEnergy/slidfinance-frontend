@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { MatSort, MatTableDataSource, MatSnackBar, MatPaginator } from '@angular/material';
-import { Category, GeneratedRule, CategoriesService, AccountsService, Account, Rule } from 'src/app/api';
+import { Category, GeneratedRule, CategoriesService, AccountsService, BankAccount, Rule } from 'src/app/api';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -18,10 +18,10 @@ export class GeneratedRuleListComponent implements OnInit {
       this.dataSource.data = value;
     }
   }
-  @Output() addClick = new EventEmitter<{rule: GeneratedRule, categoryId: string}>();
+  @Output() addClick = new EventEmitter<{ rule: GeneratedRule, categoryId: string }>();
 
   categories: Map<string, Category>;
-  accounts: Map<string, Account>;
+  accounts: Map<string, BankAccount>;
 
   // список транзакций пользователя
   dataSource = new MatTableDataSource<GeneratedRule>();
@@ -37,32 +37,32 @@ export class GeneratedRuleListComponent implements OnInit {
 
   ngOnInit() {
     this.categoriesService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [string, Category])))).subscribe(data => this.categories = data);
-    this.accountsService.getAccounts().pipe(map(x => new Map(x.map(i => [i.id, i] as [string, Account])))).subscribe(data => this.accounts = data);
+    this.accountsService.getAccounts().pipe(map(x => new Map(x.map(i => [i.id, i] as [string, BankAccount])))).subscribe(data => this.accounts = data);
     this.dataSource.sort = this.sort;
     this.dataSource.sortingDataAccessor = this.sortingDataAccessor.bind(this);
     this.dataSource.paginator = this.paginator;
   }
 
-sortingDataAccessor(rule: GeneratedRule, property: string) {
-  switch (property) {
-    case 'category': {
-      if (rule.categories.length > 1)
-        return '';
+  sortingDataAccessor(rule: GeneratedRule, property: string) {
+    switch (property) {
+      case 'category': {
+        if (rule.categories.length > 1)
+          return '';
 
-      let category = this.categories.get(rule.categories[0].categoryId);
-      return category ? category.title : '';
+        let category = this.categories.get(rule.categories[0].categoryId);
+        return category ? category.title : '';
+      }
+      case 'account': {
+        if (!rule.accountId)
+          return '';
+
+        let account = this.accounts.get(rule.accountId);
+        return account ? account.title : '';
+      }
+
+      default: return rule[property];
     }
-    case 'account': {
-      if (!rule.accountId)
-        return '';
-
-      let account = this.accounts.get(rule.accountId);
-      return account ? account.title : '';
-    }
-
-    default: return rule[property];
   }
-}
 
   getAccountTitle(accountId: string) {
     if (!this.accounts)
@@ -81,6 +81,6 @@ sortingDataAccessor(rule: GeneratedRule, property: string) {
   }
 
   addRule_click(rule: GeneratedRule, categoryId: string) {
-    this.addClick.emit({rule, categoryId});
+    this.addClick.emit({ rule, categoryId });
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { RulesService, CategoriesService, AccountsService, Category, Account } from 'src/app/api';
+import { RulesService, CategoriesService, AccountsService, Category, BankAccount } from 'src/app/api';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 })
 export class DeleteRuleDialogComponent implements OnInit {
   categories: Map<string, Category>;
-  accounts: Map<string, Account>;
+  accounts: Map<string, BankAccount>;
 
   constructor(public dialogRef: MatDialogRef<DeleteRuleDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -18,17 +18,17 @@ export class DeleteRuleDialogComponent implements OnInit {
     private categoriesService: CategoriesService,
     private accountsService: AccountsService) { }
 
-    ngOnInit() {
+  ngOnInit() {
     this.categoriesService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [string, Category])))).subscribe(data => this.categories = data);
-    this.accountsService.getAccounts().pipe(map(x => new Map(x.map(i => [i.id, i] as [string, Account])))).subscribe(data => this.accounts = data);
+    this.accountsService.getAccounts().pipe(map(x => new Map(x.map(i => [i.id, i] as [string, BankAccount])))).subscribe(data => this.accounts = data);
   }
-  
+
   onNoClick(): void {
     this.dialogRef.close();
   }
 
   confirmDelete(): void {
-    this.rulesService.deleteRule(this.data.id).subscribe(x=>x);
+    this.rulesService.deleteRule(this.data.id).subscribe(x => x);
   }
 
   getAccountTitle(accountId: string) {
