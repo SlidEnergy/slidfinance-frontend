@@ -20,12 +20,18 @@ import { EditCategoryDialogComponent } from './dialogs/edit-category-dialog/edit
 import { AddBankDialogComponent } from './banks/dialogs/add-bank-dialog/add-bank-dialog.component';
 import { EditBankDialogComponent } from './banks/dialogs/edit-bank-dialog/edit-bank-dialog.component';
 import { DeleteBankDialogComponent } from './banks/dialogs/delete-bank-dialog/delete-bank-dialog.component';
+import { AddAccountDialogComponent } from './accounts/dialogs/add-account-dialog/add-account-dialog.component';
+import { EditAccountDialogComponent } from './accounts/dialogs/edit-account-dialog/edit-account-dialog.component';
+import { DeleteAccountDialogComponent } from './accounts/dialogs/delete-account-dialog/delete-account-dialog.component';
+import { AccountListComponent } from './accounts/account-list/account-list.component';
+import { AccountsPageComponent } from './accounts/accounts-page/accounts-page.component';
 
 const routes: Routes = [
   { path: '', component: TransactionsPageComponent },
   { path: 'banks', component: BanksPageComponent },
   { path: 'rules', component: RulesPageComponent },
   { path: 'categories', component: CategoriesPageComponent },
+  { path: 'banks/:id/accounts', component: AccountsPageComponent },
 ];
 
 @NgModule({
@@ -42,12 +48,20 @@ const routes: Routes = [
     EditRuleDialogComponent,
     CategoriesPageComponent,
     CategoryListComponent,
+
     DeleteCategoryDialogComponent,
     AddCategoryDialogComponent,
     EditCategoryDialogComponent,
+
     AddBankDialogComponent,
     EditBankDialogComponent,
-    DeleteBankDialogComponent
+    DeleteBankDialogComponent,
+
+    AccountListComponent,
+    AccountsPageComponent,
+    AddAccountDialogComponent,
+    EditAccountDialogComponent,
+    DeleteAccountDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -65,7 +79,11 @@ const routes: Routes = [
 
     AddBankDialogComponent,
     EditBankDialogComponent,
-    DeleteBankDialogComponent
+    DeleteBankDialogComponent,
+
+    AddAccountDialogComponent,
+    EditAccountDialogComponent,
+    DeleteAccountDialogComponent,
   ]
 })
 export class TransactionsModule { }

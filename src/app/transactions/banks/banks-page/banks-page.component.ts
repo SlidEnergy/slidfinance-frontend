@@ -18,11 +18,11 @@ export class BanksPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.banks = this.banksService.getBanks();
+    this.banks = this.banksService.getList();
   }
 
   addItem = (item: Bank): Observable<boolean> => {
-    return this.banksService.addBank(item).pipe(
+    return this.banksService.add(item).pipe(
       map(() => {
         this.snackBar.open('Банк привязан', undefined, { duration: 5000, panelClass: ['background-green'] });
         return true;
@@ -34,7 +34,7 @@ export class BanksPageComponent implements OnInit {
   }
 
   deleteItem = (item: Bank): Observable<boolean> => {
-    return this.banksService.deleteBank(item.id).pipe(
+    return this.banksService.delete(item.id).pipe(
       map(() => {
         this.snackBar.open('Банк отвязан', undefined, { duration: 5000, panelClass: ['background-green'] });
         return true;
@@ -46,7 +46,7 @@ export class BanksPageComponent implements OnInit {
   }
 
   editItem = (item: Bank) => {
-    return this.banksService.editBank(item.id, item).pipe(
+    return this.banksService.update(item.id, item).pipe(
       map(() => {
         this.snackBar.open('Банк переименован', undefined, { duration: 5000, panelClass: ['background-green'] });
         return true;

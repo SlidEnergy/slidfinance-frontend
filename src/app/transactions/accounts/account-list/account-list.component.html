@@ -8,6 +8,11 @@
                      mat-sort-header> Банк </mat-header-cell>
     <mat-cell *matCellDef="let row"> {{row.title}} </mat-cell>
   </ng-container>
+  <ng-container matColumnDef="code">
+    <mat-header-cell *matHeaderCellDef
+                     mat-sort-header> Код </mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{row.code}} </mat-cell>
+  </ng-container>
   <ng-container matColumnDef="balance">
     <mat-header-cell *matHeaderCellDef
                      mat-sort-header> Баланс </mat-header-cell>
@@ -41,8 +46,7 @@
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: columnsToDisplay"
-           (click)="row_click(row)"></mat-row>
+  <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
 </table>
 <mat-card *ngIf="loadingVisible"
           style="display: flex; justify-content: center; align-items: center">

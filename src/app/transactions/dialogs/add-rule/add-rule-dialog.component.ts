@@ -1,6 +1,6 @@
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {Component, Inject, OnInit} from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { RulesService, Rule, Category, CategoriesService, AccountsService } from 'src/app/api';
 import { map } from 'rxjs/operators';
 
@@ -15,14 +15,14 @@ export class AddRuleDialogComponent implements OnInit {
   accounts: Map<string, Account>;
 
   constructor(public dialogRef: MatDialogRef<AddRuleDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: Rule,
-              public rulesService: RulesService,
-              private categoriesService: CategoriesService,
-              private accountsService: AccountsService) { }
+    @Inject(MAT_DIALOG_DATA) public data: Rule,
+    public rulesService: RulesService,
+    private categoriesService: CategoriesService,
+    private accountsService: AccountsService) { }
 
   ngOnInit() {
     this.categoriesService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [string, Category])))).subscribe(data => this.categories = data);
-    this.accountsService.getAccounts().pipe(map(x => new Map(x.map(i => [i.id, i] as [string, Account])))).subscribe(data => this.accounts = data);
+    this.accountsService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [string, Account])))).subscribe(data => this.accounts = data);
   }
 
   formControl = new FormControl('', [
@@ -42,7 +42,7 @@ export class AddRuleDialogComponent implements OnInit {
   }
 
   submit() {
-  // emppty stuff
+    // emppty stuff
   }
 
   onNoClick(): void {
@@ -50,6 +50,6 @@ export class AddRuleDialogComponent implements OnInit {
   }
 
   public confirmAdd(): void {
-    this.rulesService.postRule(this.data).subscribe(x=>x);
+    this.rulesService.postRule(this.data).subscribe(x => x);
   }
 }
