@@ -93,7 +93,7 @@ export class TransactionsHistoryComponent implements OnInit {
         this.snackBar.open('Категория изменена', undefined, { duration: 5000, panelClass: ['background-green'] });
       }, () => {
         this.snackBar.open('Не удалось изменить категорию', undefined, { duration: 5000, panelClass: ['background-red'] });
-      })
+      });
   }
 
   getAccountTitle(accountId: string) {

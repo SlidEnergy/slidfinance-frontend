@@ -2,7 +2,7 @@
        [dataSource]="dataSource"
        matSort
        matSortActive="title"
-       matSortDirection="desc">
+       matSortDirection="asc">
   <ng-container matColumnDef="title">
     <mat-header-cell *matHeaderCellDef
                      mat-sort-header> Банк </mat-header-cell>
@@ -11,7 +11,8 @@
   <ng-container matColumnDef="balance">
     <mat-header-cell *matHeaderCellDef
                      mat-sort-header> Баланс </mat-header-cell>
-    <mat-cell *matCellDef="let row"> {{row.balance| currency : 'RUB' : 'symbol' : '1.2-2' : 'ru'}} </mat-cell>
+    <mat-cell *matCellDef="let row"> {{row.balance ? row.balance : 0 | currency : 'RUB' : 'symbol' : '1.2-2' : 'ru'}}
+    </mat-cell>
   </ng-container>
 
   <!-- actions -->
@@ -27,13 +28,13 @@
     <mat-cell *matCellDef="let row; let i=index;">
       <button mat-icon-button
               color="accent"
-              (click)="startEdit(i, row)">
+              (click)="editItem(row)">
         <mat-icon aria-label="Edit">edit</mat-icon>
       </button>
 
       <button mat-icon-button
               color="accent"
-              (click)="deleteItem(i, row)">
+              (click)="deleteItem(row)">
         <mat-icon aria-label="Delete">delete</mat-icon>
       </button>
     </mat-cell>

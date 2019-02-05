@@ -7,10 +7,9 @@
 
   <div mat-dialog-actions>
     <button mat-button
-            [mat-dialog-close]="1"
-            (click)="confirmDelete()">Отвязать</button>
+            [mat-dialog-close]="data">Отвязать</button>
     <button mat-button
-            (click)="onNoClick()"
+            [mat-dialog-close]
             tabindex="-1">Отменить</button>
   </div>
 </div>

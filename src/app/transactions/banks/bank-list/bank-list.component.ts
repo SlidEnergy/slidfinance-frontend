@@ -1,9 +1,11 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Bank } from 'src/app/api';
-import { MatTableDataSource, MatSnackBar, MatDialog, MatSort } from '@angular/material';
+import { MatTableDataSource, MatDialog, MatSort } from '@angular/material';
 import { AddBankDialogComponent } from '../dialogs/add-bank-dialog/add-bank-dialog.component';
 import { EditBankDialogComponent } from '../dialogs/edit-bank-dialog/edit-bank-dialog.component';
 import { DeleteBankDialogComponent } from '../dialogs/delete-bank-dialog/delete-bank-dialog.component';
+import { Observable } from 'rxjs';
+import { filter, flatMap, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-bank-list',
@@ -12,6 +14,10 @@ import { DeleteBankDialogComponent } from '../dialogs/delete-bank-dialog/delete-
 })
 export class BankListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
+
+  @Input() itemAdding: (item: Bank) => Observable<boolean>;
+  @Input() itemDeleting: (item: Bank) => Observable<boolean>;
+  @Input() itemChanging: (item: Bank) => Observable<boolean>;
 
   // список транзакций пользователя
   dataSource = new MatTableDataSource<Bank>();
@@ -27,65 +33,55 @@ export class BankListComponent implements OnInit {
   columnsToDisplay = ['title', 'balance', 'actions'];
   loadingVisible = true;
 
-  constructor(
-    private snackBar: MatSnackBar,
-    public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
     this.dataSource.sort = this.sort;
+    this.dataSource.sortingDataAccessor = this.sortingDataAccessor.bind(this);
   }
 
+  sortingDataAccessor(bank: Bank, property: string) {
+    switch (property) {
+      case 'title': {
+        return bank.title.toLowerCase();
+      }
+
+      default: return bank[property];
+    }
+  }
 
   addNew() {
     const dialogRef = this.dialog.open(AddBankDialogComponent, {
       data: {}
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === 1) {
-        // After dialog is closed we're doing frontend updates
-        // For add we're just pushing a new row inside DataService
-        // this.exampleDatabase.dataChange.value.push(this.dataService.getDialogData());
-        // this.refreshTable();
-      }
-    });
+    dialogRef.afterClosed().pipe(filter(x => x), flatMap(result => this.itemAdding(result).pipe(filter(x => x), map(x => result))))
+      .subscribe((result) => {
+        let data = this.dataSource.data;
+        data.push(result);
+        this.dataSource.data = data;
+      });
   }
 
-  startEdit(i: number, bank: Bank) {
-    // this.id = id;
-    // // index row is used just for debugging proposes and can be removed
-    // this.index = i;
-    // console.log(this.index);
+  editItem(bank: Bank) {
     const dialogRef = this.dialog.open(EditBankDialogComponent, {
       data: bank
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === 1) {
-        // // When using an edit things are little different, firstly we find record inside DataService by id
-        // const foundIndex = this.exampleDatabase.dataChange.value.findIndex(x => x.id === this.id);
-        // // Then you update that record using data from dialogData (values you enetered)
-        // this.exampleDatabase.dataChange.value[foundIndex] = this.dataService.getDialogData();
-        // // And lastly refresh table
-        // this.refreshTable();
-      }
-    });
+    dialogRef.afterClosed().pipe(filter(x => x), flatMap(result => this.itemChanging(result).pipe(filter(x => x), map(x => result))))
+      .subscribe((result) => {
+        this.dataSource.data.map((value) => value.id == result.data.id ? result.data : value);
+      });
   }
 
-  deleteItem(i: number, bank: Bank) {
-    // this.index = i;
-    // this.id = id;
+  deleteItem(bank: Bank) {
     const dialogRef = this.dialog.open(DeleteBankDialogComponent, {
       data: bank
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === 1) {
-        // const foundIndex = this.exampleDatabase.dataChange.value.findIndex(x => x.id === this.id);
-        // // for delete we use splice in order to remove single object from DataService
-        // this.exampleDatabase.dataChange.value.splice(foundIndex, 1);
-        // this.refreshTable();
-      }
-    });
+    dialogRef.afterClosed().pipe(filter(x => x), flatMap(result => this.itemDeleting(result).pipe(filter(x => x), map(x => result))))
+      .subscribe((result) => {
+        this.dataSource.data = this.dataSource.data.filter((value) => value.id != result.id);
+      });
   }
 }

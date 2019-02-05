@@ -1,1 +1,4 @@
-<app-bank-list [banks]="banks | async"></app-bank-list>
+<app-bank-list [banks]="banks | async"
+               [itemAdding]="addItem"
+               [itemDeleting]="deleteItem"
+               [itemChanging]="editItem"></app-bank-list>

@@ -4,6 +4,7 @@ export * from './bankAccount';
 export * from './category';
 export * from './categoryDistribution';
 export * from './categoryStatistic';
+export * from './editBankBindingModel';
 export * from './generatedRule';
 export * from './monthStatistic';
 export * from './patchAccountDataBindingModel';

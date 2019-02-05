@@ -2,7 +2,6 @@
   <h3 mat-dialog-title>Привязать банк</h3>
 
   <form class="mat-dialog-content"
-        (ngSubmit)="submit"
         #formControl="ngForm">
 
     <div class="form">
@@ -17,12 +16,11 @@
 
     <div mat-dialog-actions>
       <button mat-button
-              [type]="submit"
-              [disabled]="!formControl.valid"
-              [mat-dialog-close]="1"
-              (click)="confirmAdd()">Привязать</button>
+              type="submit"
+              [mat-dialog-close]="data"
+              [disabled]="!formControl.valid">Привязать</button>
       <button mat-button
-              (click)="onNoClick()"
+              [mat-dialog-close]
               tabindex="-1">Отменить</button>
     </div>
   </form>

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material';
+import { Bank } from 'src/app/api';
 
 @Component({
   selector: 'app-edit-bank-dialog',
@@ -6,8 +8,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./edit-bank-dialog.component.scss']
 })
 export class EditBankDialogComponent implements OnInit {
-
-  constructor() { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Bank) { }
 
   ngOnInit() {
   }
