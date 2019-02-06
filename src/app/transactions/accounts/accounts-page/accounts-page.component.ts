@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AccountsPageComponent implements OnInit {
   accounts: Observable<BankAccount[]>;
+  bankId: string;
 
   constructor(
     private accountService: AccountsService,
@@ -20,13 +21,13 @@ export class AccountsPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    let bankId = this.route.snapshot.params['id'];
+    this.bankId = this.route.snapshot.params['id'];
 
-    this.accounts = this.accountService.getList(bankId);
+    this.accounts = this.accountService.getList(this.bankId);
   }
 
   addItem = (item: BankAccount): Observable<boolean> => {
-    return this.accountService.add(item).pipe(
+    return this.accountService.add({ bankId: this.bankId, ...item }).pipe(
       map(() => {
         this.snackBar.open('Счет привязан', undefined, { duration: 5000, panelClass: ['background-green'] });
         return true;

@@ -73,18 +73,18 @@ export class BankListComponent implements OnInit {
 
   editItem(bank: Bank) {
     const dialogRef = this.dialog.open(EditBankDialogComponent, {
-      data: bank
+      data: { ...bank }
     });
 
     dialogRef.afterClosed().pipe(filter(x => x), flatMap(result => this.itemChanging(result).pipe(filter(x => x), map(x => result))))
       .subscribe((result) => {
-        this.dataSource.data.map((value) => value.id == result.data.id ? result.data : value);
+        this.dataSource.data = this.dataSource.data.map((value) => value.id == result.id ? result : value);
       });
   }
 
   deleteItem(bank: Bank) {
     const dialogRef = this.dialog.open(DeleteBankDialogComponent, {
-      data: bank
+      data: { ...bank }
     });
 
     dialogRef.afterClosed().pipe(filter(x => x), flatMap(result => this.itemDeleting(result).pipe(filter(x => x), map(x => result))))

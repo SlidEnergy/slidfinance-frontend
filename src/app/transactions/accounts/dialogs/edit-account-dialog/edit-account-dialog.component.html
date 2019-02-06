@@ -1,16 +1,36 @@
 <div class="container">
-  <h3 mat-dialog-title>Переименовать банк</h3>
+  <h3 mat-dialog-title>Изменить счет</h3>
 
   <form class="mat-dialog-content"
         #formControl="ngForm">
 
     <div class="form">
       <mat-form-field color="accent">
-        <input matInput
+        <input type="text"
+               matInput
                placeholder="Название"
                [(ngModel)]="data.title"
                name="title"
                required>
+      </mat-form-field>
+    </div>
+    <div class="form">
+      <mat-form-field color="accent">
+        <input type="text"
+               matInput
+               placeholder="Код"
+               [(ngModel)]="data.code"
+               name="code"
+               required>
+      </mat-form-field>
+    </div>
+    <div class="form">
+      <mat-form-field color="accent">
+        <input type="number"
+               matInput
+               placeholder="Баланс"
+               [(ngModel)]="data.balance"
+               name="balance">
       </mat-form-field>
     </div>
 
@@ -18,7 +38,7 @@
       <button mat-button
               type="submit"
               [mat-dialog-close]="data"
-              [disabled]="!formControl.valid">Переименовать</button>
+              [disabled]="!formControl.valid">Изменить</button>
       <button mat-button
               [mat-dialog-close]
               tabindex="-1">Отменить</button>

@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material';
-import { Bank } from 'src/app/api';
+import { BankAccount } from 'src/app/api';
 
 @Component({
   selector: 'app-edit-account-dialog',
@@ -8,7 +8,7 @@ import { Bank } from 'src/app/api';
   styleUrls: ['./edit-account-dialog.component.scss']
 })
 export class EditAccountDialogComponent implements OnInit {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Bank) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: BankAccount) { }
 
   ngOnInit() {
   }

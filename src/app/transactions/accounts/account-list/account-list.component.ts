@@ -65,18 +65,18 @@ export class AccountListComponent implements OnInit {
 
   editItem(account: BankAccount) {
     const dialogRef = this.dialog.open(EditAccountDialogComponent, {
-      data: account
+      data: { ...account }
     });
 
     dialogRef.afterClosed().pipe(filter(x => x), flatMap(result => this.itemChanging(result).pipe(filter(x => x), map(x => result))))
       .subscribe((result) => {
-        this.dataSource.data.map((value) => value.id == result.data.id ? result.data : value);
+        this.dataSource.data = this.dataSource.data.map((value) => value.id == result.id ? result : value);
       });
   }
 
   deleteItem(account: BankAccount) {
     const dialogRef = this.dialog.open(DeleteAccountDialogComponent, {
-      data: account
+      data: { ...account }
     });
 
     dialogRef.afterClosed().pipe(filter(x => x), flatMap(result => this.itemDeleting(result).pipe(filter(x => x), map(x => result))))
