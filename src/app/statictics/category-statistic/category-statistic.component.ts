@@ -13,10 +13,10 @@ import { MatSnackBar, MatTableDataSource, MatSort } from '@angular/material';
 })
 export class CategoryStatisticComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
-  
+
   categoryStatistic: CategoryStatistic[];
   categories: Map<string, Category>;
-  
+
   dataSource = new MatTableDataSource<Transaction>();
 
   @Input('categoryStatistic') set categoryStatisticInput(value: CategoryStatistic[]) {
@@ -25,49 +25,57 @@ export class CategoryStatisticComponent implements OnInit {
       this.dataSource.data = value;
     }
   }
-  
+
   @Input() startDate: moment.Moment;
 
   // Список колонок, которые нужно показать в таблице
-  columnsToDisplay = [ 'category', 'month2', 'month1', 'month0'];
+  columnsToDisplay = ['category', 'month2', 'month1', 'month0'];
   loadingVisible = true;
 
-  constructor(
-    private categoriesService: CategoriesService,
-    private snackBar: MatSnackBar,
-    ) { }
+  constructor(private categoriesService: CategoriesService) { }
 
   ngOnInit() {
-    this.categoriesService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [string, Category])))).subscribe(data => this.categories = data);
-    this.dataSource.sort = this.sort;
-    this.dataSource.sortingDataAccessor = (item, property) => {
-      switch (property) {
-        case 'category': {
-          if (!item.categoryId || !this.categories)
-            return '';
+    this.categoriesService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [string, Category])))).subscribe(data => {
+      this.categories = data;
+      this.dataSource.sortingDataAccessor = this.sortingDataAccessor.bind(this);
+      this.dataSource.sort = this.sort;
+    });
+  }
 
-          let category = this.categories.get(item.categoryId);
-          return category ? category.title : '';
-        }
+  sortingDataAccessor(item, property) {
+    switch (property) {
+      case 'category': {
+        if (!item.categoryId || !this.categories)
+          return '';
 
-        default: return item[property];
+        let category = this.categories.get(item.categoryId);
+        return category ? category.title : '';
       }
-    };
+      case 'order': {
+        if (!item.categoryId || !this.categories)
+          return 0;
+
+        let category = this.categories.get(item.categoryId);
+        return category ? category.order : 0;
+      }
+
+      default: return item[property];
+    }
   }
 
   getCategoryTitle(categoryId: string) {
-    if(!categoryId)
+    if (!categoryId)
       return "Без категории";
-    
+
     return this.categories && this.categories.get(categoryId).title;
   }
 
   getAmount(row: CategoryStatistic, date: moment.Moment) {
-    if(!row || !date)
+    if (!row || !date)
       return '';
 
-    for(let item of row.months) {
-      if(date.isSame(item.month, 'day'))
+    for (let item of row.months) {
+      if (date.isSame(item.month, 'day'))
         return item.amount;
     }
 
