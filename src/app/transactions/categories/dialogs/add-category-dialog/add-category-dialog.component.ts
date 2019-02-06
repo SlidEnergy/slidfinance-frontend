@@ -14,8 +14,8 @@ export class AddCategoryDialogComponent implements OnInit {
   accounts: Map<string, Account>;
 
   constructor(public dialogRef: MatDialogRef<AddCategoryDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: Category,
-              private categoriesService: CategoriesService) {}
+    @Inject(MAT_DIALOG_DATA) public data: Category,
+    private categoriesService: CategoriesService) { }
 
   ngOnInit() {
   }
@@ -37,7 +37,7 @@ export class AddCategoryDialogComponent implements OnInit {
   }
 
   submit() {
-  // emppty stuff
+    // emppty stuff
   }
 
   onNoClick(): void {
@@ -45,6 +45,6 @@ export class AddCategoryDialogComponent implements OnInit {
   }
 
   public confirmAdd(): void {
-    this.categoriesService.addCategory(this.data).subscribe(x=>x);
+    this.categoriesService.add(this.data).subscribe(x => x);
   }
 }

@@ -21,6 +21,6 @@ export class DeleteCategoryDialogComponent implements OnInit {
   }
 
   confirmDelete(): void {
-    this.categoriesService.deleteCategory(this.data.id).subscribe(x => x);
+    this.categoriesService.delete(this.data.id).subscribe(x => x);
   }
 }
