@@ -26,11 +26,11 @@ export class AccountsPageComponent implements OnInit {
     this.accounts = this.accountService.getList(this.bankId);
   }
 
-  addItem = (item: BankAccount): Observable<boolean> => {
+  addItem = (item: BankAccount) => {
     return this.accountService.add({ bankId: this.bankId, ...item }).pipe(
-      map(() => {
+      map((result) => {
         this.snackBar.open('Счет привязан', undefined, { duration: 5000, panelClass: ['background-green'] });
-        return true;
+        return result;
       }),
       catchError(() => {
         this.snackBar.open('Не удалось привязать счет', undefined, { duration: 5000, panelClass: ['background-red'] });
@@ -38,7 +38,7 @@ export class AccountsPageComponent implements OnInit {
       }));
   }
 
-  deleteItem = (item: BankAccount): Observable<boolean> => {
+  deleteItem = (item: BankAccount) => {
     return this.accountService.delete(item.id).pipe(
       map(() => {
         this.snackBar.open('Счет отвязан', undefined, { duration: 5000, panelClass: ['background-green'] });

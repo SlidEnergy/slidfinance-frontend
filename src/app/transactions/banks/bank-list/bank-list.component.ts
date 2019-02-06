@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 export class BankListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
-  @Input() itemAdding: (item: Bank) => Observable<boolean>;
+  @Input() itemAdding: (item: Bank) => Observable<any>;
   @Input() itemDeleting: (item: Bank) => Observable<boolean>;
   @Input() itemChanging: (item: Bank) => Observable<boolean>;
 
@@ -63,7 +63,7 @@ export class BankListComponent implements OnInit {
       data: {}
     });
 
-    dialogRef.afterClosed().pipe(filter(x => x), flatMap(result => this.itemAdding(result).pipe(filter(x => x), map(x => result))))
+    dialogRef.afterClosed().pipe(filter(x => x), flatMap(result => this.itemAdding(result).pipe(filter(x => x))))
       .subscribe((result) => {
         let data = this.dataSource.data;
         data.push(result);

@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { CategoriesService } from 'src/app/api';
+import { MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'app-delete-category-dialog',
@@ -9,18 +8,8 @@ import { CategoriesService } from 'src/app/api';
 })
 export class DeleteCategoryDialogComponent implements OnInit {
 
-  constructor(public dialogRef: MatDialogRef<DeleteCategoryDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private categoriesService: CategoriesService) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
-  }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-  confirmDelete(): void {
-    this.categoriesService.delete(this.data.id).subscribe(x => x);
   }
 }

@@ -15,7 +15,7 @@ import { filter, flatMap, map } from 'rxjs/operators';
 export class AccountListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
-  @Input() itemAdding: (item: BankAccount) => Observable<boolean>;
+  @Input() itemAdding: (item: BankAccount) => Observable<any>;
   @Input() itemDeleting: (item: BankAccount) => Observable<boolean>;
   @Input() itemChanging: (item: BankAccount) => Observable<boolean>;
 
@@ -55,7 +55,7 @@ export class AccountListComponent implements OnInit {
       data: {}
     });
 
-    dialogRef.afterClosed().pipe(filter(x => x), flatMap(result => this.itemAdding(result).pipe(filter(x => x), map(x => result))))
+    dialogRef.afterClosed().pipe(filter(x => x), flatMap(result => this.itemAdding(result).pipe(filter(x => x))))
       .subscribe((result) => {
         let data = this.dataSource.data;
         data.push(result);

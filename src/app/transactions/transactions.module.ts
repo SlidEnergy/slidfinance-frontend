@@ -12,11 +12,11 @@ import { GeneratedRuleListComponent } from './generated-rule-list/generated-rule
 import { AddRuleDialogComponent } from './dialogs/add-rule/add-rule-dialog.component';
 import { DeleteRuleDialogComponent } from './dialogs/delete-rule-dialog/delete-rule-dialog.component';
 import { EditRuleDialogComponent } from './dialogs/edit-rule-dialog/edit-rule-dialog.component';
-import { CategoriesPageComponent } from './categories-page/categories-page.component';
-import { CategoryListComponent } from './category-list/category-list.component';
-import { DeleteCategoryDialogComponent } from './dialogs/delete-category-dialog/delete-category-dialog.component';
-import { AddCategoryDialogComponent } from './dialogs/add-category-dialog/add-category-dialog.component';
-import { EditCategoryDialogComponent } from './dialogs/edit-category-dialog/edit-category-dialog.component';
+import { CategoriesPageComponent } from './categories/categories-page/categories-page.component';
+import { CategoryListComponent } from './categories/category-list/category-list.component';
+import { DeleteCategoryDialogComponent } from './categories/dialogs/delete-category-dialog/delete-category-dialog.component';
+import { AddCategoryDialogComponent } from './categories/dialogs/add-category-dialog/add-category-dialog.component';
+import { EditCategoryDialogComponent } from './categories/dialogs/edit-category-dialog/edit-category-dialog.component';
 import { AddBankDialogComponent } from './banks/dialogs/add-bank-dialog/add-bank-dialog.component';
 import { EditBankDialogComponent } from './banks/dialogs/edit-bank-dialog/edit-bank-dialog.component';
 import { DeleteBankDialogComponent } from './banks/dialogs/delete-bank-dialog/delete-bank-dialog.component';

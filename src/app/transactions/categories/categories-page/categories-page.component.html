@@ -1,0 +1,7 @@
+<mat-toolbar>
+  <span>Категории</span>
+</mat-toolbar>
+<app-category-list [categories]="categories | async"
+                   [itemAdding]="addItem"
+                   [itemDeleting]="deleteItem"
+                   [itemChanging]="editItem"></app-category-list>

@@ -1,3 +1,36 @@
-<p>
-  edit-category-dialog works!
-</p>
+<div class="container">
+  <h3 mat-dialog-title>Изменить категорию</h3>
+
+  <form class="mat-dialog-content"
+        #formControl="ngForm">
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput
+               placeholder="Порядковый номер"
+               [(ngModel)]="data.order"
+               name="order"
+               required>
+      </mat-form-field>
+    </div>
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput
+               placeholder="Название"
+               [(ngModel)]="data.title"
+               name="title"
+               required>
+      </mat-form-field>
+    </div>
+
+    <div mat-dialog-actions>
+      <button mat-button
+              type="submit"
+              [mat-dialog-close]="data"
+              [disabled]="!formControl.valid">Изменить</button>
+      <button mat-button
+              [mat-dialog-close]
+              tabindex="-1">Отменить</button>
+    </div>
+  </form>
+</div>

@@ -1,28 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { BanksService, Bank } from 'src/app/api';
+import { CategoriesService, Category } from 'src/app/api';
 import { Observable, of } from 'rxjs';
-import { MatSnackBar } from '@angular/material';
 import { map, catchError } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
-  selector: 'app-banks-page',
-  templateUrl: './banks-page.component.html',
-  styleUrls: ['./banks-page.component.scss']
+  selector: 'app-categories-page',
+  templateUrl: './categories-page.component.html',
+  styleUrls: ['./categories-page.component.scss']
 })
-export class BanksPageComponent implements OnInit {
-  banks: Observable<Bank[]>;
+export class CategoriesPageComponent implements OnInit {
+  categories: Observable<Category[]>;
 
   constructor(
-    private banksService: BanksService,
-    private snackBar: MatSnackBar
-  ) { }
+    private categoriesService: CategoriesService,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    this.banks = this.banksService.getList();
+    this.categories = this.categoriesService.getList();
   }
 
-  addItem = (item: Bank) => {
-    return this.banksService.add(item).pipe(
+  addItem = (item: Category) => {
+    return this.categoriesService.add(item).pipe(
       map((result) => {
         this.snackBar.open('Банк привязан', undefined, { duration: 5000, panelClass: ['background-green'] });
         return result;
@@ -33,8 +32,8 @@ export class BanksPageComponent implements OnInit {
       }));
   }
 
-  deleteItem = (item: Bank) => {
-    return this.banksService.delete(item.id).pipe(
+  deleteItem = (item: Category) => {
+    return this.categoriesService.delete(item.id).pipe(
       map(() => {
         this.snackBar.open('Банк отвязан', undefined, { duration: 5000, panelClass: ['background-green'] });
         return true;
@@ -45,8 +44,8 @@ export class BanksPageComponent implements OnInit {
       }));
   }
 
-  editItem = (item: Bank) => {
-    return this.banksService.update(item.id, item).pipe(
+  editItem = (item: Category) => {
+    return this.categoriesService.update(item.id, item).pipe(
       map(() => {
         this.snackBar.open('Банк переименован', undefined, { duration: 5000, panelClass: ['background-green'] });
         return true;

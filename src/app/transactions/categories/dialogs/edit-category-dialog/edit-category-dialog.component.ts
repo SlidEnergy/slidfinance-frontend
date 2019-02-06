@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material';
+import { Category } from 'src/app/api';
 
 @Component({
   selector: 'app-edit-category-dialog',
@@ -6,8 +8,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./edit-category-dialog.component.scss']
 })
 export class EditCategoryDialogComponent implements OnInit {
-
-  constructor() { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Category) { }
 
   ngOnInit() {
   }
