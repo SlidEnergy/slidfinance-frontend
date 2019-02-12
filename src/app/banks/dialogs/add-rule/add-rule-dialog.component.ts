@@ -18,7 +18,7 @@ export class AddRuleDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: Rule,
     public rulesService: RulesService,
     private categoriesService: CategoriesService,
-    private accountsService: AccountsServiceб
+    private accountsService: AccountsService,
     private snackBar: MatSnackBar) { }
 
   ngOnInit() {

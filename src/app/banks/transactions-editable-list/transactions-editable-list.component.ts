@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 
 import { Transaction, CategoriesService, Category, TransactionsService, AccountsService, BankAccount } from 'src/app/api';
 import { MatSnackBar, MatTableDataSource, MatSort } from '@angular/material';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-transactions-editable-list',
@@ -13,6 +14,9 @@ import { MatSnackBar, MatTableDataSource, MatSort } from '@angular/material';
 export class TransactionsEditableListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
+  @Input() itemDeleting: (item: Transaction) => Observable<boolean>;
+  @Input() itemApproving: (item: Transaction) => Observable<boolean>;
+  
   categories: Map<string, Category>;
   accounts: Map<string, BankAccount>;
 

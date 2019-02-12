@@ -61,24 +61,24 @@
     <!-- actions -->
     <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef></mat-header-cell>
-
         <mat-cell *matCellDef="let row; let i=index;">
-        <button mat-icon-button
-                color="accent"
-                (click)="approve(row)">
-            <mat-icon aria-label="Edit">approve</mat-icon>
-        </button>
+            <button *ngIf="!row.approved"
+                    mat-icon-button
+                    color="primary"
+                    (click)="approve(row)">
+                <mat-icon aria-label="Edit">add</mat-icon>
+            </button>
 
-        <button mat-icon-button
-                color="accent"
-                (click)="deleteItem(row)">
-            <mat-icon aria-label="Delete">delete</mat-icon>
-        </button>
+            <button mat-icon-button
+                    color="accent"
+                    (click)="deleteItem(row)">
+                <mat-icon aria-label="Delete">delete</mat-icon>
+            </button>
         </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
-    <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
+    <mat-row *matRowDef="let row; columns: columnsToDisplay" [class.not-approved]="row.approved === false"></mat-row>
 </mat-table>
 <mat-card *ngIf="loadingVisible"
           style="display: flex; justify-content: center; align-items: center">

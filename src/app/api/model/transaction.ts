@@ -9,4 +9,5 @@ export interface Transaction {
     description?: string;
     mcc?: number;
     bankCategory?: string;
+    approved?: boolean;
 }
