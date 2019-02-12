@@ -55,7 +55,7 @@ export class BankListComponent implements OnInit {
   }
 
   row_click(row: Bank) {
-    this.router.navigate(['transactions/banks', row.id, 'accounts']);
+    this.router.navigate(['banks', row.id, 'accounts']);
   }
 
   addNew() {

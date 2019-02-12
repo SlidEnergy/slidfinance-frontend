@@ -6,7 +6,7 @@ import { AuthGuard } from './core/auth-guard.service';
 const routes: Routes = [
   { path: '', redirectTo: 'statictics', pathMatch: 'full' },
   { path: "entry", loadChildren: './entry/entry.module#EntryModule', canActivate: [NotLoggedInGuard] },
-  { path: "transactions", loadChildren: './transactions/transactions.module#TransactionsModule', canActivate: [AuthGuard] },
+  { path: "banks", loadChildren: './banks/banks.module#BanksModule', canActivate: [AuthGuard] },
   { path: "statictics", loadChildren: './statictics/statictics.module#StaticticsModule', canActivate: [AuthGuard] }
 ];
 

@@ -3,12 +3,12 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { map } from 'rxjs/operators';
 
 import { Transaction, CategoriesService, Category, TransactionsService, AccountsService, BankAccount } from 'src/app/api';
-import { MatTable, MatSnackBar, MatTableDataSource, MatSort } from '@angular/material';
+import { MatSnackBar, MatTableDataSource, MatSort } from '@angular/material';
 
 @Component({
-  selector: 'app-transactions-history',
-  templateUrl: './transactions-history.component.html',
-  styleUrls: ['./transactions-history.component.scss']
+  selector: 'app-transactions-list',
+  templateUrl: './transactions-list.component.html',
+  styleUrls: ['./transactions-list.component.scss']
 })
 export class TransactionsHistoryComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { TransactionsPageComponent } from './transactions-page/transactions-page.component';
-import { TransactionsHistoryComponent } from './transactions-history/transactions-history.component';
+import { TransactionsHistoryComponent } from './transactions-list/transactions-list.component';
 import { Routes, RouterModule } from '@angular/router';
 import { BanksPageComponent } from './banks/banks-page/banks-page.component';
 import { BankListComponent } from './banks/bank-list/bank-list.component';
@@ -27,11 +27,11 @@ import { AccountListComponent } from './accounts/account-list/account-list.compo
 import { AccountsPageComponent } from './accounts/accounts-page/accounts-page.component';
 
 const routes: Routes = [
-  { path: '', component: TransactionsPageComponent },
-  { path: 'banks', component: BanksPageComponent },
+  { path: '', component: BanksPageComponent },
+  { path: ':id/accounts', component: AccountsPageComponent },
+  { path: 'transactions', component: TransactionsPageComponent },
   { path: 'rules', component: RulesPageComponent },
-  { path: 'categories', component: CategoriesPageComponent },
-  { path: 'banks/:id/accounts', component: AccountsPageComponent },
+  { path: 'categories', component: CategoriesPageComponent }
 ];
 
 @NgModule({
@@ -86,4 +86,4 @@ const routes: Routes = [
     DeleteAccountDialogComponent,
   ]
 })
-export class TransactionsModule { }
+export class BanksModule { }
