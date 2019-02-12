@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { TransactionsPageComponent } from './transactions-page/transactions-page.component';
-import { TransactionsHistoryComponent } from './transactions-list/transactions-list.component';
+import { TransactionsListComponent } from './transactions-list/transactions-list.component';
+import { TransactionsEditableListComponent } from './transactions-editable-list/transactions-editable-list.component';
 import { Routes, RouterModule } from '@angular/router';
 import { BanksPageComponent } from './banks/banks-page/banks-page.component';
 import { BankListComponent } from './banks/bank-list/bank-list.component';
@@ -37,7 +38,8 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     TransactionsPageComponent,
-    TransactionsHistoryComponent,
+    TransactionsListComponent,
+    TransactionsEditableListComponent,
     BanksPageComponent,
     BankListComponent,
     RulesPageComponent,

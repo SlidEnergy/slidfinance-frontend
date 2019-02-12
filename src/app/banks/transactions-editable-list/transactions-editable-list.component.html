@@ -1,3 +1,8 @@
+<mat-form-field>
+    <input matInput
+           (keyup)="applyFilter($event.target.value)"
+           placeholder="Filter">
+</mat-form-field>
 <mat-table
        [dataSource]="dataSource"
        matSort
@@ -16,7 +21,17 @@
     <ng-container matColumnDef="category">
         <mat-header-cell *matHeaderCellDef
                          mat-sort-header> Категория </mat-header-cell>
-        <mat-cell *matCellDef="let row" data-label="Категория">{{getCategoryTitle(row.accountId)}}</mat-cell>
+        <mat-cell *matCellDef="let row" data-label="Категория">
+            <mat-select [(value)]="row.categoryId"
+                        (selectionChange)="category_Changed(row)"
+                        placeholder="Нет категории">
+                <mat-option [value]="null">Нет категории</mat-option>
+                <mat-option *ngFor="let category of getCategoriesArray()"
+                            [value]="category.id">
+                    {{category.title}}
+                </mat-option>
+            </mat-select>
+        </mat-cell>
     </ng-container>
     <ng-container matColumnDef="mcc">
         <mat-header-cell *matHeaderCellDef
@@ -42,6 +57,24 @@
         <mat-header-cell *matHeaderCellDef
                          mat-sort-header> Расход </mat-header-cell>
         <mat-cell *matCellDef="let row" data-label="Расход"> {{ row.amount < 0 ? (row.amount | currency : 'RUB' : 'symbol' : '1.2-2' : 'ru') : ''}} </mat-cell>
+    </ng-container>
+    <!-- actions -->
+    <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+
+        <mat-cell *matCellDef="let row; let i=index;">
+        <button mat-icon-button
+                color="accent"
+                (click)="approve(row)">
+            <mat-icon aria-label="Edit">approve</mat-icon>
+        </button>
+
+        <button mat-icon-button
+                color="accent"
+                (click)="deleteItem(row)">
+            <mat-icon aria-label="Delete">delete</mat-icon>
+        </button>
+        </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
