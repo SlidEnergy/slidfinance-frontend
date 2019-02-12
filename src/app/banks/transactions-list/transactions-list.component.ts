@@ -27,7 +27,7 @@ export class TransactionsHistoryComponent implements OnInit {
   }
 
   // Список колонок, которые нужно показать в таблице
-  columnsToDisplay = ['account', 'dateTime', 'category', 'mcc', 'bankCategory', 'description', 'income', 'outcome'];
+  columnsToDisplay = ['account', 'dateTime', 'mcc', 'bankCategory', 'description', 'income', 'outcome', 'category', 'actions'];
   loadingVisible = true;
 
   constructor(
@@ -110,5 +110,23 @@ export class TransactionsHistoryComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  approve(item: Transaction) {
+    this.transactionsService.patchTransaction(item.id, [{op: 'replace', path: '/approved', value: true }])
+      .subscribe(() => {
+        this.snackBar.open('Транзакция подтверждена', undefined, { duration: 5000, panelClass: ['background-green'] });
+      }, () => {
+        this.snackBar.open('Не удалось подтвердить транзакцию', undefined, { duration: 5000, panelClass: ['background-red'] });
+      });
+  }
+
+  deleteItem(item: Transaction) {
+    this.transactionsService.deleteTransaction(item.id)
+      .subscribe(() => {
+        this.snackBar.open('Транзакция удалена', undefined, { duration: 5000, panelClass: ['background-green'] });
+      }, () => {
+        this.snackBar.open('Не удалось удалить транзакцию', undefined, { duration: 5000, panelClass: ['background-red'] });
+      });
   }
 }

@@ -35,11 +35,12 @@ export class CategoryStatisticComponent implements OnInit {
   constructor(private categoriesService: CategoriesService) { }
 
   ngOnInit() {
-    this.categoriesService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [string, Category])))).subscribe(data => {
-      this.categories = data;
-      this.dataSource.sortingDataAccessor = this.sortingDataAccessor.bind(this);
-      this.dataSource.sort = this.sort;
-    });
+    this.categoriesService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [string, Category]))))
+      .subscribe(data => {
+        this.categories = data;
+        this.dataSource.sortingDataAccessor = this.sortingDataAccessor.bind(this);
+        this.dataSource.sort = this.sort;
+      });
   }
 
   sortingDataAccessor(item, property) {
