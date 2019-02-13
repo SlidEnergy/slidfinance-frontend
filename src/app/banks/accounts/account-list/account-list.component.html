@@ -16,7 +16,7 @@
   <ng-container matColumnDef="balance">
     <mat-header-cell *matHeaderCellDef
                      mat-sort-header> Баланс </mat-header-cell>
-    <mat-cell *matCellDef="let row"> {{row.balance ? row.balance : 0 | currency : 'RUB' : 'symbol' : '1.2-2' : 'ru'}}
+    <mat-cell *matCellDef="let row"> {{(row.balance ? row.balance : 0) | currency : 'RUB' : 'symbol' : '1.2-2' : 'ru'}}
     </mat-cell>
   </ng-container>
 
