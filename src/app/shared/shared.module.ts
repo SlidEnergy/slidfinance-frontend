@@ -10,14 +10,18 @@ import {
 } from '@angular/material';
 
 import { MatProgressButtonsModule } from 'mat-progress-buttons'
+import { MessageDialogComponent } from './message-dialog/message-dialog.component';
 
 @NgModule({
     declarations: [
+        MessageDialogComponent
     ],
     imports: [
         CommonModule,
         FormsModule,
         RouterModule,
+        MatDialogModule,
+        MatButtonModule
     ],
     exports: [
         CommonModule,
@@ -47,7 +51,11 @@ import { MatProgressButtonsModule } from 'mat-progress-buttons'
         MatSortModule,
         MatMenuModule,
         MatDialogModule,
-        MatPaginatorModule
+        MatPaginatorModule,
+        MessageDialogComponent
+    ],
+    entryComponents: [
+        MessageDialogComponent
     ],
     providers: [
     ]

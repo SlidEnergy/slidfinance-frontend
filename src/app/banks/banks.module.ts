@@ -15,15 +15,12 @@ import { DeleteRuleDialogComponent } from './dialogs/delete-rule-dialog/delete-r
 import { EditRuleDialogComponent } from './dialogs/edit-rule-dialog/edit-rule-dialog.component';
 import { CategoriesPageComponent } from './categories/categories-page/categories-page.component';
 import { CategoryListComponent } from './categories/category-list/category-list.component';
-import { DeleteCategoryDialogComponent } from './categories/dialogs/delete-category-dialog/delete-category-dialog.component';
 import { AddCategoryDialogComponent } from './categories/dialogs/add-category-dialog/add-category-dialog.component';
 import { EditCategoryDialogComponent } from './categories/dialogs/edit-category-dialog/edit-category-dialog.component';
 import { AddBankDialogComponent } from './banks/dialogs/add-bank-dialog/add-bank-dialog.component';
 import { EditBankDialogComponent } from './banks/dialogs/edit-bank-dialog/edit-bank-dialog.component';
-import { DeleteBankDialogComponent } from './banks/dialogs/delete-bank-dialog/delete-bank-dialog.component';
 import { AddAccountDialogComponent } from './accounts/dialogs/add-account-dialog/add-account-dialog.component';
 import { EditAccountDialogComponent } from './accounts/dialogs/edit-account-dialog/edit-account-dialog.component';
-import { DeleteAccountDialogComponent } from './accounts/dialogs/delete-account-dialog/delete-account-dialog.component';
 import { AccountListComponent } from './accounts/account-list/account-list.component';
 import { AccountsPageComponent } from './accounts/accounts-page/accounts-page.component';
 
@@ -51,19 +48,16 @@ const routes: Routes = [
     CategoriesPageComponent,
     CategoryListComponent,
 
-    DeleteCategoryDialogComponent,
     AddCategoryDialogComponent,
     EditCategoryDialogComponent,
 
     AddBankDialogComponent,
     EditBankDialogComponent,
-    DeleteBankDialogComponent,
 
     AccountListComponent,
     AccountsPageComponent,
     AddAccountDialogComponent,
     EditAccountDialogComponent,
-    DeleteAccountDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -77,15 +71,12 @@ const routes: Routes = [
 
     AddCategoryDialogComponent,
     EditCategoryDialogComponent,
-    DeleteCategoryDialogComponent,
 
     AddBankDialogComponent,
     EditBankDialogComponent,
-    DeleteBankDialogComponent,
 
     AddAccountDialogComponent,
     EditAccountDialogComponent,
-    DeleteAccountDialogComponent,
   ]
 })
 export class BanksModule { }

@@ -23,3 +23,6 @@ mat-header-cell.mat-column-category, {
     display: flex;
     flex-direction: column;
 }
+.mat-column-actions {
+  justify-content:flex-end;
+}

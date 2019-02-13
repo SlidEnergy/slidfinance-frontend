@@ -3,10 +3,10 @@ import { Bank } from 'src/app/api';
 import { MatTableDataSource, MatDialog, MatSort } from '@angular/material';
 import { AddBankDialogComponent } from '../dialogs/add-bank-dialog/add-bank-dialog.component';
 import { EditBankDialogComponent } from '../dialogs/edit-bank-dialog/edit-bank-dialog.component';
-import { DeleteBankDialogComponent } from '../dialogs/delete-bank-dialog/delete-bank-dialog.component';
 import { Observable } from 'rxjs';
 import { filter, flatMap, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { MessageDialogComponent } from 'src/app/shared/message-dialog/message-dialog.component';
 
 @Component({
   selector: 'app-bank-list',
@@ -82,12 +82,12 @@ export class BankListComponent implements OnInit {
       });
   }
 
-  deleteItem(bank: Bank) {
-    const dialogRef = this.dialog.open(DeleteBankDialogComponent, {
-      data: { ...bank }
+  deleteItem(item: Bank) {
+    const dialogRef = this.dialog.open(MessageDialogComponent, {
+      data: { caption: 'Вы уверены что хотите отвязать банк?', text: item.title }
     });
 
-    dialogRef.afterClosed().pipe(filter(x => x), flatMap(result => this.itemDeleting(result).pipe(filter(x => x), map(x => result))))
+    dialogRef.afterClosed().pipe(filter(x => x), flatMap(() => this.itemDeleting(item).pipe(filter(x => x), map(x => item))))
       .subscribe((result) => {
         this.dataSource.data = this.dataSource.data.filter((value) => value.id != result.id);
       });

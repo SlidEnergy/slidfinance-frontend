@@ -3,9 +3,9 @@ import { BankAccount } from 'src/app/api';
 import { MatTableDataSource, MatDialog, MatSort } from '@angular/material';
 import { AddAccountDialogComponent } from '../dialogs/add-account-dialog/add-account-dialog.component';
 import { EditAccountDialogComponent } from '../dialogs/edit-account-dialog/edit-account-dialog.component';
-import { DeleteAccountDialogComponent } from '../dialogs/delete-account-dialog/delete-account-dialog.component';
 import { Observable } from 'rxjs';
 import { filter, flatMap, map } from 'rxjs/operators';
+import { MessageDialogComponent } from 'src/app/shared/message-dialog/message-dialog.component';
 
 @Component({
   selector: 'app-account-list',
@@ -74,12 +74,12 @@ export class AccountListComponent implements OnInit {
       });
   }
 
-  deleteItem(account: BankAccount) {
-    const dialogRef = this.dialog.open(DeleteAccountDialogComponent, {
-      data: { ...account }
+  deleteItem(item: BankAccount) {
+    const dialogRef = this.dialog.open(MessageDialogComponent, {
+      data: { caption: 'Вы уверены что хотите отвязать счет?', text: item.title }
     });
 
-    dialogRef.afterClosed().pipe(filter(x => x), flatMap(result => this.itemDeleting(result).pipe(filter(x => x), map(x => result))))
+    dialogRef.afterClosed().pipe(filter(x => x), flatMap(() => this.itemDeleting(item).pipe(filter(x => x), map(x => item))))
       .subscribe((result) => {
         this.dataSource.data = this.dataSource.data.filter((value) => value.id != result.id);
       });

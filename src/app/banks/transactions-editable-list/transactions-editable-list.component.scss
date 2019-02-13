@@ -29,6 +29,11 @@ mat-header-cell.mat-column-outcome {
 .mat-row.not-approved {
   background-color: indianred;
 }
+.mat-column-income,
+.mat-column-outcome,
+.mat-column-actions {
+  justify-content:flex-end;
+}
 
 @media screen and (max-width: 960px) {
   .mat-table {

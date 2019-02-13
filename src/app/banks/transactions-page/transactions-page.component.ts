@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Transaction, TransactionsService } from 'src/app/api';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-transactions-page',
@@ -10,7 +12,9 @@ import { Observable } from 'rxjs';
 export class TransactionsPageComponent implements OnInit {
   transactions: Observable<Transaction[]>;
 
-  constructor(private transactionsService: TransactionsService) { }
+  constructor(
+    private transactionsService: TransactionsService,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.update();
@@ -18,5 +22,29 @@ export class TransactionsPageComponent implements OnInit {
 
   update() {
     this.transactions = this.transactionsService.getTransactions();
+  }
+
+  deleteItem = (item: Transaction) => {
+    return this.transactionsService.deleteTransaction(item.id).pipe(
+      map(() => {
+        this.snackBar.open('Транзакция удалена', undefined, { duration: 5000, panelClass: ['background-green'] });
+        return true;
+      }),
+      catchError(() => {
+        this.snackBar.open('Не удалось удалить транзакцию', undefined, { duration: 5000, panelClass: ['background-red'] });
+        return of(false);
+      }));
+  }
+
+  approveItem = (item: Transaction) => {
+    return this.transactionsService.patchTransaction(item.id, [{op: 'replace', path: '/approved', value: true }]).pipe(
+      map((result) => {
+        this.snackBar.open('Транзакция подтверждена', undefined, { duration: 5000, panelClass: ['background-green'] });
+        return result;
+      }),
+      catchError(() => {
+        this.snackBar.open('Не удалось подтвердить транзакцию', undefined, { duration: 5000, panelClass: ['background-red'] });
+        return of(false);
+      }));
   }
 }

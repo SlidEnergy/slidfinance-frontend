@@ -1,10 +1,11 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 
-import { map } from 'rxjs/operators';
+import { map, filter, flatMap } from 'rxjs/operators';
 
 import { Transaction, CategoriesService, Category, TransactionsService, AccountsService, BankAccount } from 'src/app/api';
-import { MatSnackBar, MatTableDataSource, MatSort } from '@angular/material';
+import { MatSnackBar, MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { Observable } from 'rxjs';
+import { MessageDialogComponent } from 'src/app/shared/message-dialog/message-dialog.component';
 
 @Component({
   selector: 'app-transactions-editable-list',
@@ -38,7 +39,8 @@ export class TransactionsEditableListComponent implements OnInit {
     private categoriesService: CategoriesService,
     private transactionsService: TransactionsService,
     private snackBar: MatSnackBar,
-    private accountsService: AccountsService
+    private accountsService: AccountsService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -117,20 +119,20 @@ export class TransactionsEditableListComponent implements OnInit {
   }
 
   approve(item: Transaction) {
-    this.transactionsService.patchTransaction(item.id, [{op: 'replace', path: '/approved', value: true }])
-      .subscribe(() => {
-        this.snackBar.open('Транзакция подтверждена', undefined, { duration: 5000, panelClass: ['background-green'] });
-      }, () => {
-        this.snackBar.open('Не удалось подтвердить транзакцию', undefined, { duration: 5000, panelClass: ['background-red'] });
+    this.itemApproving(item).pipe(filter(x => x), map(x => item))
+      .subscribe((result) => {
+        this.dataSource.data = this.dataSource.data.map((value) => value.id == result.id ? result : value);
       });
   }
 
   deleteItem(item: Transaction) {
-    this.transactionsService.deleteTransaction(item.id)
-      .subscribe(() => {
-        this.snackBar.open('Транзакция удалена', undefined, { duration: 5000, panelClass: ['background-green'] });
-      }, () => {
-        this.snackBar.open('Не удалось удалить транзакцию', undefined, { duration: 5000, panelClass: ['background-red'] });
+    const dialogRef = this.dialog.open(MessageDialogComponent, {
+      data: { caption: 'Вы уверены что хотите удалить транзакцию?', text: item.description }
+    });
+
+    dialogRef.afterClosed().pipe(filter(x => x), flatMap(() => this.itemDeleting(item).pipe(filter(x => x), map(x => item))))
+      .subscribe((result) => {
+        this.dataSource.data = this.dataSource.data.filter((value) => value.id != result.id);
       });
   }
 }

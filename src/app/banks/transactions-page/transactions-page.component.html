@@ -1,4 +1,7 @@
 <mat-toolbar>
     <span>Список трат</span>
 </mat-toolbar>
-<app-transactions-editable-list [transactions]="transactions | async"></app-transactions-editable-list>
+<app-transactions-editable-list [transactions]="transactions | async" 
+                                [itemDeleting]="deleteItem"
+                                [itemApproving]="approveItem">
+</app-transactions-editable-list>

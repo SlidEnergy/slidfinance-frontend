@@ -2,10 +2,10 @@ import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { Category } from 'src/app/api';
 import { MatDialog, MatTableDataSource, MatSort } from '@angular/material';
 import { EditCategoryDialogComponent } from '../dialogs/edit-category-dialog/edit-category-dialog.component';
-import { DeleteCategoryDialogComponent } from '../dialogs/delete-category-dialog/delete-category-dialog.component';
 import { AddCategoryDialogComponent } from '../dialogs/add-category-dialog/add-category-dialog.component';
 import { filter, flatMap, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { MessageDialogComponent } from 'src/app/shared/message-dialog/message-dialog.component';
 
 @Component({
   selector: 'app-category-list',
@@ -67,12 +67,12 @@ export class CategoryListComponent implements OnInit {
       });
   }
 
-  deleteItem(category: Category) {
-    const dialogRef = this.dialog.open(DeleteCategoryDialogComponent, {
-      data: { ...category }
+  deleteItem(item: Category) {
+    const dialogRef = this.dialog.open(MessageDialogComponent, {
+      data: { caption: 'Вы уверены что хотите удалить категорию?', text: item.title }
     });
 
-    dialogRef.afterClosed().pipe(filter(x => x), flatMap(result => this.itemDeleting(result).pipe(filter(x => x), map(x => result))))
+    dialogRef.afterClosed().pipe(filter(x => x), flatMap(() => this.itemDeleting(item).pipe(filter(x => x), map(x => item))))
       .subscribe((result) => {
         this.dataSource.data = this.dataSource.data.filter((value) => value.id != result.id);
       });
