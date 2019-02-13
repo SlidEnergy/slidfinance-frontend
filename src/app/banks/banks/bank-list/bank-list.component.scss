@@ -15,3 +15,12 @@ mat-row:hover {
 mat-row:active {
   background: #efefef;
 }
+.mat-column-balance {
+  justify-content:flex-end;
+}
+.mat-column-actions {
+  justify-content:flex-end;
+}
+.mat-footer-row {
+  font-weight: bold;
+}

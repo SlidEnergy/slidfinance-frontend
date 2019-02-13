@@ -92,4 +92,8 @@ export class BankListComponent implements OnInit {
         this.dataSource.data = this.dataSource.data.filter((value) => value.id != result.id);
       });
   }
+
+  getTotalBalance() {
+    return this.dataSource.data.map(b => b.balance).reduce((acc, value) => acc + value, 0);
+  }
 }
