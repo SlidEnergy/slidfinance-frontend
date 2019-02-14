@@ -30,7 +30,7 @@ export class AccountListComponent implements OnInit {
   }
 
   // Список колонок, которые нужно показать в таблице
-  columnsToDisplay = ['title', 'code', 'balance', 'actions'];
+  columnsToDisplay = ['title', 'code', 'balance', 'creditLimit', 'actions'];
   loadingVisible = true;
 
   constructor(public dialog: MatDialog) { }

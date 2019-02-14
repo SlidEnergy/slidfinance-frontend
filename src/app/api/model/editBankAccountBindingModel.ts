@@ -5,4 +5,5 @@ export interface EditBankAccountBindingModel {
     title?: string;
     code?: string;
     balance?: number;
+    creditLimit?: number;
 }

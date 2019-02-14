@@ -31,7 +31,7 @@ export class BankListComponent implements OnInit {
   }
 
   // Список колонок, которые нужно показать в таблице
-  columnsToDisplay = ['title', 'balance', 'actions'];
+  columnsToDisplay = ['title', 'ownFunds', 'actions'];
   loadingVisible = true;
 
   constructor(
@@ -93,7 +93,7 @@ export class BankListComponent implements OnInit {
       });
   }
 
-  getTotalBalance() {
-    return this.dataSource.data.map(b => b.balance).reduce((acc, value) => acc + value, 0);
+  getTotalOwnFunds() {
+    return this.dataSource.data.map(b => b.ownFunds).reduce((acc, value) => acc + value, 0);
   }
 }
