@@ -9,8 +9,8 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./delete-rule-dialog.component.scss']
 })
 export class DeleteRuleDialogComponent implements OnInit {
-  categories: Map<string, Category>;
-  accounts: Map<string, BankAccount>;
+  categories: Map<number, Category>;
+  accounts: Map<number, BankAccount>;
 
   constructor(public dialogRef: MatDialogRef<DeleteRuleDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -20,8 +20,8 @@ export class DeleteRuleDialogComponent implements OnInit {
     private snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    this.categoriesService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [string, Category])))).subscribe(data => this.categories = data);
-    this.accountsService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [string, BankAccount])))).subscribe(data => this.accounts = data);
+    this.categoriesService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [number, Category])))).subscribe(data => this.categories = data);
+    this.accountsService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [number, BankAccount])))).subscribe(data => this.accounts = data);
   }
 
   onNoClick(): void {
@@ -37,7 +37,7 @@ export class DeleteRuleDialogComponent implements OnInit {
       });
   }
 
-  getAccountTitle(accountId: string) {
+  getAccountTitle(accountId: number) {
     if (!this.accounts)
       return '';
 
@@ -45,7 +45,7 @@ export class DeleteRuleDialogComponent implements OnInit {
     return account ? account.title : '';
   }
 
-  getCategoryTitle(categoryId: string) {
+  getCategoryTitle(categoryId: number) {
     if (!this.categories)
       return '';
 

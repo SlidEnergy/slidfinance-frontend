@@ -1,7 +1,7 @@
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { RulesService, Rule, Category, CategoriesService, AccountsService } from 'src/app/api';
+import { RulesService, Rule, Category, CategoriesService, AccountsService, BankAccount } from 'src/app/api';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -11,8 +11,8 @@ import { map } from 'rxjs/operators';
 })
 
 export class AddRuleDialogComponent implements OnInit {
-  categories: Map<string, Category>;
-  accounts: Map<string, Account>;
+  categories: Map<number, Category>;
+  accounts: Map<number, BankAccount>;
 
   constructor(public dialogRef: MatDialogRef<AddRuleDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Rule,
@@ -22,8 +22,8 @@ export class AddRuleDialogComponent implements OnInit {
     private snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    this.categoriesService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [string, Category])))).subscribe(data => this.categories = data);
-    this.accountsService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [string, Account])))).subscribe(data => this.accounts = data);
+    this.categoriesService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [number, Category])))).subscribe(data => this.categories = data);
+    this.accountsService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [number, BankAccount])))).subscribe(data => this.accounts = data);
   }
 
   formControl = new FormControl('', [

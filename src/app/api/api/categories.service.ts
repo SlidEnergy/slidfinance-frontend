@@ -54,10 +54,10 @@ export class CategoriesService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public delete(id: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public delete(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public delete(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public delete(id: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    public delete(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public delete(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public delete(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public delete(id: number, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling _delete.');
         }
@@ -219,10 +219,10 @@ export class CategoriesService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public update(id: string, category?: Category, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public update(id: string, category?: Category, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public update(id: string, category?: Category, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public update(id: string, category?: Category, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    public update(id: number, category?: Category, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public update(id: number, category?: Category, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public update(id: number, category?: Category, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public update(id: number, category?: Category, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling update.');
         }

@@ -1,6 +1,6 @@
 
 
 export interface CategoryDistribution {
-    categoryId?: string;
+    categoryId?: number;
     count?: number;
 }

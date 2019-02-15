@@ -1,8 +1,8 @@
 
 
 export interface AddRuleBindingModel {
-    accountId?: string;
-    categoryId?: string;
+    accountId?: number;
+    categoryId?: number;
     description?: string;
     mcc?: number;
     bankCategory?: string;

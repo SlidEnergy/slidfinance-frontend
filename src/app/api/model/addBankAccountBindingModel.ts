@@ -1,7 +1,7 @@
 
 
 export interface AddBankAccountBindingModel {
-    bankId?: string;
+    bankId?: number;
     title?: string;
     code?: string;
     balance?: number;

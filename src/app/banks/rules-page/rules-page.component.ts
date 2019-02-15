@@ -22,7 +22,7 @@ export class RulesPageComponent implements OnInit {
     this.rules = this.rulesService.getRule();
   }
 
-  addGeneratedRule_Click(e: {rule: GeneratedRule, categoryId: string}) {
+  addGeneratedRule_Click(e: {rule: GeneratedRule, categoryId: number}) {
     this.addNew({
       categoryId: e.categoryId,
       accountId: e.rule.accountId,

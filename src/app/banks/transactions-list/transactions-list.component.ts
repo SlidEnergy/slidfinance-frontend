@@ -13,8 +13,8 @@ import { MatSnackBar, MatTableDataSource, MatSort } from '@angular/material';
 export class TransactionsListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
-  categories: Map<string, Category>;
-  accounts: Map<string, BankAccount>;
+  categories: Map<number, Category>;
+  accounts: Map<number, BankAccount>;
 
   // список транзакций пользователя
   dataSource = new MatTableDataSource<Transaction>();
@@ -36,8 +36,8 @@ export class TransactionsListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.categoriesService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [string, Category])))).subscribe(data => this.categories = data);
-    this.accountsService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [string, BankAccount])))).subscribe(data => this.accounts = data);
+    this.categoriesService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [number, Category])))).subscribe(data => this.categories = data);
+    this.accountsService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [number, BankAccount])))).subscribe(data => this.accounts = data);
     this.dataSource.sort = this.sort;
     this.dataSource.sortingDataAccessor = this.sortingDataAccessor.bind(this);
   }
@@ -63,7 +63,7 @@ export class TransactionsListComponent implements OnInit {
     }
   }
 
-  getAccountTitle(accountId: string) {
+  getAccountTitle(accountId: number) {
     if (!this.accounts)
       return '';
 
@@ -71,7 +71,7 @@ export class TransactionsListComponent implements OnInit {
     return account ? account.title : '';
   }
 
-  getCategoryTitle(categoryId: string) {
+  getCategoryTitle(categoryId: number) {
     if (!this.categories)
       return '';
 

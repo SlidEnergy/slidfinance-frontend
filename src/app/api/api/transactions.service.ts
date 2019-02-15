@@ -56,10 +56,10 @@ export class TransactionsService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteTransaction(id: string, observe?: 'body', reportProgress?: boolean): Observable<Transaction>;
-    public deleteTransaction(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Transaction>>;
-    public deleteTransaction(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Transaction>>;
-    public deleteTransaction(id: string, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    public deleteTransaction(id: number, observe?: 'body', reportProgress?: boolean): Observable<Transaction>;
+    public deleteTransaction(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Transaction>>;
+    public deleteTransaction(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Transaction>>;
+    public deleteTransaction(id: number, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling deleteTransaction.');
         }
@@ -163,10 +163,10 @@ export class TransactionsService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public patchTransaction(id: string, patchDoc?: Array<Operation>, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public patchTransaction(id: string, patchDoc?: Array<Operation>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public patchTransaction(id: string, patchDoc?: Array<Operation>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public patchTransaction(id: string, patchDoc?: Array<Operation>, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    public patchTransaction(id: number, patchDoc?: Array<Operation>, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public patchTransaction(id: number, patchDoc?: Array<Operation>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public patchTransaction(id: number, patchDoc?: Array<Operation>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public patchTransaction(id: number, patchDoc?: Array<Operation>, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling patchTransaction.');
         }

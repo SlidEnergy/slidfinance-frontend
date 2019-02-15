@@ -1,8 +1,8 @@
 
 
 export interface Bank {
-    id?: string;
+    id?: number;
     title?: string;
-    accountIds?: Array<string>;
+    accountIds?: Array<number>;
     ownFunds?: number;
 }

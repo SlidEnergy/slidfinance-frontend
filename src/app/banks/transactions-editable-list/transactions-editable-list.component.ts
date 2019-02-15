@@ -18,8 +18,8 @@ export class TransactionsEditableListComponent implements OnInit {
   @Input() itemDeleting: (item: Transaction) => Observable<boolean>;
   @Input() itemApproving: (item: Transaction) => Observable<boolean>;
   
-  categories: Map<string, Category>;
-  accounts: Map<string, BankAccount>;
+  categories: Map<number, Category>;
+  accounts: Map<number, BankAccount>;
 
   // список транзакций пользователя
   dataSource = new MatTableDataSource<Transaction>();
@@ -44,8 +44,8 @@ export class TransactionsEditableListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.categoriesService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [string, Category])))).subscribe(data => this.categories = data);
-    this.accountsService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [string, BankAccount])))).subscribe(data => this.accounts = data);
+    this.categoriesService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [number, Category])))).subscribe(data => this.categories = data);
+    this.accountsService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [number, BankAccount])))).subscribe(data => this.accounts = data);
     this.dataSource.sort = this.sort;
     this.dataSource.sortingDataAccessor = this.sortingDataAccessor.bind(this);
     this.dataSource.filterPredicate = this.filterPredicate.bind(this);
@@ -102,7 +102,7 @@ export class TransactionsEditableListComponent implements OnInit {
       });
   }
 
-  getAccountTitle(accountId: string) {
+  getAccountTitle(accountId: number) {
     if (!this.accounts)
       return '';
 

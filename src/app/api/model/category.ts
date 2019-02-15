@@ -1,7 +1,7 @@
 
 
 export interface Category {
-    id?: string;
+    id?: number;
     order?: number;
     title?: string;
 }

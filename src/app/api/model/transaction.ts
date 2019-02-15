@@ -1,11 +1,11 @@
 
 
 export interface Transaction {
-    id?: string;
-    accountId?: string;
+    id?: number;
+    accountId?: number;
     dateTime?: Date;
     amount?: number;
-    categoryId?: string;
+    categoryId?: number;
     description?: string;
     mcc?: number;
     bankCategory?: string;

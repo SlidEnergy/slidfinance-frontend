@@ -1,7 +1,7 @@
 
 
 export interface EditBankAccountBindingModel {
-    id?: string;
+    id?: number;
     title?: string;
     code?: string;
     balance?: number;

@@ -1,6 +1,6 @@
 
 
 export interface EditBankBindingModel {
-    id?: string;
+    id?: number;
     title?: string;
 }

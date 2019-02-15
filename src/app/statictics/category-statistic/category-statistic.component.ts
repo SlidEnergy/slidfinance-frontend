@@ -15,7 +15,7 @@ export class CategoryStatisticComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   categoryStatistic: CategoryStatistic[];
-  categories: Map<string, Category>;
+  categories: Map<number, Category>;
 
   dataSource = new MatTableDataSource<Transaction>();
 
@@ -35,7 +35,7 @@ export class CategoryStatisticComponent implements OnInit {
   constructor(private categoriesService: CategoriesService) { }
 
   ngOnInit() {
-    this.categoriesService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [string, Category]))))
+    this.categoriesService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [number, Category]))))
       .subscribe(data => {
         this.categories = data;
         this.dataSource.sortingDataAccessor = this.sortingDataAccessor.bind(this);
@@ -64,7 +64,7 @@ export class CategoryStatisticComponent implements OnInit {
     }
   }
 
-  getCategoryTitle(categoryId: string) {
+  getCategoryTitle(categoryId: number) {
     if (!categoryId)
       return "Без категории";
 

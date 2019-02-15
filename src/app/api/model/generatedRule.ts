@@ -2,7 +2,7 @@ import { CategoryDistribution } from './categoryDistribution';
 
 
 export interface GeneratedRule {
-    accountId?: string;
+    accountId?: number;
     description?: string;
     mcc?: number;
     bankCategory?: string;

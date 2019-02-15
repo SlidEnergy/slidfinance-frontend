@@ -2,6 +2,6 @@ import { MonthStatistic } from './monthStatistic';
 
 
 export interface CategoryStatistic {
-    categoryId?: string;
+    categoryId?: number;
     months?: Array<MonthStatistic>;
 }

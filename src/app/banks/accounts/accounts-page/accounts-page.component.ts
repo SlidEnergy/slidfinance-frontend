@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AccountsPageComponent implements OnInit {
   accounts: Observable<BankAccount[]>;
-  bankId: string;
+  bankId: number;
 
   constructor(
     private accountService: AccountsService,
@@ -21,7 +21,7 @@ export class AccountsPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.bankId = this.route.snapshot.params['id'];
+    this.bankId = +this.route.snapshot.params['id'];
 
     this.accounts = this.accountService.getList(this.bankId);
   }

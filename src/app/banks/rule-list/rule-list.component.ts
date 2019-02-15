@@ -20,8 +20,8 @@ export class RuleListComponent implements OnInit {
     }
   }
 
-  categories: Map<string, Category>;
-  accounts: Map<string, BankAccount>;
+  categories: Map<number, Category>;
+  accounts: Map<number, BankAccount>;
 
   // список транзакций пользователя
   dataSource = new MatTableDataSource<Rule>();
@@ -37,12 +37,12 @@ export class RuleListComponent implements OnInit {
     private accountsService: AccountsService) { }
 
   ngOnInit() {
-    this.categoriesService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [string, Category])))).subscribe(data => this.categories = data);
-    this.accountsService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [string, BankAccount])))).subscribe(data => this.accounts = data);
+    this.categoriesService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [number, Category])))).subscribe(data => this.categories = data);
+    this.accountsService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [number, BankAccount])))).subscribe(data => this.accounts = data);
     this.dataSource.sort = this.sort;
   }
 
-  getAccountTitle(accountId: string) {
+  getAccountTitle(accountId: number) {
     if (!this.accounts)
       return '';
 
@@ -50,7 +50,7 @@ export class RuleListComponent implements OnInit {
     return account ? account.title : '';
   }
 
-  getCategoryTitle(categoryId: string) {
+  getCategoryTitle(categoryId: number) {
     if (!this.categories)
       return '';
 

@@ -1,10 +1,10 @@
 
 
 export interface BankAccount {
-    id?: string;
+    id?: number;
     code?: string;
     balance?: number;
     creditLimit?: number;
     title?: string;
-    bankId?: string;
+    bankId?: number;
 }
