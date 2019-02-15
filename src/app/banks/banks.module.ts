@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
-import { TransactionsPageComponent } from './transactions-page/transactions-page.component';
-import { TransactionsListComponent } from './transactions-list/transactions-list.component';
-import { TransactionsEditableListComponent } from './transactions-editable-list/transactions-editable-list.component';
+import { TransactionsPageComponent } from './transactions/transactions-page/transactions-page.component';
+import { TransactionsListComponent } from './transactions/transactions-list/transactions-list.component';
+import { TransactionsEditableListComponent } from './transactions/transactions-editable-list/transactions-editable-list.component';
 import { Routes, RouterModule } from '@angular/router';
 import { BanksPageComponent } from './banks/banks-page/banks-page.component';
 import { BankListComponent } from './banks/bank-list/bank-list.component';
