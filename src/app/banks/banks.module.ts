@@ -7,12 +7,12 @@ import { TransactionsEditableListComponent } from './transactions-editable-list/
 import { Routes, RouterModule } from '@angular/router';
 import { BanksPageComponent } from './banks/banks-page/banks-page.component';
 import { BankListComponent } from './banks/bank-list/bank-list.component';
-import { RulesPageComponent } from './rules-page/rules-page.component';
-import { RuleListComponent } from './rule-list/rule-list.component';
-import { GeneratedRuleListComponent } from './generated-rule-list/generated-rule-list.component';
-import { AddRuleDialogComponent } from './dialogs/add-rule/add-rule-dialog.component';
-import { DeleteRuleDialogComponent } from './dialogs/delete-rule-dialog/delete-rule-dialog.component';
-import { EditRuleDialogComponent } from './dialogs/edit-rule-dialog/edit-rule-dialog.component';
+import { RulesPageComponent } from './rules/rules-page/rules-page.component';
+import { RuleListComponent } from './rules/rule-list/rule-list.component';
+import { GeneratedRuleListComponent } from './rules/generated-rule-list/generated-rule-list.component';
+import { AddRuleDialogComponent } from './rules/dialogs/add-rule/add-rule-dialog.component';
+import { DeleteRuleDialogComponent } from './rules/dialogs/delete-rule-dialog/delete-rule-dialog.component';
+import { EditRuleDialogComponent } from './rules/dialogs/edit-rule-dialog/edit-rule-dialog.component';
 import { CategoriesPageComponent } from './categories/categories-page/categories-page.component';
 import { CategoryListComponent } from './categories/category-list/category-list.component';
 import { AddCategoryDialogComponent } from './categories/dialogs/add-category-dialog/add-category-dialog.component';
