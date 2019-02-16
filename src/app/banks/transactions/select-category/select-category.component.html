@@ -1,0 +1,5 @@
+<div class="container">
+  <div mat-card class="category-card" *ngFor="let category of categories | async">
+    <button mat-button (click)="selectCategory(category)">{{category.title}}</button>
+  </div>
+</div>

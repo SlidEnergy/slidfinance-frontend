@@ -23,10 +23,35 @@ import { AddAccountDialogComponent } from './accounts/dialogs/add-account-dialog
 import { EditAccountDialogComponent } from './accounts/dialogs/edit-account-dialog/edit-account-dialog.component';
 import { AccountListComponent } from './accounts/account-list/account-list.component';
 import { AccountsPageComponent } from './accounts/accounts-page/accounts-page.component';
+import { AddTransactionPageComponent } from './transactions/add-transaction-page/add-transaction-page.component';
+import { SelectCategoryComponent } from './transactions/select-category/select-category.component';
+import { AddTransactionComponent } from './transactions/add-transaction/add-transaction.component';
 
 const routes: Routes = [
   { path: '', component: BanksPageComponent },
   { path: ':id/accounts', component: AccountsPageComponent },
+  {
+    path: ':id/accounts/:accountId/transactions',
+    component: AddTransactionPageComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: 'new/select-category'
+      },
+      {
+        path: 'new',
+        redirectTo: 'new/select-category'
+      },
+      {
+				path: 'new/select-category',
+				component: SelectCategoryComponent
+      },
+      {
+				path: 'new/add-transaction',
+				component: AddTransactionComponent
+			}
+    ]
+  },
   { path: 'transactions', component: TransactionsPageComponent },
   { path: 'rules', component: RulesPageComponent },
   { path: 'categories', component: CategoriesPageComponent }
@@ -58,6 +83,9 @@ const routes: Routes = [
     AccountsPageComponent,
     AddAccountDialogComponent,
     EditAccountDialogComponent,
+    AddTransactionPageComponent,
+    SelectCategoryComponent,
+    AddTransactionComponent,
   ],
   imports: [
     CommonModule,
