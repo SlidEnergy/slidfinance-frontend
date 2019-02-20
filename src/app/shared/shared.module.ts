@@ -5,16 +5,18 @@ import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
     MatNativeDateModule, MatDatepickerModule, MatIconModule, MatButtonModule, MatCheckboxModule, MatToolbarModule,
-    MatCardModule, MatFormFieldModule, MatInputModule, MatRadioModule, MatListModule, MatSnackBarModule, MatTableModule, 
+    MatCardModule, MatFormFieldModule, MatInputModule, MatRadioModule, MatListModule, MatSnackBarModule, MatTableModule,
     MatAutocompleteModule, MatProgressSpinnerModule, MatSelectModule, MatSortModule, MatMenuModule, MatDialogModule, MatPaginatorModule
 } from '@angular/material';
 
 import { MatProgressButtonsModule } from 'mat-progress-buttons'
 import { MessageDialogComponent } from './message-dialog/message-dialog.component';
+import { NonFractionCurrencyOrDashPipe } from './non-fraction-currency-or-dash.pipe';
 
 @NgModule({
     declarations: [
-        MessageDialogComponent
+        MessageDialogComponent,
+        NonFractionCurrencyOrDashPipe,
     ],
     imports: [
         CommonModule,
@@ -52,7 +54,9 @@ import { MessageDialogComponent } from './message-dialog/message-dialog.componen
         MatMenuModule,
         MatDialogModule,
         MatPaginatorModule,
-        MessageDialogComponent
+        MessageDialogComponent,
+
+        NonFractionCurrencyOrDashPipe
     ],
     entryComponents: [
         MessageDialogComponent
