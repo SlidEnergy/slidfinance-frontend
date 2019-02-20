@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 
 import { map } from 'rxjs/operators';
 import * as moment from 'moment';
@@ -13,6 +13,8 @@ import { MatSnackBar, MatTableDataSource, MatSort } from '@angular/material';
 })
 export class CategoryStatisticComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
+  @Output() prevMonth = new EventEmitter();
+  @Output() nextMonth = new EventEmitter();
 
   categoryStatistic: CategoryStatistic[];
   categories: Map<number, Category>;

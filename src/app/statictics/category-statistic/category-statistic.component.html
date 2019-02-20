@@ -10,7 +10,11 @@
     </ng-container>
     <ng-container matColumnDef="month2">
         <mat-header-cell *matHeaderCellDef
-                         mat-sort-header> {{startDate.format('MMMM')}} </mat-header-cell>
+                         mat-sort-header>
+            <mat-icon aria-label="Edit"
+                      (click)="prevMonth.emit()">keyboard_arrow_left</mat-icon>
+            {{startDate.format('MMMM')}}
+        </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{getAmount(row, startDate) | currency : 'RUB' : 'symbol' : '1.2-2' : 'ru'}}
         </mat-cell>
     </ng-container>
@@ -23,7 +27,11 @@
     </ng-container>
     <ng-container matColumnDef="month0">
         <mat-header-cell *matHeaderCellDef
-                         mat-sort-header> {{startDate.clone().add(2, 'month').format('MMMM')}} </mat-header-cell>
+                         mat-sort-header>
+            {{startDate.clone().add(2, 'month').format('MMMM')}}
+            <mat-icon aria-label="Edit"
+                      (click)="nextMonth.emit()">keyboard_arrow_right</mat-icon>
+        </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{getAmount(row, startDate.clone().add(2, 'month')) | currency : 'RUB' :
             'symbol' : '1.2-2' : 'ru'}}
         </mat-cell>
