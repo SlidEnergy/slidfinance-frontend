@@ -22,14 +22,14 @@ export class CategoryStatisticPageComponent implements OnInit {
   }
 
   prevMonth() {
-    this.startDate.add(-1, 'month');
-    this.endDate.add(-1, 'month');
+    this.startDate.add(-1, 'month').startOf('month');
+    this.endDate.add(-1, 'month').endOf('month');
     this.update();
   }
 
   nextMonth() {
-    this.startDate.add(1, 'month');
-    this.endDate.add(1, 'month');
+    this.startDate.add(1, 'month').startOf('month');
+    this.endDate.add(1, 'month').endOf('month');
     this.update();
   }
 
