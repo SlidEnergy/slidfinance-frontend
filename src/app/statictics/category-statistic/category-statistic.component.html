@@ -6,7 +6,9 @@
     <ng-container matColumnDef="category">
         <mat-header-cell *matHeaderCellDef
                          mat-sort-header> Категория </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{getCategoryTitle(row.categoryId)}} </mat-cell>
+        <mat-cell *matCellDef="let row"> {{getCategoryTitle(row.categoryId)}} &nbsp;
+            <span class="average">({{row.averageAmount | currency : 'RUB' : 'symbol' : '1.0-0' : 'ru'}})</span>
+        </mat-cell>
     </ng-container>
     <ng-container matColumnDef="month2">
         <mat-header-cell *matHeaderCellDef
@@ -15,14 +17,14 @@
                       (click)="prevMonth.emit(); $event.stopPropagation();">keyboard_arrow_left</mat-icon>
             {{startDate.format('MMMM')}}
         </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{getAmount(row, startDate) | currency : 'RUB' : 'symbol' : '1.2-2' : 'ru'}}
+        <mat-cell *matCellDef="let row"> {{getAmount(row, startDate) | currency : 'RUB' : 'symbol' : '1.0-0' : 'ru'}}
         </mat-cell>
     </ng-container>
     <ng-container matColumnDef="month1">
         <mat-header-cell *matHeaderCellDef
                          mat-sort-header> {{startDate.clone().add(1, 'month').format('MMMM')}} </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{getAmount(row, startDate.clone().add(1, 'month')) | currency : 'RUB' :
-            'symbol' : '1.2-2' : 'ru'}}
+            'symbol' : '1.0-0' : 'ru'}}
         </mat-cell>
     </ng-container>
     <ng-container matColumnDef="month0">
@@ -33,7 +35,7 @@
                       (click)="nextMonth.emit(); $event.stopPropagation();">keyboard_arrow_right</mat-icon>
         </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{getAmount(row, startDate.clone().add(2, 'month')) | currency : 'RUB' :
-            'symbol' : '1.2-2' : 'ru'}}
+            'symbol' : '1.0-0' : 'ru'}}
         </mat-cell>
     </ng-container>
 
