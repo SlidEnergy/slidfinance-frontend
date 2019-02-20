@@ -34,15 +34,17 @@ export class CategoryStatisticComponent implements OnInit {
   columnsToDisplay = ['category', 'month2', 'month1', 'month0'];
   loadingVisible = true;
 
-  constructor(private categoriesService: CategoriesService) { }
+  constructor(private categoriesService: CategoriesService) {
+    this.categoriesService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [number, Category]))))
+    .subscribe(data => {
+      this.categories = data;
+      this.dataSource.sortingDataAccessor = this.sortingDataAccessor.bind(this);
+      this.dataSource.sort = this.sort;
+    });
+   }
 
   ngOnInit() {
-    this.categoriesService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [number, Category]))))
-      .subscribe(data => {
-        this.categories = data;
-        this.dataSource.sortingDataAccessor = this.sortingDataAccessor.bind(this);
-        this.dataSource.sort = this.sort;
-      });
+
   }
 
   sortingDataAccessor(item, property) {
