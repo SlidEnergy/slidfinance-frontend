@@ -9,6 +9,11 @@ import { AuthService } from './auth.service';
 import { AuthGuard } from './auth-guard.service';
 import { HeaderComponent } from './header/header.component';
 import { InitializationService } from './initialization.service';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { StoreModule } from '@ngrx/store';
+import { coreReducer } from './core.store';
+import { CoreEffects } from './core.effects';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
     imports: [
@@ -17,6 +22,11 @@ import { InitializationService } from './initialization.service';
 
         SharedModule,
         ApiModule.forRoot(apiConfigFactory),
+
+        // Сторонние компоненты
+        StoreRouterConnectingModule,
+		StoreModule.forRoot({ core: coreReducer }),
+		EffectsModule.forRoot([CoreEffects]),
     ],
     declarations: [
         HeaderComponent

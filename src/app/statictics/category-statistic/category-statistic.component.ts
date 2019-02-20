@@ -5,6 +5,8 @@ import * as moment from 'moment';
 
 import { Transaction, CategoriesService, Category, CategoryStatistic } from 'src/app/api';
 import { MatSnackBar, MatTableDataSource, MatSort } from '@angular/material';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/shared/app-state';
 
 @Component({
   selector: 'app-category-statistic',
@@ -34,17 +36,19 @@ export class CategoryStatisticComponent implements OnInit {
   columnsToDisplay = ['category', 'month2', 'month1', 'month0'];
   loadingVisible = true;
 
-  constructor(private categoriesService: CategoriesService) {
-    this.categoriesService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [number, Category]))))
-    .subscribe(data => {
-      this.categories = data;
-      this.dataSource.sortingDataAccessor = this.sortingDataAccessor.bind(this);
-      this.dataSource.sort = this.sort;
-    });
-   }
+  constructor(
+    private categoriesService: CategoriesService,
+    private store: Store<AppState>
+    ) { }
 
   ngOnInit() {
-
+    this.store.select(x=>x.core.categories).subscribe(data => {
+      if(data) {
+        this.categories = data;
+        this.dataSource.sortingDataAccessor = this.sortingDataAccessor.bind(this);
+        this.dataSource.sort = this.sort;
+      }
+    });
   }
 
   sortingDataAccessor(item, property) {
