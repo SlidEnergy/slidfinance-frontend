@@ -7,7 +7,7 @@
         <mat-header-cell *matHeaderCellDef
                          mat-sort-header> Категория </mat-header-cell>
         <mat-cell *matCellDef="let row">
-            {{getCategoryTitle(row.categoryId)}}
+            {{getCategoryTitle(row.categoryId) | async}}
             <span class="average"
                   *ngIf="row.averageAmount">&nbsp;({{row.averageAmount | currency : 'RUB' : 'symbol' : '1.0-0' : 'ru'}})</span>
         </mat-cell>

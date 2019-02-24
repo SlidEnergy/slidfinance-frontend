@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 import * as moment from 'moment';
 
 import { Transaction, CategoriesService, Category, CategoryStatistic } from 'src/app/api';
@@ -42,12 +42,10 @@ export class CategoryStatisticComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.store.select(x=>x.core.categories).subscribe(data => {
-      if(data) {
+    this.store.select(x=>x.core.categories).pipe(filter(x=>!!x)).subscribe(data => {
         this.categories = data;
         this.dataSource.sortingDataAccessor = this.sortingDataAccessor.bind(this);
         this.dataSource.sort = this.sort;
-      }
     });
   }
 
@@ -73,10 +71,7 @@ export class CategoryStatisticComponent implements OnInit {
   }
 
   getCategoryTitle(categoryId: number) {
-    if (!categoryId)
-      return "Без категории";
-
-    return this.categories && this.categories.get(categoryId).title;
+    return this.store.select(x=>x.core.categories).pipe(filter(x=>!!x), map(x=> x.get(categoryId).title));
   }
 
   getAmount(row: CategoryStatistic, date: moment.Moment) {
