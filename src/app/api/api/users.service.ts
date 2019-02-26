@@ -20,7 +20,7 @@ import { Configuration } from '../configuration';
 @Injectable()
 export class UsersService {
 
-    protected basePath = 'https://myfinance-server.herokuapp.com';
+    protected basePath = '';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
