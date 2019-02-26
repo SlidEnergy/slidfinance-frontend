@@ -10,7 +10,7 @@ import { MatProgressButtonOptions } from 'mat-progress-buttons';
   styleUrls: ['./registration-component.component.scss']
 })
 export class RegistrationComponentComponent implements OnInit {
-  model: { userName: string, email: string, password: string, confirmPassword: string } = { userName: '', email: '', password: '', confirmPassword: '' };
+  model: {email: string, password: string, confirmPassword: string } = {email: '', password: '', confirmPassword: '' };
 
   // показываем/скрываем пароль
   hide = true;
@@ -52,7 +52,7 @@ export class RegistrationComponentComponent implements OnInit {
     // показываем индикатор загрузки
     this.spinnerButtonOptions.active = true;
 
-    this.authService.register(this.model.userName, this.model.email, this.model.password, this.model.confirmPassword)
+    this.authService.register(this.model.email, this.model.password, this.model.confirmPassword)
       .subscribe(user => {
         // прячем индикатор загрузки
         this.spinnerButtonOptions.active = false;
@@ -77,12 +77,7 @@ export class RegistrationComponentComponent implements OnInit {
 
   validate(): boolean {
     // проверяем имя пользователя, email и пароль
-    if (!this.model.userName || this.model.userName.length <= 0) {
-      this.snackBar.open('Имя пользователя не задано.',
-        undefined, { duration: 5000, panelClass: ['background-red'] });
-      return false;
-    }
-
+    
     if (!this.model.email || this.model.email.length <= 0) {
       this.snackBar.open('Email не задан.',
         undefined, { duration: 5000, panelClass: ['background-red'] });
