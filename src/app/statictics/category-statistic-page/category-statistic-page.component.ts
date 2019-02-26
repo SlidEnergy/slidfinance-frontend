@@ -21,7 +21,19 @@ export class CategoryStatisticPageComponent implements OnInit {
     this.update();
   }
 
-  update() {    
+  prevMonth() {
+    this.startDate.add(-1, 'month').startOf('month');
+    this.endDate.add(-1, 'month').endOf('month');
+    this.update();
+  }
+
+  nextMonth() {
+    this.startDate.add(1, 'month').startOf('month');
+    this.endDate.add(1, 'month').endOf('month');
+    this.update();
+  }
+
+  update() {
     this.categoryStatistic = this.statisticsService.getCategoryStatistic(this.startDate.toDate(), this.endDate.toDate());
   }
 }

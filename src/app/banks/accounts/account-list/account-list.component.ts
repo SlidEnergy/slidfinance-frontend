@@ -6,6 +6,7 @@ import { EditAccountDialogComponent } from '../dialogs/edit-account-dialog/edit-
 import { Observable } from 'rxjs';
 import { filter, flatMap, map } from 'rxjs/operators';
 import { MessageDialogComponent } from 'src/app/shared/message-dialog/message-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-account-list',
@@ -33,7 +34,8 @@ export class AccountListComponent implements OnInit {
   columnsToDisplay = ['title', 'code', 'balance', 'creditLimit', 'actions'];
   loadingVisible = true;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(private dialog: MatDialog,
+    private router: Router) { }
 
   ngOnInit() {
     this.dataSource.sort = this.sort;
@@ -61,6 +63,10 @@ export class AccountListComponent implements OnInit {
         data.push(result);
         this.dataSource.data = data;
       });
+  }
+
+  addTramsaction(account: BankAccount) {
+    this.router.navigate(['banks', account.bankId, 'accounts', account.id, 'transactions','new']);
   }
 
   editItem(account: BankAccount) {

@@ -23,11 +23,11 @@ export class CategoriesPageComponent implements OnInit {
   addItem = (item: Category) => {
     return this.categoriesService.add(item).pipe(
       map((result) => {
-        this.snackBar.open('Банк привязан', undefined, { duration: 5000, panelClass: ['background-green'] });
+        this.snackBar.open('Категория добавлена', undefined, { duration: 5000, panelClass: ['background-green'] });
         return result;
       }),
       catchError(() => {
-        this.snackBar.open('Не удалось привязать банк', undefined, { duration: 5000, panelClass: ['background-red'] });
+        this.snackBar.open('Не удалось добавить категорию', undefined, { duration: 5000, panelClass: ['background-red'] });
         return of(false);
       }));
   }
@@ -35,11 +35,11 @@ export class CategoriesPageComponent implements OnInit {
   deleteItem = (item: Category) => {
     return this.categoriesService.delete(item.id).pipe(
       map(() => {
-        this.snackBar.open('Банк отвязан', undefined, { duration: 5000, panelClass: ['background-green'] });
+        this.snackBar.open('Категория удалена', undefined, { duration: 5000, panelClass: ['background-green'] });
         return true;
       }),
       catchError(() => {
-        this.snackBar.open('Не удалось отвязать банк', undefined, { duration: 5000, panelClass: ['background-red'] });
+        this.snackBar.open('Не удалось удалить категорию', undefined, { duration: 5000, panelClass: ['background-red'] });
         return of(false);
       }));
   }
@@ -47,11 +47,11 @@ export class CategoriesPageComponent implements OnInit {
   editItem = (item: Category) => {
     return this.categoriesService.update(item.id, item).pipe(
       map(() => {
-        this.snackBar.open('Банк переименован', undefined, { duration: 5000, panelClass: ['background-green'] });
+        this.snackBar.open('Категория обновлена', undefined, { duration: 5000, panelClass: ['background-green'] });
         return true;
       }),
       catchError(() => {
-        this.snackBar.open('Не удалось переименовать банк', undefined, { duration: 5000, panelClass: ['background-red'] });
+        this.snackBar.open('Не удалось обновить категорию', undefined, { duration: 5000, panelClass: ['background-red'] });
         return of(false);
       }));
   }

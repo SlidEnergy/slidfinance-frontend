@@ -38,6 +38,12 @@
 
     <mat-cell *matCellDef="let row; let i=index;">
       <button mat-icon-button
+          color="primary"
+          (click)="addTramsaction(row); $event.stopPropagation();">
+        <mat-icon aria-label="Add">money</mat-icon>
+      </button>
+
+      <button mat-icon-button
               color="accent"
               (click)="editItem(row); $event.stopPropagation();">
         <mat-icon aria-label="Edit">edit</mat-icon>
