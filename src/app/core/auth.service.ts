@@ -71,11 +71,11 @@ export class AuthService {
 		}));
 	}
 
-	// Имя пользователя, если он авторизован
-	public get userName(): Observable<string> {
+	// email пользователя, если он авторизован
+	public get email(): Observable<string> {
 		return this._currentUser.pipe(map((user) => {
 			if (user !== null) {
-				return user.userName;
+				return user.email;
 			}
 
 			return '';
@@ -85,7 +85,7 @@ export class AuthService {
 	// Получает информацию по пользователю, авторизованному в данным момент
 	public get() {
 		return this.usersService.getCurrentUser().pipe(
-			map((data: any) => new User(data.name, data.balance)),
+			map((data: any) => new User(data.id, data.email, data.bankIds, data.categoryIds)),
 			catchError(error => {
 				console.error(`Произошла ошибка. errorCode: ${error.code}, errorMessage: ${error.message}`);
 				return observableThrowError(error);
@@ -96,7 +96,7 @@ export class AuthService {
 	public login(email: string, password: string): Observable<User> {
 		return this.tokensService.createToken({ email, password }).pipe(
 			map((data: any) => {
-				const user = new User(data.userName, data.balance);
+				const user = new User(data.id, data.email, data.bankIds, data.categoryIds);
 
 				localStorage.setItem('auth', JSON.stringify(data));
 
@@ -111,14 +111,13 @@ export class AuthService {
 	}
 
 	// Регистрация/Создание нового пользователя
-	public register(userName: string, email: string, password: string, confirmPassword: string): Observable<User> {
-		return null;
-		// return this.usersService.register({ userName, email, password, confirmPassword }).pipe(
-		// 	map((data: any) => new User(data.userName, data.balance)),
-		// 	catchError(error => {
-		// 		console.error(`Произошла ошибка. errorCode: ${error.code}, errorMessage: ${error.message}`);
-		// 		return observableThrowError(error);
-		// 	}));
+	public register(email: string, password: string, confirmPassword: string): Observable<User> {
+		return this.usersService.register({ email, password, confirmPassword }).pipe(
+		map((data: any) => new User(data.id, data.email, data.bankIds, data.categoryIds)),
+		catchError(error => {
+		console.error(`Произошла ошибка. errorCode: ${error.code}, errorMessage: ${error.message}`);
+		return observableThrowError(error);
+		}));
 	}
 
 	// Выход/очистка токена
@@ -154,12 +153,19 @@ export class AuthService {
 	}
 }
 
-export class User {
-	public userName: string;
-	public balance: number;
 
-	constructor(userName: string, balance: number) {
-		this.userName = userName;
-		this.balance = balance;
+
+export class User {
+	public id: string;
+	public email: string;
+	public bankIds: Array<number>;
+	public categoryIds: Array<number>;
+
+
+	constructor(id: string, email: string, bankIds: Array<number>, categoryIds: Array<number>) {
+		this.id = id;
+		this.email = email;
+		this.bankIds = bankIds;
+		this.categoryIds = categoryIds;
 	}
 }
