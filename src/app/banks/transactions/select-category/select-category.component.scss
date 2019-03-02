@@ -1,11 +1,5 @@
-.container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-
-}
-
 .category-card {
-    border: 1px solid gray;
+    border-bottom: 1px solid lightgray;
 }
 .mat-button {
     width: 100%;
