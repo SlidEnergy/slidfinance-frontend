@@ -1,6 +1,6 @@
 
 
-export interface UserBindingModel {
+export interface LoginBindingModel {
     email: string;
     password: string;
 }

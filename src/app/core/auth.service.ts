@@ -3,7 +3,6 @@ import { throwError as observableThrowError, Observable, ReplaySubject } from 'r
 import { Injectable } from '@angular/core';
 
 import { catchError, map } from 'rxjs/operators';
-import { TokensService } from '../api/api/tokens.service';
 import { UsersService } from '../api/api/users.service';
 
 import { MatSnackBar } from '@angular/material';
@@ -15,7 +14,6 @@ export class AuthService {
 	private _currentUser: ReplaySubject<User | null> = new ReplaySubject<User | null>(1);
 
 	constructor(
-		private tokensService: TokensService,
 		private usersService: UsersService,
 		private snackBar: MatSnackBar
 	) {
@@ -94,7 +92,7 @@ export class AuthService {
 
 	// Вход/получение токена
 	public login(email: string, password: string): Observable<User> {
-		return this.tokensService.createToken({ email, password }).pipe(
+		return this.usersService.login({ email, password }).pipe(
 			map((data: any) => {
 				const user = new User(data.id, data.email, data.bankIds, data.categoryIds);
 
@@ -113,11 +111,11 @@ export class AuthService {
 	// Регистрация/Создание нового пользователя
 	public register(email: string, password: string, confirmPassword: string): Observable<User> {
 		return this.usersService.register({ email, password, confirmPassword }).pipe(
-		map((data: any) => new User(data.id, data.email, data.bankIds, data.categoryIds)),
-		catchError(error => {
-		console.error(`Произошла ошибка. errorCode: ${error.code}, errorMessage: ${error.message}`);
-		return observableThrowError(error);
-		}));
+			map((data: any) => new User(data.id, data.email, data.bankIds, data.categoryIds)),
+			catchError(error => {
+				console.error(`Произошла ошибка. errorCode: ${error.code}, errorMessage: ${error.message}`);
+				return observableThrowError(error);
+			}));
 	}
 
 	// Выход/очистка токена
