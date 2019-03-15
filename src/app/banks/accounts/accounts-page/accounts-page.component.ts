@@ -52,9 +52,9 @@ export class AccountsPageComponent implements OnInit {
 
   editItem = (item: BankAccount) => {
     return this.accountService.update(item.id, item).pipe(
-      map(() => {
+      map((result) => {
         this.snackBar.open('Счет изменен', undefined, { duration: 5000, panelClass: ['background-green'] });
-        return true;
+        return result;
       }),
       catchError(() => {
         this.snackBar.open('Не удалось изменить счет', undefined, { duration: 5000, panelClass: ['background-red'] });

@@ -16,8 +16,8 @@ export class TransactionsEditableListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   @Input() itemDeleting: (item: Transaction) => Observable<boolean>;
-  @Input() itemApproving: (item: Transaction) => Observable<boolean>;
-  
+  @Input() itemApproving: (item: Transaction) => Observable<Transaction>;
+
   categories: Map<number, Category>;
   accounts: Map<number, BankAccount>;
 
@@ -119,7 +119,7 @@ export class TransactionsEditableListComponent implements OnInit {
   }
 
   approve(item: Transaction) {
-    this.itemApproving(item).pipe(filter(x => x), map(x => item))
+    this.itemApproving(item).pipe(filter(x => !!x))
       .subscribe((result) => {
         this.dataSource.data = this.dataSource.data.map((value) => value.id == result.id ? result : value);
       });
@@ -130,9 +130,9 @@ export class TransactionsEditableListComponent implements OnInit {
       data: { caption: 'Вы уверены что хотите удалить транзакцию?', text: item.description }
     });
 
-    dialogRef.afterClosed().pipe(filter(x => x), flatMap(() => this.itemDeleting(item).pipe(filter(x => x), map(x => item))))
-      .subscribe((result) => {
-        this.dataSource.data = this.dataSource.data.filter((value) => value.id != result.id);
+    dialogRef.afterClosed().pipe(filter(x => x), flatMap(() => this.itemDeleting(item).pipe(filter(x => x))))
+      .subscribe(() => {
+        this.dataSource.data = this.dataSource.data.filter((value) => value.id != item.id);
       });
   }
 }

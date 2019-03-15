@@ -46,9 +46,9 @@ export class CategoriesPageComponent implements OnInit {
 
   editItem = (item: Category) => {
     return this.categoriesService.update(item.id, item).pipe(
-      map(() => {
+      map((result) => {
         this.snackBar.open('Категория обновлена', undefined, { duration: 5000, panelClass: ['background-green'] });
-        return true;
+        return result;
       }),
       catchError(() => {
         this.snackBar.open('Не удалось обновить категорию', undefined, { duration: 5000, panelClass: ['background-red'] });

@@ -18,7 +18,7 @@ export class AccountListComponent implements OnInit {
 
   @Input() itemAdding: (item: BankAccount) => Observable<any>;
   @Input() itemDeleting: (item: BankAccount) => Observable<boolean>;
-  @Input() itemChanging: (item: BankAccount) => Observable<boolean>;
+  @Input() itemChanging: (item: BankAccount) => Observable<BankAccount>;
 
   // список транзакций пользователя
   dataSource = new MatTableDataSource<BankAccount>();
@@ -66,7 +66,7 @@ export class AccountListComponent implements OnInit {
   }
 
   addTramsaction(account: BankAccount) {
-    this.router.navigate(['banks', account.bankId, 'accounts', account.id, 'transactions','new']);
+    this.router.navigate(['banks', account.bankId, 'accounts', account.id, 'transactions', 'new']);
   }
 
   editItem(account: BankAccount) {
@@ -74,7 +74,7 @@ export class AccountListComponent implements OnInit {
       data: { ...account }
     });
 
-    dialogRef.afterClosed().pipe(filter(x => x), flatMap(result => this.itemChanging(result).pipe(filter(x => x), map(x => result))))
+    dialogRef.afterClosed().pipe(filter(x => x), flatMap(result => this.itemChanging(result).pipe(filter(x => !!x))))
       .subscribe((result) => {
         this.dataSource.data = this.dataSource.data.map((value) => value.id == result.id ? result : value);
       });
@@ -85,9 +85,9 @@ export class AccountListComponent implements OnInit {
       data: { caption: 'Вы уверены что хотите отвязать счет?', text: item.title }
     });
 
-    dialogRef.afterClosed().pipe(filter(x => x), flatMap(() => this.itemDeleting(item).pipe(filter(x => x), map(x => item))))
-      .subscribe((result) => {
-        this.dataSource.data = this.dataSource.data.filter((value) => value.id != result.id);
+    dialogRef.afterClosed().pipe(filter(x => x), flatMap(() => this.itemDeleting(item).pipe(filter(x => x))))
+      .subscribe(() => {
+        this.dataSource.data = this.dataSource.data.filter((value) => value.id != item.id);
       });
   }
 }
