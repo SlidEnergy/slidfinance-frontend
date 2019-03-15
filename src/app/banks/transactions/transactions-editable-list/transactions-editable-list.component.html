@@ -3,25 +3,27 @@
            (keyup)="applyFilter($event.target.value)"
            placeholder="Filter">
 </mat-form-field>
-<mat-table
-       [dataSource]="dataSource"
-       matSort
-       matSortActive="dateTime"
-       matSortDirection="desc">
+<mat-table [dataSource]="dataSource"
+           matSort
+           matSortActive="dateTime"
+           matSortDirection="desc">
     <ng-container matColumnDef="account">
         <mat-header-cell *matHeaderCellDef
                          mat-sort-header> Аккаунт </mat-header-cell>
-        <mat-cell *matCellDef="let row" data-label="Аккаунт">{{getAccountTitle(row.accountId)}} </mat-cell>
+        <mat-cell *matCellDef="let row"
+                  data-label="Аккаунт">{{getAccountTitle(row.accountId)}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="dateTime">
         <mat-header-cell *matHeaderCellDef
                          mat-sort-header> Дата и время </mat-header-cell>
-        <mat-cell *matCellDef="let row" data-label="Дата и время">{{row.dateTime | date: 'dd.MM.yyyy'}} </mat-cell>
+        <mat-cell *matCellDef="let row"
+                  data-label="Дата и время">{{row.dateTime | date: 'dd.MM.yyyy'}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="category">
         <mat-header-cell *matHeaderCellDef
                          mat-sort-header> Категория </mat-header-cell>
-        <mat-cell *matCellDef="let row" data-label="Категория">
+        <mat-cell *matCellDef="let row"
+                  data-label="Категория">
             <mat-select [(value)]="row.categoryId"
                         (selectionChange)="category_Changed(row)"
                         placeholder="Нет категории">
@@ -36,27 +38,34 @@
     <ng-container matColumnDef="mcc">
         <mat-header-cell *matHeaderCellDef
                          mat-sort-header> МСС </mat-header-cell>
-        <mat-cell *matCellDef="let row" data-label="МСС">{{row.mcc}} </mat-cell>
+        <mat-cell *matCellDef="let row"
+                  data-label="МСС">{{row.mcc}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="bankCategory">
         <mat-header-cell *matHeaderCellDef
                          mat-sort-header> Категория банка </mat-header-cell>
-        <mat-cell *matCellDef="let row" data-label="Категория банка">{{row.bankCategory}} </mat-cell>
+        <mat-cell *matCellDef="let row"
+                  data-label="Категория банка">{{row.bankCategory}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="description">
         <mat-header-cell *matHeaderCellDef
                          mat-sort-header> Описание </mat-header-cell>
-        <mat-cell *matCellDef="let row" data-label="Описание">{{row.description}} </mat-cell>
+        <mat-cell *matCellDef="let row"
+                  data-label="Описание">{{row.description}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="income">
         <mat-header-cell *matHeaderCellDef
                          mat-sort-header> Приход </mat-header-cell>
-        <mat-cell *matCellDef="let row" data-label="Приход"> {{ row.amount > 0 ? (row.amount | currency : 'RUB' : 'symbol' : '1.2-2' : 'ru') : ''}} </mat-cell>
+        <mat-cell *matCellDef="let row"
+                  data-label="Приход">
+            {{ row.amount > 0 ? (row.amount | currency : 'RUB' : 'symbol' : '1.2-2' : 'ru') : ''}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="outcome">
         <mat-header-cell *matHeaderCellDef
                          mat-sort-header> Расход </mat-header-cell>
-        <mat-cell *matCellDef="let row" data-label="Расход"> {{ row.amount < 0 ? (row.amount | currency : 'RUB' : 'symbol' : '1.2-2' : 'ru') : ''}} </mat-cell>
+        <mat-cell *matCellDef="let row"
+                  data-label="Расход">
+            {{ row.amount < 0 ? (row.amount | currency : 'RUB' : 'symbol' : '1.2-2' : 'ru') : ''}} </mat-cell>
     </ng-container>
     <!-- actions -->
     <ng-container matColumnDef="actions">
@@ -78,7 +87,8 @@
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: columnsToDisplay" [class.not-approved]="row.approved === false"></mat-row>
+    <mat-row *matRowDef="let row; columns: columnsToDisplay"
+             [class.not-approved]="row.approved === false"></mat-row>
 </mat-table>
 <mat-card *ngIf="loadingVisible"
           style="display: flex; justify-content: center; align-items: center">
