@@ -26,8 +26,15 @@ mat-header-cell.mat-column-outcome {
   margin-left: 20px;
   margin-right: 20px;
 }
-
-
+.mat-cell.mat-column-income {
+  font-weight: 500;
+  color: rgb(29, 102, 29);
+}
+.mat-cell.mat-column-outcome {
+  font-weight: 500;
+  color: rgb(153, 50, 50);
+}
+  
 @media screen and (max-width: 960px) {
   .mat-table {
     border: 0;
