@@ -2,23 +2,32 @@
   <div class="datetime">{{dateTime | date: 'dd.MM.yyyy'}}</div>
   <div class="amount">
     <div class="amount-item-center">{{(amount || 0) | currency : 'RUB' : 'symbol' : '1.0' : 'ru'}}</div>
-    <button class="amount-item-right" mat-icon-button
-      color="primary"
-      (click)="amount=amount.slice(0, -1)">
+    <button class="amount-item-right"
+            mat-icon-button
+            color="primary"
+            (click)="amount=amount.slice(0, -1)">
       <mat-icon aria-label="Delete">backspace</mat-icon>
     </button>
   </div>
   <div class="description">
     <mat-form-field color="accent">
-      <input type="text" matInput placeholder="Описание" [(value)]="description">
+      <input type="text"
+             matInput
+             placeholder="Описание"
+             [(ngModel)]="description">
     </mat-form-field>
   </div>
   <div class="numbers">
-    <button class="number" mat-button *ngFor="let number of [1,2,3,4,5,6,7,8,9,0]" (click)="amount=amount+number">{{number}}</button>
+    <button class="number"
+            mat-button
+            *ngFor="let number of [1,2,3,4,5,6,7,8,9,0]"
+            (click)="amount=amount+number">{{number}}</button>
 
   </div>
   <div class="actions">
-    <button mat-button (click)="income()">Доход</button>
-    <button mat-button (click)="outcome()">Расход</button>
+    <button mat-button
+            (click)="income()">Доход</button>
+    <button mat-button
+            (click)="outcome()">Расход</button>
   </div>
 </div>

@@ -21,7 +21,7 @@ export class AddTransactionComponent implements OnInit {
     private transactions: TransactionsService,
     private route: ActivatedRoute,
     private snackBar: MatSnackBar
-    ) { }
+  ) { }
 
   ngOnInit() {
   }
@@ -33,9 +33,9 @@ export class AddTransactionComponent implements OnInit {
   outcome() {
     this.add(-1 * +this.amount);
   }
-  
+
   add(amount: number) {
-    if(amount == 0) {
+    if (amount == 0) {
       this.snackBar.open('Введите сумму', undefined, { duration: 5000, panelClass: ['background-blue'] });
       return;
     }
