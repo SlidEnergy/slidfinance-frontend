@@ -90,6 +90,8 @@
     <mat-row *matRowDef="let row; columns: columnsToDisplay"
              [class.not-approved]="row.approved === false"></mat-row>
 </mat-table>
+<mat-paginator [pageSizeOptions]="[5, 10, 20]"
+               showFirstLastButtons></mat-paginator>
 <mat-card *ngIf="loadingVisible"
           style="display: flex; justify-content: center; align-items: center">
     <mat-progress-spinner color="primary"

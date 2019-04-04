@@ -3,7 +3,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { map, filter, flatMap } from 'rxjs/operators';
 
 import { Transaction, CategoriesService, Category, TransactionsService, AccountsService, BankAccount } from 'src/app/api';
-import { MatSnackBar, MatTableDataSource, MatSort, MatDialog } from '@angular/material';
+import { MatSnackBar, MatTableDataSource, MatSort, MatDialog, MatPaginator } from '@angular/material';
 import { Observable } from 'rxjs';
 import { MessageDialogComponent } from 'src/app/shared/message-dialog/message-dialog.component';
 
@@ -14,6 +14,7 @@ import { MessageDialogComponent } from 'src/app/shared/message-dialog/message-di
 })
 export class TransactionsEditableListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   @Input() itemDeleting: (item: Transaction) => Observable<boolean>;
   @Input() itemApproving: (item: Transaction) => Observable<Transaction>;
@@ -49,6 +50,7 @@ export class TransactionsEditableListComponent implements OnInit {
     this.dataSource.sort = this.sort;
     this.dataSource.sortingDataAccessor = this.sortingDataAccessor.bind(this);
     this.dataSource.filterPredicate = this.filterPredicate.bind(this);
+    this.dataSource.paginator = this.paginator;
   }
 
   sortingDataAccessor(transaction, property) {
