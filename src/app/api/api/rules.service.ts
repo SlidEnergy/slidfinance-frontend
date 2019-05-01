@@ -245,7 +245,6 @@ export class RulesService {
 
         // to determine the Content-Type header
         let consumes: string[] = [
-            'application/json-patch+json',
             'application/json',
             'text/json',
             'application/_*+json'
