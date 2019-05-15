@@ -1,6 +1,7 @@
 
 
-export interface AddRuleBindingModel {
+export interface EditRuleBindingModel {
+    id?: number;
     accountId?: number;
     categoryId?: number;
     description?: string;

@@ -21,11 +21,11 @@ export class TransactionsPageComponent implements OnInit {
   }
 
   update() {
-    this.transactions = this.transactionsService.getTransactions();
+    this.transactions = this.transactionsService.getList();
   }
 
   deleteItem = (item: Transaction) => {
-    return this.transactionsService.deleteTransaction(item.id).pipe(
+    return this.transactionsService.delete(item.id).pipe(
       map(() => {
         this.snackBar.open('Транзакция удалена', undefined, { duration: 5000, panelClass: ['background-green'] });
         return true;
@@ -37,7 +37,7 @@ export class TransactionsPageComponent implements OnInit {
   }
 
   approveItem = (item: Transaction) => {
-    return this.transactionsService.patchTransaction(item.id, [{op: 'replace', path: '/approved', value: true }]).pipe(
+    return this.transactionsService.patch(item.id, [{ op: 'replace', path: '/approved', value: true }]).pipe(
       map((result) => {
         this.snackBar.open('Транзакция подтверждена', undefined, { duration: 5000, panelClass: ['background-green'] });
         return result;

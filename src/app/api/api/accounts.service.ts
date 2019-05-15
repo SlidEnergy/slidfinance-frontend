@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 import { AddBankAccountBindingModel } from '../model/addBankAccountBindingModel';
 import { BankAccount } from '../model/bankAccount';
 import { EditBankAccountBindingModel } from '../model/editBankAccountBindingModel';
-import { PatchAccountDataBindingModel } from '../model/patchAccountDataBindingModel';
+import { Operation } from '../model/operation';
 import { ProblemDetails } from '../model/problemDetails';
 
 import { BASE_PATH, COLLECTION_FORMATS } from '../variables';
@@ -225,17 +225,17 @@ export class AccountsService {
     /**
      * 
      * 
-     * @param code 
-     * @param accountData 
+     * @param id 
+     * @param patchDoc 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public patchAccountData(code: string, accountData?: PatchAccountDataBindingModel, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public patchAccountData(code: string, accountData?: PatchAccountDataBindingModel, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public patchAccountData(code: string, accountData?: PatchAccountDataBindingModel, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public patchAccountData(code: string, accountData?: PatchAccountDataBindingModel, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
-        if (code === null || code === undefined) {
-            throw new Error('Required parameter code was null or undefined when calling patchAccountData.');
+    public patchAccount(id: number, patchDoc?: Array<Operation>, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public patchAccount(id: number, patchDoc?: Array<Operation>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public patchAccount(id: number, patchDoc?: Array<Operation>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public patchAccount(id: number, patchDoc?: Array<Operation>, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling patchAccount.');
         }
 
         let headers = this.defaultHeaders;
@@ -276,8 +276,8 @@ export class AccountsService {
             headers = headers.set("Content-Type", httpContentTypeSelected);
         }
 
-        return this.httpClient.patch<any>(`${this.basePath}/api/v1/Accounts/${encodeURIComponent(String(code))}`,
-            accountData,
+        return this.httpClient.patch<any>(`${this.basePath}/api/v1/Accounts/${encodeURIComponent(String(id))}`,
+            patchDoc,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -295,9 +295,9 @@ export class AccountsService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public update(id: number, account?: EditBankAccountBindingModel, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public update(id: number, account?: EditBankAccountBindingModel, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public update(id: number, account?: EditBankAccountBindingModel, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public update(id: number, account?: EditBankAccountBindingModel, observe?: 'body', reportProgress?: boolean): Observable<BankAccount>;
+    public update(id: number, account?: EditBankAccountBindingModel, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<BankAccount>>;
+    public update(id: number, account?: EditBankAccountBindingModel, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<BankAccount>>;
     public update(id: number, account?: EditBankAccountBindingModel, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling update.');
@@ -320,6 +320,9 @@ export class AccountsService {
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
         ];
         let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected != undefined) {
@@ -338,7 +341,7 @@ export class AccountsService {
             headers = headers.set("Content-Type", httpContentTypeSelected);
         }
 
-        return this.httpClient.put<any>(`${this.basePath}/api/v1/Accounts/${encodeURIComponent(String(id))}`,
+        return this.httpClient.put<BankAccount>(`${this.basePath}/api/v1/Accounts/${encodeURIComponent(String(id))}`,
             account,
             {
                 withCredentials: this.configuration.withCredentials,

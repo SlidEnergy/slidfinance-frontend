@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GeneratedRule, RulesService, Rule } from 'src/app/api';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material';
-import {AddRuleDialogComponent} from '../dialogs/add-rule/add-rule-dialog.component';
+import { AddRuleDialogComponent } from '../dialogs/add-rule/add-rule-dialog.component';
 
 @Component({
   selector: 'app-rules-page',
@@ -19,10 +19,10 @@ export class RulesPageComponent implements OnInit {
 
   ngOnInit() {
     this.generatedRules = this.rulesService.getGeneratedRules();
-    this.rules = this.rulesService.getRule();
+    this.rules = this.rulesService.getList();
   }
 
-  addGeneratedRule_Click(e: {rule: GeneratedRule, categoryId: number}) {
+  addGeneratedRule_Click(e: { rule: GeneratedRule, categoryId: number }) {
     this.addNew({
       categoryId: e.categoryId,
       accountId: e.rule.accountId,

@@ -29,7 +29,7 @@ export class DeleteRuleDialogComponent implements OnInit {
   }
 
   confirmDelete(): void {
-    this.rulesService.deleteRule(this.data.id)
+    this.rulesService.delete(this.data.id)
       .subscribe(() => {
         this.snackBar.open('Правило удалено', undefined, { duration: 5000, panelClass: ['background-green'] });
       }, () => {

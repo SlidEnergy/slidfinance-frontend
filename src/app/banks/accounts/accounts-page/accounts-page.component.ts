@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountsService, BankAccount } from 'src/app/api';
+import { AccountsService, BankAccount, EditBankAccountBindingModel } from 'src/app/api';
 import { Observable, of } from 'rxjs';
 import { MatSnackBar } from '@angular/material';
 import { map, catchError } from 'rxjs/operators';

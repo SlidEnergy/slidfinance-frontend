@@ -96,7 +96,7 @@ export class TransactionsEditableListComponent implements OnInit {
   }
 
   category_Changed(transaction: Transaction) {
-    this.transactionsService.patchTransaction(transaction.id, [{ 'op': 'replace', 'path': '/categoryId', 'value': transaction.categoryId }])
+    this.transactionsService.patch(transaction.id, [{ 'op': 'replace', 'path': '/categoryId', 'value': transaction.categoryId }])
       .subscribe(() => {
         this.snackBar.open('Категория изменена', undefined, { duration: 5000, panelClass: ['background-green'] });
       }, () => {

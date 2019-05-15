@@ -51,7 +51,7 @@ export class AddRuleDialogComponent implements OnInit {
   }
 
   public confirmAdd(): void {
-    this.rulesService.postRule(this.data)
+    this.rulesService.add(this.data)
       .subscribe(() => {
         this.snackBar.open('Правило добавлено', undefined, { duration: 5000, panelClass: ['background-green'] });
       }, () => {
