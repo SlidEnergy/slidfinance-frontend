@@ -18,6 +18,7 @@ export class TransactionsEditableListComponent implements OnInit {
 
   @Input() itemDeleting: (item: Transaction) => Observable<boolean>;
   @Input() itemApproving: (item: Transaction) => Observable<Transaction>;
+  @Input() itemCategoryChanging: (item: Transaction) => Observable<Transaction>;
 
   categories: Map<number, Category>;
   accounts: Map<number, BankAccount>;
@@ -96,13 +97,9 @@ export class TransactionsEditableListComponent implements OnInit {
   }
 
   category_Changed(transaction: Transaction) {
-    this.transactionsService.patch(transaction.id, [
-      { 'op': 'replace', 'path': '/categoryId', 'value': transaction.categoryId },
-      { 'op': 'replace', 'path': '/approved', 'value': true }])
-      .subscribe(() => {
-        this.snackBar.open('Категория изменена', undefined, { duration: 5000, panelClass: ['background-green'] });
-      }, () => {
-        this.snackBar.open('Не удалось изменить категорию', undefined, { duration: 5000, panelClass: ['background-red'] });
+    this.itemCategoryChanging(transaction).pipe(filter(x => !!x))
+      .subscribe((result) => {
+        this.dataSource.data = this.dataSource.data.map((value) => value.id == result.id ? result : value);
       });
   }
 

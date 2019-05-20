@@ -47,4 +47,18 @@ export class TransactionsPageComponent implements OnInit {
         return of(false);
       }));
   }
+
+  changeCategory = (item: Transaction) => {
+    return this.transactionsService.patch(item.id, [
+      { 'op': 'replace', 'path': '/categoryId', 'value': item.categoryId },
+      { 'op': 'replace', 'path': '/approved', 'value': true }]).pipe(
+        map((result: Transaction) => {
+          this.snackBar.open('Категория изменена', undefined, { duration: 5000, panelClass: ['background-green'] });
+          return result;
+        }),
+        catchError(() => {
+          this.snackBar.open('Не удалось изменить категорию', undefined, { duration: 5000, panelClass: ['background-red'] });
+          return of(false);
+        }));
+  }
 }
