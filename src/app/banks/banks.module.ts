@@ -26,6 +26,7 @@ import { AccountsPageComponent } from './accounts/accounts-page/accounts-page.co
 import { AddTransactionPageComponent } from './transactions/add-transaction-page/add-transaction-page.component';
 import { SelectCategoryComponent } from './transactions/select-category/select-category.component';
 import { AddTransactionComponent } from './transactions/add-transaction/add-transaction.component';
+import { DeleteCategoryDialogComponent } from './categories/dialogs/delete-category-dialog/delete-category-dialog.component';
 
 const routes: Routes = [
   { path: '', component: BanksPageComponent },
@@ -43,13 +44,13 @@ const routes: Routes = [
         redirectTo: 'new/select-category'
       },
       {
-				path: 'new/select-category',
-				component: SelectCategoryComponent
+        path: 'new/select-category',
+        component: SelectCategoryComponent
       },
       {
-				path: 'new/add-transaction',
-				component: AddTransactionComponent
-			}
+        path: 'new/add-transaction',
+        component: AddTransactionComponent
+      }
     ]
   },
   { path: 'transactions', component: TransactionsPageComponent },
@@ -75,6 +76,7 @@ const routes: Routes = [
 
     AddCategoryDialogComponent,
     EditCategoryDialogComponent,
+    DeleteCategoryDialogComponent,
 
     AddBankDialogComponent,
     EditBankDialogComponent,
@@ -99,6 +101,7 @@ const routes: Routes = [
 
     AddCategoryDialogComponent,
     EditCategoryDialogComponent,
+    DeleteCategoryDialogComponent,
 
     AddBankDialogComponent,
     EditBankDialogComponent,

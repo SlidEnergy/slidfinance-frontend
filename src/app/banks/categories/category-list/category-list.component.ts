@@ -6,6 +6,7 @@ import { AddCategoryDialogComponent } from '../dialogs/add-category-dialog/add-c
 import { filter, flatMap, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { MessageDialogComponent } from 'src/app/shared/message-dialog/message-dialog.component';
+import { DeleteCategoryDialogComponent } from '../dialogs/delete-category-dialog/delete-category-dialog.component';
 
 @Component({
   selector: 'app-category-list',
@@ -16,7 +17,7 @@ export class CategoryListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   @Input() itemAdding: (item: Category) => Observable<any>;
-  @Input() itemDeleting: (item: Category) => Observable<boolean>;
+  @Input() itemDeleting: (item: Category, moveCategoryId?: number) => Observable<boolean>;
   @Input() itemChanging: (item: Category) => Observable<Category>;
 
   @Input('categories') set generatedRulesInternal(value: Category[]) {
@@ -68,11 +69,11 @@ export class CategoryListComponent implements OnInit {
   }
 
   deleteItem(item: Category) {
-    const dialogRef = this.dialog.open(MessageDialogComponent, {
-      data: { caption: 'Вы уверены что хотите удалить категорию?', text: item.title }
+    const dialogRef = this.dialog.open(DeleteCategoryDialogComponent, {
+      data: { ...item }
     });
 
-    dialogRef.afterClosed().pipe(filter(x => x), flatMap(() => this.itemDeleting(item).pipe(filter(x => x))))
+    dialogRef.afterClosed().pipe(filter(x => x), flatMap((result) => this.itemDeleting(item, result.moveCategoryId).pipe(filter(x => x))))
       .subscribe(() => {
         this.dataSource.data = this.dataSource.data.filter((value) => value.id != item.id);
       });

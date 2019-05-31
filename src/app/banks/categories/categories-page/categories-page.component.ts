@@ -32,8 +32,8 @@ export class CategoriesPageComponent implements OnInit {
       }));
   }
 
-  deleteItem = (item: Category) => {
-    return this.categoriesService.delete(item.id).pipe(
+  deleteItem = (item: Category, moveCategoryId?: number) => {
+    return this.categoriesService.delete(item.id, moveCategoryId).pipe(
       map(() => {
         this.snackBar.open('Категория удалена', undefined, { duration: 5000, panelClass: ['background-green'] });
         return true;

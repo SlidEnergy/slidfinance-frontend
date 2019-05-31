@@ -51,15 +51,21 @@ export class CategoriesService {
      * 
      * 
      * @param id 
+     * @param moveCategoryId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public delete(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public delete(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public delete(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public delete(id: number, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    public delete(id: number, moveCategoryId?: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public delete(id: number, moveCategoryId?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public delete(id: number, moveCategoryId?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public delete(id: number, moveCategoryId?: number, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling _delete.');
+        }
+
+        let queryParameters = new HttpParams({ encoder: new CustomHttpUrlEncodingCodec() });
+        if (moveCategoryId !== undefined) {
+            queryParameters = queryParameters.set('moveCategoryId', <any>moveCategoryId);
         }
 
         let headers = this.defaultHeaders;
@@ -91,6 +97,7 @@ export class CategoriesService {
 
         return this.httpClient.delete<any>(`${this.basePath}/api/v1/Categories/${encodeURIComponent(String(id))}`,
             {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

@@ -1,0 +1,33 @@
+<div class="container">
+  <h3 mat-dialog-title>Вы уверены, что хотите удалить категорию?</h3>
+
+  <form class="mat-dialog-content"
+        #formControl="ngForm">
+
+    <div class="form">
+      {{data.title}}
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent"
+                      required>
+        <mat-select [(value)]="moveCategoryId"
+                    placeholder="Перенести транзакции в категорию">
+          <mat-option *ngFor="let category of getCategoriesArray()"
+                      [value]="category.id">
+            {{category.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div mat-dialog-actions>
+      <button mat-button
+              type="submit"
+              (click)="confirmDelete()">Да</button>
+      <button mat-button
+              [mat-dialog-close]
+              cdkFocusInitial>Нет</button>
+    </div>
+  </form>
+</div>
