@@ -168,13 +168,27 @@ export class TransactionsService {
     /**
      * 
      * 
+     * @param categoryId 
+     * @param startDate 
+     * @param endDate 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getList(observe?: 'body', reportProgress?: boolean): Observable<Array<Transaction>>;
-    public getList(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Transaction>>>;
-    public getList(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Transaction>>>;
-    public getList(observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+    public getList(categoryId?: number, startDate?: Date, endDate?: Date, observe?: 'body', reportProgress?: boolean): Observable<Array<Transaction>>;
+    public getList(categoryId?: number, startDate?: Date, endDate?: Date, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Transaction>>>;
+    public getList(categoryId?: number, startDate?: Date, endDate?: Date, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Transaction>>>;
+    public getList(categoryId?: number, startDate?: Date, endDate?: Date, observe: any = 'body', reportProgress: boolean = false): Observable<any> {
+
+        let queryParameters = new HttpParams({ encoder: new CustomHttpUrlEncodingCodec() });
+        if (categoryId !== undefined) {
+            queryParameters = queryParameters.set('categoryId', <any>categoryId);
+        }
+        if (startDate !== undefined) {
+            queryParameters = queryParameters.set('startDate', <any>startDate.toISOString());
+        }
+        if (endDate !== undefined) {
+            queryParameters = queryParameters.set('endDate', <any>endDate.toISOString());
+        }
 
         let headers = this.defaultHeaders;
 
@@ -208,6 +222,7 @@ export class TransactionsService {
 
         return this.httpClient.get<Array<Transaction>>(`${this.basePath}/api/v1/Transactions`,
             {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

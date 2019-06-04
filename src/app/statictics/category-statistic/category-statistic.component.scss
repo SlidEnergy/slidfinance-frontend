@@ -13,3 +13,17 @@ table {
 .average {
   color: gray;
 }
+.amount:empty::after {
+  content: '-';
+}
+.amount {
+  &:empty::after {
+    content: '-';
+  }
+
+  > span {
+    text-decoration: underline;
+    cursor: pointer;
+    color: rgb(0,0,238);
+  }
+}

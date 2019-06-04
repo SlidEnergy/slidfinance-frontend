@@ -3,10 +3,11 @@ import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angu
 import { map, filter } from 'rxjs/operators';
 import * as moment from 'moment';
 
-import { Transaction, CategoriesService, Category, CategoryStatistic } from 'src/app/api';
-import { MatSnackBar, MatTableDataSource, MatSort } from '@angular/material';
+import { Transaction, CategoriesService, Category, CategoryStatistic, TransactionsService } from 'src/app/api';
+import { MatDialog, MatTableDataSource, MatSort } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/shared/app-state';
+import { TransactionListDialogComponent } from '../dialogs/transaction-list-dialog/transaction-list-dialog.component';
 
 @Component({
   selector: 'app-category-statistic',
@@ -38,14 +39,16 @@ export class CategoryStatisticComponent implements OnInit {
 
   constructor(
     private categoriesService: CategoriesService,
-    private store: Store<AppState>
-    ) { }
+    private store: Store<AppState>,
+    private dialog: MatDialog,
+    private transactionsService: TransactionsService
+  ) { }
 
   ngOnInit() {
-    this.store.select(x=>x.core.categories).pipe(filter(x=>!!x)).subscribe(data => {
-        this.categories = data;
-        this.dataSource.sortingDataAccessor = this.sortingDataAccessor.bind(this);
-        this.dataSource.sort = this.sort;
+    this.store.select(x => x.core.categories).pipe(filter(x => !!x)).subscribe(data => {
+      this.categories = data;
+      this.dataSource.sortingDataAccessor = this.sortingDataAccessor.bind(this);
+      this.dataSource.sort = this.sort;
     });
   }
 
@@ -71,7 +74,7 @@ export class CategoryStatisticComponent implements OnInit {
   }
 
   getCategoryTitle(categoryId: number) {
-    return this.store.select(x=>x.core.categories).pipe(filter(x=>!!x), map(x=> x.get(categoryId).title));
+    return this.store.select(x => x.core.categories).pipe(filter(x => !!x), map(x => x.get(categoryId).title));
   }
 
   getAmount(row: CategoryStatistic, date: moment.Moment) {
@@ -84,5 +87,17 @@ export class CategoryStatisticComponent implements OnInit {
     }
 
     return '';
+  }
+
+  cell_Click(row: any, date: moment.Moment) {
+    this.openTransactionsDialog(row.categoryId, date.toDate(), date.clone().endOf('month').toDate());
+  }
+
+  async openTransactionsDialog(categoryId: number, startDate: Date, endDate: Date) {
+    var transactions = await this.transactionsService.getList(categoryId, startDate, endDate).toPromise();
+
+    const dialogRef = this.dialog.open(TransactionListDialogComponent, {
+      data: transactions
+    });
   }
 }

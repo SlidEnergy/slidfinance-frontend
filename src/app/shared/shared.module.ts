@@ -12,18 +12,23 @@ import {
 import { MatProgressButtonsModule } from 'mat-progress-buttons'
 import { MessageDialogComponent } from './message-dialog/message-dialog.component';
 import { NonFractionCurrencyOrDashPipe } from './non-fraction-currency-or-dash.pipe';
+import { TransactionsListComponent } from './transactions-list/transactions-list.component';
 
 @NgModule({
     declarations: [
         MessageDialogComponent,
         NonFractionCurrencyOrDashPipe,
+        TransactionsListComponent,
     ],
     imports: [
         CommonModule,
         FormsModule,
         RouterModule,
         MatDialogModule,
-        MatButtonModule
+        MatButtonModule,
+        MatTableModule,
+        MatProgressSpinnerModule,
+        MatCardModule,
     ],
     exports: [
         CommonModule,
@@ -55,6 +60,7 @@ import { NonFractionCurrencyOrDashPipe } from './non-fraction-currency-or-dash.p
         MatDialogModule,
         MatPaginatorModule,
         MessageDialogComponent,
+        TransactionsListComponent,
 
         NonFractionCurrencyOrDashPipe
     ],

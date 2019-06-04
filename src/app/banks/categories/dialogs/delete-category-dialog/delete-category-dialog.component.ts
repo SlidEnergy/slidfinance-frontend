@@ -22,12 +22,6 @@ export class DeleteCategoryDialogComponent implements OnInit {
 
   confirmDelete(): void {
     this.dialogRef.close({ moveCategoryId: this.moveCategoryId });
-    // this.categoriesService.delete(this.data.id, this.moveCategoryId)
-    //   .subscribe(() => {
-    //     this.snackBar.open('Категория удалена', undefined, { duration: 5000, panelClass: ['background-green'] });
-    //   }, () => {
-    //     this.snackBar.open('Не удалось удалить категорию', undefined, { duration: 5000, panelClass: ['background-red'] });
-    //   });
   }
 
   getCategoryTitle(categoryId: number) {

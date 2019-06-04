@@ -1,0 +1,9 @@
+<div class="container">
+  <h3 mat-dialog-title>Список трат</h3>
+  <form class="mat-dialog-content"
+        #formControl="ngForm">
+    <app-transactions-list [transactions]="data"
+                           [columns]="['account', 'dateTime', 'mcc', 'bankCategory', 'description', 'income', 'outcome']">
+    </app-transactions-list>
+  </form>
+</div>

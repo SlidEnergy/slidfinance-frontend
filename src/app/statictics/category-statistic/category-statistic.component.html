@@ -19,15 +19,19 @@
                       (click)="prevMonth.emit(); $event.stopPropagation();">keyboard_arrow_left</mat-icon>
             {{startDate.format('MMMM')}}
         </mat-header-cell>
-        <mat-cell *matCellDef="let row">
-            {{getAmount(row, startDate) | nonFractionCurrencyOrDash}}
+        <mat-cell *matCellDef="let row"
+                  class="amount">
+            <span *ngIf="getAmount(row, startDate.clone()); let value"
+                  (click)="cell_Click(row, startDate.clone())">{{value | nonFractionCurrencyOrDash}}</span>
         </mat-cell>
     </ng-container>
     <ng-container matColumnDef="month1">
         <mat-header-cell *matHeaderCellDef
                          mat-sort-header> {{startDate.clone().add(1, 'month').format('MMMM')}} </mat-header-cell>
-        <mat-cell *matCellDef="let row">
-            {{getAmount(row, startDate.clone().add(1, 'month')) | nonFractionCurrencyOrDash}}
+        <mat-cell *matCellDef="let row"
+                  class="amount">
+            <span *ngIf="getAmount(row, startDate.clone().add(1, 'month')); let value"
+                  (click)="cell_Click(row, startDate.clone().add(1, 'month'))">{{value | nonFractionCurrencyOrDash}}</span>
         </mat-cell>
     </ng-container>
     <ng-container matColumnDef="month0">
@@ -37,13 +41,15 @@
             <mat-icon aria-label="Edit"
                       (click)="nextMonth.emit(); $event.stopPropagation();">keyboard_arrow_right</mat-icon>
         </mat-header-cell>
-        <mat-cell *matCellDef="let row">
-            {{getAmount(row, startDate.clone().add(2, 'month')) | nonFractionCurrencyOrDash}}
+        <mat-cell *matCellDef="let row"
+                  class="amount">
+            <span *ngIf="getAmount(row, startDate.clone().add(2, 'month')); let value"
+                  (click)="cell_Click(row, startDate.clone().add(2, 'month'))">{{value | nonFractionCurrencyOrDash}}</span>
         </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
-    <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
+    <mat-row *matRowDef="let rowData; columns: columnsToDisplay"></mat-row>
 </table>
 <mat-card *ngIf="loadingVisible"
           style="display: flex; justify-content: center; align-items: center">
