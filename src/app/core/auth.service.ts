@@ -6,7 +6,7 @@ import { catchError, map } from 'rxjs/operators';
 import { UsersService } from '../api/api/users.service';
 
 import { MatSnackBar } from '@angular/material';
-import { User } from '../api';
+import { User, TokenService, TokenInfo } from '../api';
 
 @Injectable()
 export class AuthService {
@@ -16,8 +16,13 @@ export class AuthService {
 
 	constructor(
 		private usersService: UsersService,
-		private snackBar: MatSnackBar
+		private snackBar: MatSnackBar,
+		private tokenService: TokenService
 	) {
+		this.init();
+	}
+
+	async init() {
 		// Проверяем наличие токена
 		let token = AuthService.getAccessToken();
 
@@ -27,31 +32,55 @@ export class AuthService {
 			return;
 		}
 
-		// Обновляем информацию по текущему пользователю
-		this.get().subscribe(
-			(user) => {
-				this._currentUser.next(user);
-			},
-			(err) => {
-				// Если произошла ошибка, то отправляем пользователя на страницу входа
-				this._currentUser.next(null);
+		try {
+			// Обновляем информацию по текущему пользователю
+			let user = await this.get().toPromise();
+			this._currentUser.next(user);
+		} catch (err) {
+			if (err.status) {
+				// Ошибки связанная с сетью
+				if (err.status === 0) {
+					// Если произошла ошибка, то отправляем пользователя на страницу входа
+					this._currentUser.next(null);
 
-				if (err.status) {
-					// Ошибки связанная с сетью
-					if (err.status === 0) {
-						this.snackBar.open('Сервис недоступен, проверьте интернет соединение и повторите попытку.',
+					this.snackBar.open('Сервис недоступен, проверьте интернет соединение и повторите попытку.',
+						undefined, { duration: 5000, panelClass: ['background-red'] });
+				} else
+					// Необработанная ошибка
+					if (err.status === 500) {
+						// Если произошла ошибка, то отправляем пользователя на страницу входа
+						this._currentUser.next(null);
+
+						this.snackBar.open('Необработанная ошибка',
 							undefined, { duration: 5000, panelClass: ['background-red'] });
-					} else
-						// Необработанная ошибка
-						if (err.status === 500) {
-							this.snackBar.open('Необработанная ошибка',
-								undefined, { duration: 5000, panelClass: ['background-red'] });
-						} else {
-							this.snackBar.open(err.error.message,
-								undefined, { duration: 5000, panelClass: ['background-red'] });
+					} else if (err.status == 404) {
+						let refreshToken = AuthService.getRefreshToken();
+
+						if (!refreshToken) {
+							// Если refresh token'а нет, то отправляем пользователя на страницу входа
+							this._currentUser.next(null);
+							return;
 						}
-				}
-			});
+
+						try {
+							let a = 4 + 4;
+							let tokenInfo = await this.refreshToken(token, refreshToken).toPromise();
+							// Если получили новый токен, пробуем инициализировать сервис повторно.
+							if (tokenInfo && tokenInfo.token)
+								await this.init();
+						}
+						catch (err) {
+							this._currentUser.next(null);
+						}
+					} else {
+						// Если произошла ошибка, то отправляем пользователя на страницу входа
+						this._currentUser.next(null);
+
+						this.snackBar.open(err.error.message,
+							undefined, { duration: 5000, panelClass: ['background-red'] });
+					}
+			}
+		}
 	}
 
 	public refreshUserInfo() {
@@ -82,7 +111,7 @@ export class AuthService {
 	}
 
 	// Получает информацию по пользователю, авторизованному в данным момент
-	public get() {
+	private get() {
 		return this.usersService.getCurrentUser().pipe(
 			catchError(error => {
 				console.error(`Произошла ошибка. errorCode: ${error.code}, errorMessage: ${error.message}`);
@@ -93,7 +122,7 @@ export class AuthService {
 	// Вход/получение токена
 	public login(email: string, password: string): Observable<User> {
 		return this.usersService.login({ email, password }).pipe(
-			map((data: any) => {
+			map((data: TokenInfo) => {
 				const user = { email: data.email };
 
 				localStorage.setItem('auth', JSON.stringify(data));
@@ -123,6 +152,23 @@ export class AuthService {
 		localStorage.removeItem('auth');
 	}
 
+	private refreshToken(token: string, refreshToken: string) {
+		return this.tokenService.refresh(token, refreshToken).pipe(
+			map((data: TokenInfo) => {
+				const user = { email: data.email };
+
+				localStorage.setItem('auth', JSON.stringify(data));
+
+				this._currentUser.next(user);
+
+				return data;
+			}),
+			catchError(error => {
+				console.error(`Произошла ошибка. errorCode: ${error.code}, errorMessage: ${error.message}`);
+				return observableThrowError(error);
+			}));
+	}
+
 	// Получает токен из локального хранилища браузера
 	public static getAccessToken() {
 		let auth = localStorage.getItem('auth');
@@ -135,6 +181,22 @@ export class AuthService {
 
 		if (auth && auth['token'] && AuthService.validateAccessToken(auth['token']))
 			return auth['token'];
+		else
+			null;
+	}
+
+	// Получает токен из локального хранилища браузера
+	private static getRefreshToken() {
+		let auth = localStorage.getItem('auth');
+
+		try {
+			auth = auth && JSON.parse(auth);
+		} catch {
+			auth = null;
+		}
+
+		if (auth && auth['refreshToken'] && AuthService.validateAccessToken(auth['refreshToken']))
+			return auth['refreshToken'];
 		else
 			null;
 	}
