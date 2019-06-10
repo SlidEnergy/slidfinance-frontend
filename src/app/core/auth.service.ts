@@ -10,7 +10,7 @@ import { MatSnackBar } from '@angular/material';
 @Injectable()
 export class AuthService {
 
-	// Текущи пользователь, вошедший в систему
+	// Текущий пользователь, вошедший в систему
 	private _currentUser: ReplaySubject<User | null> = new ReplaySubject<User | null>(1);
 
 	constructor(
