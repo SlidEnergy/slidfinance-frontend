@@ -6,6 +6,7 @@ import { catchError, map } from 'rxjs/operators';
 import { UsersService } from '../api/api/users.service';
 
 import { MatSnackBar } from '@angular/material';
+import { User } from '../api';
 
 @Injectable()
 export class AuthService {
@@ -83,7 +84,6 @@ export class AuthService {
 	// Получает информацию по пользователю, авторизованному в данным момент
 	public get() {
 		return this.usersService.getCurrentUser().pipe(
-			map((data: any) => new User(data.id, data.email, data.bankIds, data.categoryIds)),
 			catchError(error => {
 				console.error(`Произошла ошибка. errorCode: ${error.code}, errorMessage: ${error.message}`);
 				return observableThrowError(error);
@@ -94,7 +94,7 @@ export class AuthService {
 	public login(email: string, password: string): Observable<User> {
 		return this.usersService.login({ email, password }).pipe(
 			map((data: any) => {
-				const user = new User(data.id, data.email, data.bankIds, data.categoryIds);
+				const user = { email: data.email };
 
 				localStorage.setItem('auth', JSON.stringify(data));
 
@@ -111,7 +111,6 @@ export class AuthService {
 	// Регистрация/Создание нового пользователя
 	public register(email: string, password: string, confirmPassword: string): Observable<User> {
 		return this.usersService.register({ email, password, confirmPassword }).pipe(
-			map((data: any) => new User(data.id, data.email, data.bankIds, data.categoryIds)),
 			catchError(error => {
 				console.error(`Произошла ошибка. errorCode: ${error.code}, errorMessage: ${error.message}`);
 				return observableThrowError(error);
@@ -148,22 +147,5 @@ export class AuthService {
 		// TODO: Добавить больше проверок
 
 		return true;
-	}
-}
-
-
-
-export class User {
-	public id: string;
-	public email: string;
-	public bankIds: Array<number>;
-	public categoryIds: Array<number>;
-
-
-	constructor(id: string, email: string, bankIds: Array<number>, categoryIds: Array<number>) {
-		this.id = id;
-		this.email = email;
-		this.bankIds = bankIds;
-		this.categoryIds = categoryIds;
 	}
 }
