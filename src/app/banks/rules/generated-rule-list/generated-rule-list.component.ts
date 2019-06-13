@@ -89,8 +89,8 @@ export class GeneratedRuleListComponent implements OnInit {
 
     dialogRef.afterClosed().pipe(filter(x => x), flatMap((result) => this.generatedItemAdding(result).pipe(filter(x => !!x))))
       .subscribe(() => {
-        this.dataSource.data = this.dataSource.data.filter(value => value.accountId != rule.accountId &&
-          value.bankCategory != rule.bankCategory && value.description != rule.description && value.mcc != rule.mcc);
+        this.dataSource.data = this.dataSource.data.filter(value => !(value.accountId == rule.accountId &&
+          value.bankCategory == rule.bankCategory && value.description == rule.description && value.mcc == rule.mcc));
       });
   }
 }
