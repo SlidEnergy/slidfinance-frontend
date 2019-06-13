@@ -1,7 +1,8 @@
 <div class="container">
   <h3 mat-dialog-title>Добавить новое правило</h3>
 
-  <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
+  <form class="mat-dialog-content"
+        #formControl="ngForm">
 
     <div class="form">
       <mat-form-field color="accent">
@@ -15,41 +16,54 @@
         </mat-select>
       </mat-form-field>
     </div>
-    
+
     <div class="form">
       <mat-form-field color="accent">
-        <input matInput placeholder="МСС" [(ngModel)]="data.mcc" name="mcc">
+        <input matInput
+               placeholder="МСС"
+               [(ngModel)]="data.mcc"
+               name="mcc">
       </mat-form-field>
     </div>
 
     <div class="form">
       <mat-form-field color="accent">
-        <input matInput placeholder="Категория банка" [(ngModel)]="data.bankCategory" name="bankCategory" >
+        <input matInput
+               placeholder="Категория банка"
+               [(ngModel)]="data.bankCategory"
+               name="bankCategory">
         <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
     </div>
 
     <div class="form">
       <mat-form-field color="accent">
-        <input matInput placeholder="Описание" [(ngModel)]="data.description" name="description">
+        <input matInput
+               placeholder="Описание"
+               [(ngModel)]="data.description"
+               name="description">
       </mat-form-field>
     </div>
 
     <div class="form">
-      <mat-form-field color="accent" required>
+      <mat-form-field color="accent"
+                      required>
         <mat-select [(value)]="data.categoryId"
-                        placeholder="Категория">
-                <mat-option *ngFor="let category of getCategoriesArray()"
-                            [value]="category.id">
-                    {{category.title}}
-                </mat-option>
-            </mat-select>
+                    placeholder="Категория">
+          <mat-option *ngFor="let category of getCategoriesArray()"
+                      [value]="category.id">
+            {{category.title}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </div>
 
     <div mat-dialog-actions>
-      <button mat-button [type]="submit" [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="confirmAdd()">Добавить</button>
-      <button mat-button (click)="onNoClick()" tabindex="-1">Отменить</button>
+      <button mat-button
+              [mat-dialog-close]="data">Добавить</button>
+      <button mat-button
+              [mat-dialog-close]
+              tabindex="-1">Отменить</button>
     </div>
   </form>
 </div>

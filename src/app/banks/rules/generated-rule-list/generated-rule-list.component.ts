@@ -1,7 +1,9 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
-import { MatSort, MatTableDataSource, MatSnackBar, MatPaginator } from '@angular/material';
+import { MatSort, MatTableDataSource, MatPaginator, MatDialog } from '@angular/material';
 import { Category, GeneratedRule, CategoriesService, AccountsService, BankAccount, Rule } from 'src/app/api';
-import { map } from 'rxjs/operators';
+import { map, filter, flatMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { AddRuleDialogComponent } from '../dialogs/add-rule/add-rule-dialog.component';
 
 @Component({
   selector: 'app-generated-rule-list',
@@ -18,7 +20,7 @@ export class GeneratedRuleListComponent implements OnInit {
       this.dataSource.data = value;
     }
   }
-  @Output() addClick = new EventEmitter<{ rule: GeneratedRule, categoryId: number }>();
+  @Input() generatedItemAdding: (item: Rule) => Observable<Rule>;
 
   categories: Map<number, Category>;
   accounts: Map<number, BankAccount>;
@@ -32,7 +34,7 @@ export class GeneratedRuleListComponent implements OnInit {
 
   constructor(
     private categoriesService: CategoriesService,
-    private snackBar: MatSnackBar,
+    public dialog: MatDialog,
     private accountsService: AccountsService) { }
 
   ngOnInit() {
@@ -81,6 +83,14 @@ export class GeneratedRuleListComponent implements OnInit {
   }
 
   addRule_click(rule: GeneratedRule, categoryId: number) {
-    this.addClick.emit({ rule, categoryId });
+    const dialogRef = this.dialog.open(AddRuleDialogComponent, {
+      data: { ...rule, categoryId }
+    });
+
+    dialogRef.afterClosed().pipe(filter(x => x), flatMap((result) => this.generatedItemAdding(result).pipe(filter(x => !!x))))
+      .subscribe(() => {
+        this.dataSource.data = this.dataSource.data.filter(value => value.accountId != rule.accountId &&
+          value.bankCategory != rule.bankCategory && value.description != rule.description && value.mcc != rule.mcc);
+      });
   }
 }

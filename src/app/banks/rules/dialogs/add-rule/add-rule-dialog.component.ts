@@ -1,4 +1,4 @@
-import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { RulesService, Rule, Category, CategoriesService, AccountsService, BankAccount } from 'src/app/api';
@@ -18,8 +18,7 @@ export class AddRuleDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: Rule,
     public rulesService: RulesService,
     private categoriesService: CategoriesService,
-    private accountsService: AccountsService,
-    private snackBar: MatSnackBar) { }
+    private accountsService: AccountsService) { }
 
   ngOnInit() {
     this.categoriesService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [number, Category])))).subscribe(data => this.categories = data);
@@ -40,22 +39,5 @@ export class AddRuleDialogComponent implements OnInit {
 
   getCategoriesArray() {
     return this.categories && Array.from(this.categories.values());
-  }
-
-  submit() {
-    // emppty stuff
-  }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-  public confirmAdd(): void {
-    this.rulesService.add(this.data)
-      .subscribe(() => {
-        this.snackBar.open('Правило добавлено', undefined, { duration: 5000, panelClass: ['background-green'] });
-      }, () => {
-        this.snackBar.open('Не удалось добавить правило', undefined, { duration: 5000, panelClass: ['background-red'] });
-      });
   }
 }

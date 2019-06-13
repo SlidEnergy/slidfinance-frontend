@@ -1,8 +1,12 @@
 <mat-toolbar>
     <span>Правила для категоризации</span>
 </mat-toolbar>
-<app-generated-rule-list [generatedRules]="generatedRules | async" (addClick)="addGeneratedRule_Click($event)"></app-generated-rule-list>
+<app-generated-rule-list [generatedRules]="generatedRules"
+                         [generatedItemAdding]="addItem"></app-generated-rule-list>
 <mat-toolbar>
     <span>Активные правила</span>
 </mat-toolbar>
-<app-rule-list [rules]="rules | async"></app-rule-list>
+<app-rule-list [rules]="rules"
+               [itemAdding]="addItem"
+               [itemDeleting]="deleteItem"
+               [itemChanging]="editItem"></app-rule-list>

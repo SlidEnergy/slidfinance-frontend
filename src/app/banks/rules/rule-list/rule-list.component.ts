@@ -1,9 +1,12 @@
-import { Component, OnInit, EventEmitter, Output, Input, ViewChild } from '@angular/core';
-import { MatSnackBar, MatTableDataSource, MatSort, MatDialog } from '@angular/material';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { AccountsService, CategoriesService, Rule, Category, BankAccount } from 'src/app/api';
-import { map } from 'rxjs/operators';
+import { map, filter, flatMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { AddRuleDialogComponent } from '../dialogs/add-rule/add-rule-dialog.component';
 import { DeleteRuleDialogComponent } from '../dialogs/delete-rule-dialog/delete-rule-dialog.component';
 import { EditRuleDialogComponent } from '../dialogs/edit-rule-dialog/edit-rule-dialog.component';
+import { MessageDialogComponent } from 'src/app/shared/message-dialog/message-dialog.component';
 
 @Component({
   selector: 'app-rule-list',
@@ -19,6 +22,9 @@ export class RuleListComponent implements OnInit {
       this.dataSource.data = value;
     }
   }
+  @Input() itemAdding: (item: Rule) => Observable<Rule>;
+  @Input() itemDeleting: (item: Rule) => Observable<boolean>;
+  @Input() itemChanging: (item: Rule) => Observable<Rule>;
 
   categories: Map<number, Category>;
   accounts: Map<number, BankAccount>;
@@ -32,7 +38,6 @@ export class RuleListComponent implements OnInit {
 
   constructor(
     private categoriesService: CategoriesService,
-    private snackBar: MatSnackBar,
     public dialog: MatDialog,
     private accountsService: AccountsService) { }
 
@@ -58,42 +63,37 @@ export class RuleListComponent implements OnInit {
     return category ? category.title : '';
   }
 
-  startEdit(i: number, rule: Rule) {
-    // this.id = id;
-    // // index row is used just for debugging proposes and can be removed
-    // this.index = i;
-    // console.log(this.index);
+  addNew() {
+    const dialogRef = this.dialog.open(AddRuleDialogComponent, {
+      data: {}
+    });
+
+    dialogRef.afterClosed().pipe(filter(x => x), flatMap((result) => this.itemAdding(result).pipe(filter(x => !!x))))
+      .subscribe((rule) => {
+        this.dataSource.data = this.dataSource.data.filter(value => value.accountId != rule.accountId &&
+          value.bankCategory != rule.bankCategory && value.description != rule.description && value.mcc != rule.mcc);
+      });
+  }
+
+  editItem(item: Rule) {
     const dialogRef = this.dialog.open(EditRuleDialogComponent, {
-      data: rule
+      data: { ...item }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === 1) {
-        // // When using an edit things are little different, firstly we find record inside DataService by id
-        // const foundIndex = this.exampleDatabase.dataChange.value.findIndex(x => x.id === this.id);
-        // // Then you update that record using data from dialogData (values you enetered)
-        // this.exampleDatabase.dataChange.value[foundIndex] = this.dataService.getDialogData();
-        // // And lastly refresh table
-        // this.refreshTable();
-      }
-    });
+    dialogRef.afterClosed().pipe(filter(x => x), flatMap(result => this.itemChanging(result).pipe(filter(x => !!x))))
+      .subscribe((result) => {
+        this.dataSource.data = this.dataSource.data.map((value) => value.id == result.id ? result : value);
+      });
   }
 
-  deleteItem(i: number, rule: Rule) {
-    // this.index = i;
-    // this.id = id;
+  deleteItem(item: Rule) {
     const dialogRef = this.dialog.open(DeleteRuleDialogComponent, {
-      data: rule
+      data: item
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === 1) {
-        // const foundIndex = this.exampleDatabase.dataChange.value.findIndex(x => x.id === this.id);
-        // // for delete we use splice in order to remove single object from DataService
-        // this.exampleDatabase.dataChange.value.splice(foundIndex, 1);
-        // this.refreshTable();
-      }
-    });
+    dialogRef.afterClosed().pipe(filter(x => x), flatMap(() => this.itemDeleting(item).pipe(filter(x => x))))
+      .subscribe(() => {
+        this.dataSource.data = this.dataSource.data.filter((value) => value.id != item.id);
+      });
   }
-
 }

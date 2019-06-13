@@ -47,9 +47,9 @@ export class BanksPageComponent implements OnInit {
 
   editItem = (item: Bank) => {
     return this.banksService.update(item.id, item).pipe(
-      map(() => {
+      map((result) => {
         this.snackBar.open('Банк переименован', undefined, { duration: 5000, panelClass: ['background-green'] });
-        return true;
+        return result;
       }),
       catchError(() => {
         this.snackBar.open('Не удалось переименовать банк', undefined, { duration: 5000, panelClass: ['background-red'] });

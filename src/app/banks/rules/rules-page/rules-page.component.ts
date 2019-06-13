@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { GeneratedRule, RulesService, Rule } from 'src/app/api';
-import { Observable } from 'rxjs';
-import { MatDialog } from '@angular/material';
-import { AddRuleDialogComponent } from '../dialogs/add-rule/add-rule-dialog.component';
+import { of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-rules-page',
@@ -10,41 +10,64 @@ import { AddRuleDialogComponent } from '../dialogs/add-rule/add-rule-dialog.comp
   styleUrls: ['./rules-page.component.scss']
 })
 export class RulesPageComponent implements OnInit {
-  generatedRules: Observable<GeneratedRule[]>;
-  rules: Observable<Rule[]>;
+  generatedRules: GeneratedRule[];
+  rules: Rule[];
 
   constructor(
     private rulesService: RulesService,
-    public dialog: MatDialog) { }
+    private snackBar: MatSnackBar,
+    private changeDetector: ChangeDetectorRef
+  ) { }
 
   ngOnInit() {
-    this.generatedRules = this.rulesService.getGeneratedRules();
-    this.rules = this.rulesService.getList();
+    this.init();
   }
 
-  addGeneratedRule_Click(e: { rule: GeneratedRule, categoryId: number }) {
-    this.addNew({
-      categoryId: e.categoryId,
-      accountId: e.rule.accountId,
-      bankCategory: e.rule.bankCategory,
-      description: e.rule.description,
-      mcc: e.rule.mcc
-    });
+  async init() {
+    this.generatedRules = await this.rulesService.getGeneratedRules().toPromise();
+    this.rules = await this.rulesService.getList().toPromise();
   }
 
-  addNew(rule: Rule) {
-    const dialogRef = this.dialog.open(AddRuleDialogComponent, {
-      data: rule
-    });
+  addItem = (item: Rule) => {
+    return this.rulesService.add(item).pipe(
+      map((result) => {
+        let rules = this.rules;
+        rules.push(result)
+        this.rules = null;
+        this.changeDetector.detectChanges();
+        this.rules = rules;
+        this.changeDetector.detectChanges();
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === 1) {
-        //this.rulesService.postRule
-        // After dialog is closed we're doing frontend updates
-        // For add we're just pushing a new row inside DataService
-        //this.exampleDatabase.dataChange.value.push(this.dataService.getDialogData());
-        //this.refreshTable();
-      }
-    });
+        this.snackBar.open('Правило добавлено', undefined, { duration: 5000, panelClass: ['background-green'] });
+        return result;
+      }),
+      catchError(() => {
+        this.snackBar.open('Не удалось добавить правило', undefined, { duration: 5000, panelClass: ['background-red'] });
+        return of(false);
+      }));
+  }
+
+  deleteItem = (item: Rule) => {
+    return this.rulesService.delete(item.id).pipe(
+      map(() => {
+        this.snackBar.open('Правило удалено', undefined, { duration: 5000, panelClass: ['background-green'] });
+        return true;
+      }),
+      catchError(() => {
+        this.snackBar.open('Не удалось удалить правило', undefined, { duration: 5000, panelClass: ['background-red'] });
+        return of(false);
+      }));
+  }
+
+  editItem = (item: Rule) => {
+    return this.rulesService.update(item.id, item).pipe(
+      map((result) => {
+        this.snackBar.open('Правило изменено', undefined, { duration: 5000, panelClass: ['background-green'] });
+        return result;
+      }),
+      catchError(() => {
+        this.snackBar.open('Не удалось изменть правило', undefined, { duration: 5000, panelClass: ['background-red'] });
+        return of(false);
+      }));
   }
 }
