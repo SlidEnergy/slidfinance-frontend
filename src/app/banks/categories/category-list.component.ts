@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { Category } from 'src/app/api';
 import { MatDialog, MatTableDataSource, MatSort } from '@angular/material';
-import { EditCategoryDialogComponent } from '../dialogs/edit-category-dialog/edit-category-dialog.component';
-import { AddCategoryDialogComponent } from '../dialogs/add-category-dialog/add-category-dialog.component';
+import { EditCategoryDialogComponent } from './dialogs/edit-category-dialog.component';
+import { AddCategoryDialogComponent } from './dialogs/add-category-dialog.component';
 import { filter, flatMap, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { MessageDialogComponent } from 'src/app/shared/message-dialog/message-dialog.component';
-import { DeleteCategoryDialogComponent } from '../dialogs/delete-category-dialog/delete-category-dialog.component';
+import { DeleteCategoryDialogComponent } from './dialogs/delete-category-dialog.component';
 
 @Component({
   selector: 'app-category-list',

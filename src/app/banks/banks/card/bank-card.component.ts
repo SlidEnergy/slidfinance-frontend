@@ -7,10 +7,10 @@ import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-accounts-page',
-  templateUrl: './accounts-page.component.html',
-  styleUrls: ['./accounts-page.component.scss']
+  templateUrl: './bank-card.component.html',
+  styleUrls: ['./bank-card.component.scss']
 })
-export class AccountsPageComponent implements OnInit {
+export class BankCardComponent implements OnInit {
   accounts: Observable<BankAccount[]>;
 
   constructor(

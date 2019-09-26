@@ -3,9 +3,9 @@ import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
 import { AccountsService, CategoriesService, Rule, Category, BankAccount } from 'src/app/api';
 import { map, filter, flatMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { AddRuleDialogComponent } from '../dialogs/add-rule/add-rule-dialog.component';
-import { DeleteRuleDialogComponent } from '../dialogs/delete-rule-dialog/delete-rule-dialog.component';
-import { EditRuleDialogComponent } from '../dialogs/edit-rule-dialog/edit-rule-dialog.component';
+import { AddRuleDialogComponent } from './dialogs/add-rule-dialog.component';
+import { DeleteRuleDialogComponent } from './dialogs/delete-rule-dialog.component';
+import { EditRuleDialogComponent } from './dialogs/edit-rule-dialog.component';
 import { MessageDialogComponent } from 'src/app/shared/message-dialog/message-dialog.component';
 
 @Component({

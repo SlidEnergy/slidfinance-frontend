@@ -7,7 +7,7 @@ import { Transaction, CategoriesService, Category, CategoryStatistic, Transactio
 import { MatDialog, MatTableDataSource, MatSort } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/shared/app-state';
-import { TransactionListDialogComponent } from '../dialogs/transaction-list-dialog/transaction-list-dialog.component';
+import { TransactionListDialogComponent } from './transaction-list-dialog.component';
 
 @Component({
   selector: 'app-category-statistic',

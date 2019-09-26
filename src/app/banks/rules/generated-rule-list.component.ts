@@ -1,9 +1,9 @@
-import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { MatSort, MatTableDataSource, MatPaginator, MatDialog } from '@angular/material';
 import { Category, GeneratedRule, CategoriesService, AccountsService, BankAccount, Rule } from 'src/app/api';
 import { map, filter, flatMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { AddRuleDialogComponent } from '../dialogs/add-rule/add-rule-dialog.component';
+import { AddRuleDialogComponent } from './dialogs/add-rule-dialog.component';
 
 @Component({
   selector: 'app-generated-rule-list',

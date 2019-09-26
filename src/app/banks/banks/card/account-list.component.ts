@@ -1,29 +1,29 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { Bank } from 'src/app/api';
+import { BankAccount } from 'src/app/api';
 import { MatTableDataSource, MatDialog, MatSort } from '@angular/material';
-import { AddBankDialogComponent } from '../dialogs/add-bank-dialog/add-bank-dialog.component';
-import { EditBankDialogComponent } from '../dialogs/edit-bank-dialog/edit-bank-dialog.component';
+import { AddAccountDialogComponent } from './dialogs/add-account-dialog.component';
+import { EditAccountDialogComponent } from './dialogs/edit-account-dialog.component';
 import { Observable } from 'rxjs';
 import { filter, flatMap, map } from 'rxjs/operators';
-import { Router } from '@angular/router';
 import { MessageDialogComponent } from 'src/app/shared/message-dialog/message-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-bank-list',
-  templateUrl: './bank-list.component.html',
-  styleUrls: ['./bank-list.component.scss']
+  selector: 'app-account-list',
+  templateUrl: './account-list.component.html',
+  styleUrls: ['./account-list.component.scss']
 })
-export class BankListComponent implements OnInit {
+export class AccountListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
-  @Input() itemAdding: (item: Bank) => Observable<any>;
-  @Input() itemDeleting: (item: Bank) => Observable<boolean>;
-  @Input() itemChanging: (item: Bank) => Observable<Bank>;
+  @Input() itemAdding: (item: BankAccount) => Observable<any>;
+  @Input() itemDeleting: (item: BankAccount) => Observable<boolean>;
+  @Input() itemChanging: (item: BankAccount) => Observable<BankAccount>;
 
   // список транзакций пользователя
-  dataSource = new MatTableDataSource<Bank>();
+  dataSource = new MatTableDataSource<BankAccount>();
 
-  @Input('banks') set transactionsInput(value: Bank[]) {
+  @Input('banks') set transactionsInput(value: BankAccount[]) {
     if (value) {
       this.loadingVisible = false;
       this.dataSource.data = value;
@@ -31,35 +31,29 @@ export class BankListComponent implements OnInit {
   }
 
   // Список колонок, которые нужно показать в таблице
-  columnsToDisplay = ['title', 'ownFunds', 'actions'];
+  columnsToDisplay = ['title', 'code', 'balance', 'creditLimit', 'actions'];
   loadingVisible = true;
 
-  constructor(
-    public dialog: MatDialog,
-    private router: Router
-  ) { }
+  constructor(private dialog: MatDialog,
+    private router: Router) { }
 
   ngOnInit() {
     this.dataSource.sort = this.sort;
     this.dataSource.sortingDataAccessor = this.sortingDataAccessor.bind(this);
   }
 
-  sortingDataAccessor(bank: Bank, property: string) {
+  sortingDataAccessor(account: BankAccount, property: string) {
     switch (property) {
       case 'title': {
-        return bank.title.toLowerCase();
+        return account.title.toLowerCase();
       }
 
-      default: return bank[property];
+      default: return account[property];
     }
   }
 
-  row_click(row: Bank) {
-    this.router.navigate(['banks', row.id, 'accounts']);
-  }
-
   addNew() {
-    const dialogRef = this.dialog.open(AddBankDialogComponent, {
+    const dialogRef = this.dialog.open(AddAccountDialogComponent, {
       data: {}
     });
 
@@ -71,9 +65,13 @@ export class BankListComponent implements OnInit {
       });
   }
 
-  editItem(bank: Bank) {
-    const dialogRef = this.dialog.open(EditBankDialogComponent, {
-      data: { ...bank }
+  addTramsaction(account: BankAccount) {
+    this.router.navigate(['banks', account.bankId, 'accounts', account.id, 'transactions', 'new']);
+  }
+
+  editItem(account: BankAccount) {
+    const dialogRef = this.dialog.open(EditAccountDialogComponent, {
+      data: { ...account }
     });
 
     dialogRef.afterClosed().pipe(filter(x => x), flatMap(result => this.itemChanging(result).pipe(filter(x => !!x))))
@@ -82,18 +80,14 @@ export class BankListComponent implements OnInit {
       });
   }
 
-  deleteItem(item: Bank) {
+  deleteItem(item: BankAccount) {
     const dialogRef = this.dialog.open(MessageDialogComponent, {
-      data: { caption: 'Вы уверены что хотите отвязать банк?', text: item.title }
+      data: { caption: 'Вы уверены что хотите отвязать счет?', text: item.title }
     });
 
     dialogRef.afterClosed().pipe(filter(x => x), flatMap(() => this.itemDeleting(item).pipe(filter(x => x))))
       .subscribe(() => {
         this.dataSource.data = this.dataSource.data.filter((value) => value.id != item.id);
       });
-  }
-
-  getTotalOwnFunds() {
-    return this.dataSource.data.map(b => b.ownFunds).reduce((acc, value) => acc + value, 0);
   }
 }

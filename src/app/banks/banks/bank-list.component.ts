@@ -1,29 +1,29 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { BankAccount } from 'src/app/api';
+import { Bank } from 'src/app/api';
 import { MatTableDataSource, MatDialog, MatSort } from '@angular/material';
-import { AddAccountDialogComponent } from '../dialogs/add-account-dialog/add-account-dialog.component';
-import { EditAccountDialogComponent } from '../dialogs/edit-account-dialog/edit-account-dialog.component';
+import { AddBankDialogComponent } from './dialogs/add-bank-dialog.component';
+import { EditBankDialogComponent } from './dialogs/edit-bank-dialog.component';
 import { Observable } from 'rxjs';
 import { filter, flatMap, map } from 'rxjs/operators';
-import { MessageDialogComponent } from 'src/app/shared/message-dialog/message-dialog.component';
 import { Router } from '@angular/router';
+import { MessageDialogComponent } from 'src/app/shared/message-dialog/message-dialog.component';
 
 @Component({
-  selector: 'app-account-list',
-  templateUrl: './account-list.component.html',
-  styleUrls: ['./account-list.component.scss']
+  selector: 'app-bank-list',
+  templateUrl: './bank-list.component.html',
+  styleUrls: ['./bank-list.component.scss']
 })
-export class AccountListComponent implements OnInit {
+export class BankListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
-  @Input() itemAdding: (item: BankAccount) => Observable<any>;
-  @Input() itemDeleting: (item: BankAccount) => Observable<boolean>;
-  @Input() itemChanging: (item: BankAccount) => Observable<BankAccount>;
+  @Input() itemAdding: (item: Bank) => Observable<any>;
+  @Input() itemDeleting: (item: Bank) => Observable<boolean>;
+  @Input() itemChanging: (item: Bank) => Observable<Bank>;
 
   // список транзакций пользователя
-  dataSource = new MatTableDataSource<BankAccount>();
+  dataSource = new MatTableDataSource<Bank>();
 
-  @Input('banks') set transactionsInput(value: BankAccount[]) {
+  @Input('banks') set transactionsInput(value: Bank[]) {
     if (value) {
       this.loadingVisible = false;
       this.dataSource.data = value;
@@ -31,29 +31,35 @@ export class AccountListComponent implements OnInit {
   }
 
   // Список колонок, которые нужно показать в таблице
-  columnsToDisplay = ['title', 'code', 'balance', 'creditLimit', 'actions'];
+  columnsToDisplay = ['title', 'ownFunds', 'actions'];
   loadingVisible = true;
 
-  constructor(private dialog: MatDialog,
-    private router: Router) { }
+  constructor(
+    public dialog: MatDialog,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.dataSource.sort = this.sort;
     this.dataSource.sortingDataAccessor = this.sortingDataAccessor.bind(this);
   }
 
-  sortingDataAccessor(account: BankAccount, property: string) {
+  sortingDataAccessor(bank: Bank, property: string) {
     switch (property) {
       case 'title': {
-        return account.title.toLowerCase();
+        return bank.title.toLowerCase();
       }
 
-      default: return account[property];
+      default: return bank[property];
     }
   }
 
+  row_click(row: Bank) {
+    this.router.navigate(['banks', row.id, 'accounts']);
+  }
+
   addNew() {
-    const dialogRef = this.dialog.open(AddAccountDialogComponent, {
+    const dialogRef = this.dialog.open(AddBankDialogComponent, {
       data: {}
     });
 
@@ -65,13 +71,9 @@ export class AccountListComponent implements OnInit {
       });
   }
 
-  addTramsaction(account: BankAccount) {
-    this.router.navigate(['banks', account.bankId, 'accounts', account.id, 'transactions', 'new']);
-  }
-
-  editItem(account: BankAccount) {
-    const dialogRef = this.dialog.open(EditAccountDialogComponent, {
-      data: { ...account }
+  editItem(bank: Bank) {
+    const dialogRef = this.dialog.open(EditBankDialogComponent, {
+      data: { ...bank }
     });
 
     dialogRef.afterClosed().pipe(filter(x => x), flatMap(result => this.itemChanging(result).pipe(filter(x => !!x))))
@@ -80,14 +82,18 @@ export class AccountListComponent implements OnInit {
       });
   }
 
-  deleteItem(item: BankAccount) {
+  deleteItem(item: Bank) {
     const dialogRef = this.dialog.open(MessageDialogComponent, {
-      data: { caption: 'Вы уверены что хотите отвязать счет?', text: item.title }
+      data: { caption: 'Вы уверены что хотите отвязать банк?', text: item.title }
     });
 
     dialogRef.afterClosed().pipe(filter(x => x), flatMap(() => this.itemDeleting(item).pipe(filter(x => x))))
       .subscribe(() => {
         this.dataSource.data = this.dataSource.data.filter((value) => value.id != item.id);
       });
+  }
+
+  getTotalOwnFunds() {
+    return this.dataSource.data.map(b => b.ownFunds).reduce((acc, value) => acc + value, 0);
   }
 }

@@ -1,31 +1,31 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {SharedModule} from '../shared/shared.module';
-import {TransactionsPageComponent} from './transactions/transactions-page/transactions-page.component';
-import {TransactionsEditableListComponent} from './transactions/transactions-editable-list/transactions-editable-list.component';
+import {TransactionsPageComponent} from './transactions/transactions-page.component';
+import {TransactionsEditableListComponent} from './transactions/editable-list/transactions-editable-list.component';
 import {Routes, RouterModule} from '@angular/router';
-import {BanksPageComponent} from './banks/banks-page/banks-page.component';
-import {BankListComponent} from './banks/bank-list/bank-list.component';
-import {RulesPageComponent} from './rules/rules-page/rules-page.component';
-import {RuleListComponent} from './rules/rule-list/rule-list.component';
-import {GeneratedRuleListComponent} from './rules/generated-rule-list/generated-rule-list.component';
-import {AddRuleDialogComponent} from './rules/dialogs/add-rule/add-rule-dialog.component';
-import {DeleteRuleDialogComponent} from './rules/dialogs/delete-rule-dialog/delete-rule-dialog.component';
-import {EditRuleDialogComponent} from './rules/dialogs/edit-rule-dialog/edit-rule-dialog.component';
-import {CategoriesPageComponent} from './categories/categories-page/categories-page.component';
-import {CategoryListComponent} from './categories/category-list/category-list.component';
-import {AddCategoryDialogComponent} from './categories/dialogs/add-category-dialog/add-category-dialog.component';
-import {EditCategoryDialogComponent} from './categories/dialogs/edit-category-dialog/edit-category-dialog.component';
-import {AddBankDialogComponent} from './banks/dialogs/add-bank-dialog/add-bank-dialog.component';
-import {EditBankDialogComponent} from './banks/dialogs/edit-bank-dialog/edit-bank-dialog.component';
-import {AddAccountDialogComponent} from './accounts/dialogs/add-account-dialog/add-account-dialog.component';
-import {EditAccountDialogComponent} from './accounts/dialogs/edit-account-dialog/edit-account-dialog.component';
-import {AccountListComponent} from './accounts/account-list/account-list.component';
-import {AccountsPageComponent} from './accounts/accounts-page/accounts-page.component';
-import {AddTransactionPageComponent} from './transactions/add-transaction-page/add-transaction-page.component';
-import {SelectCategoryComponent} from './transactions/select-category/select-category.component';
+import {BanksPageComponent} from './banks/banks-page.component';
+import {BankListComponent} from './banks/bank-list.component';
+import {RulesPageComponent} from './rules/rules-page.component';
+import {RuleListComponent} from './rules/rule-list.component';
+import {GeneratedRuleListComponent} from './rules/generated-rule-list.component';
+import {AddRuleDialogComponent} from './rules/dialogs/add-rule-dialog.component';
+import {DeleteRuleDialogComponent} from './rules/dialogs/delete-rule-dialog.component';
+import {EditRuleDialogComponent} from './rules/dialogs/edit-rule-dialog.component';
+import {CategoriesPageComponent} from './categories/categories-page.component';
+import {CategoryListComponent} from './categories/category-list.component';
+import {AddCategoryDialogComponent} from './categories/dialogs/add-category-dialog.component';
+import {EditCategoryDialogComponent} from './categories/dialogs/edit-category-dialog.component';
+import {AddBankDialogComponent} from './banks/dialogs/add-bank-dialog.component';
+import {EditBankDialogComponent} from './banks/dialogs/edit-bank-dialog.component';
+import {AddAccountDialogComponent} from './banks/card/dialogs/add-account-dialog.component';
+import {EditAccountDialogComponent} from './banks/card/dialogs/edit-account-dialog.component';
+import {AccountListComponent} from './banks/card/account-list.component';
+import {BankCardComponent} from './banks/card/bank-card.component';
+import {AddTransactionPageComponent} from './transactions/add-transaction/add-transaction-page.component';
+import {SelectCategoryComponent} from './transactions/add-transaction/select-category.component';
 import {AddTransactionComponent} from './transactions/add-transaction/add-transaction.component';
-import {DeleteCategoryDialogComponent} from './categories/dialogs/delete-category-dialog/delete-category-dialog.component';
+import {DeleteCategoryDialogComponent} from './categories/dialogs/delete-category-dialog.component';
 
 const routes: Routes = [
   {
@@ -34,7 +34,7 @@ const routes: Routes = [
     children: [
       {
         path: ':id/accounts',
-        component: AccountsPageComponent
+        component: BankCardComponent
       }
     ]
   },
@@ -89,7 +89,7 @@ const routes: Routes = [
     EditBankDialogComponent,
 
     AccountListComponent,
-    AccountsPageComponent,
+    BankCardComponent,
     AddAccountDialogComponent,
     EditAccountDialogComponent,
     AddTransactionPageComponent,
