@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountsService, BankAccount, EditBankAccountBindingModel } from 'src/app/api';
+import { AccountsService, BankAccount } from 'src/app/api';
 import { Observable, of } from 'rxjs';
 import { MatSnackBar } from '@angular/material';
-import { map, catchError } from 'rxjs/operators';
+import {map, catchError, filter, switchMap} from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -12,7 +12,6 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AccountsPageComponent implements OnInit {
   accounts: Observable<BankAccount[]>;
-  bankId: number;
 
   constructor(
     private accountService: AccountsService,
@@ -21,13 +20,15 @@ export class AccountsPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.bankId = +this.route.snapshot.params['id'];
-
-    this.accounts = this.accountService.getList(this.bankId);
+    this.accounts = this.route.params.pipe(
+      map(params => +params['id']),
+      filter(x=>Boolean(x)),
+      switchMap(id => this.accountService.getList((id)))
+    );
   }
 
   addItem = (item: BankAccount) => {
-    return this.accountService.add({ bankId: this.bankId, ...item }).pipe(
+    return this.accountService.add({ bankId: item.balance, ...item }).pipe(
       map((result) => {
         this.snackBar.open('Счет привязан', undefined, { duration: 5000, panelClass: ['background-green'] });
         return result;

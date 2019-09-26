@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { BanksService, Bank } from 'src/app/api';
 import { Observable, of } from 'rxjs';
 import { MatSnackBar } from '@angular/material';
-import { map, catchError } from 'rxjs/operators';
+import {map, catchError, filter, startWith} from 'rxjs/operators';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 
 @Component({
   selector: 'app-banks-page',
@@ -11,11 +12,20 @@ import { map, catchError } from 'rxjs/operators';
 })
 export class BanksPageComponent implements OnInit {
   banks: Observable<Bank[]>;
+  isBankSelected: Observable<boolean>;
 
   constructor(
+    private router: Router,
     private banksService: BanksService,
     private snackBar: MatSnackBar
-  ) { }
+  ) {
+    this.isBankSelected = this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+      map(event => event as NavigationEnd),
+      startWith({url: this.router.url}),
+      map(event => event.url != '/banks')
+    );
+  }
 
   ngOnInit() {
     this.banks = this.banksService.getList();

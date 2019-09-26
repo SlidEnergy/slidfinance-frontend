@@ -9,3 +9,58 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .background-green{
   background-color: rgb(29, 102, 29);
 }
+
+$break-small: 576px;
+$break-medium: 768px;
+$break-large: 992px;
+$break-extra-large: 1200px;
+
+$z-index-card-level: 1000;
+
+@mixin media-to($media) {
+  @if $media == xs {
+    @media only screen and (max-width: $break-small - 0.02) { @content; }
+  }
+  @else if $media == sm {
+    @media only screen and (min-width: $break-small) and (max-width: $break-medium - 0.02) { @content; }
+  }
+  @else if $media == md {
+    @media only screen and (min-width: $break-medium) and (max-width: $break-large - 0.02) { @content; }
+  }
+  @else if $media == lg {
+    @media only screen and (min-width: $break-large) and (max-width: $break-extra-large - 0.02) { @content; }
+  }
+  @else if $media == xl {
+    @media only screen and (min-width: $break-extra-large) { @content; }
+  }
+}
+
+@mixin media-up($media) {
+  @if $media == sm {
+    @media only screen and (min-width: $break-small) { @content; }
+  }
+  @else if $media == md {
+    @media only screen and (min-width: $break-medium) { @content; }
+  }
+  @else if $media == lg {
+    @media only screen and (min-width: $break-large) { @content; }
+  }
+  @else if $media == xl {
+    @media only screen and (min-width: $break-extra-large) { @content; }
+  }
+}
+
+@mixin media-down($media) {
+  @if $media == xs {
+    @media only screen and (max-width: $break-small - 0.02) { @content; }
+  }
+  @else if $media == sm {
+    @media only screen and (max-width: $break-medium - 0.02) { @content; }
+  }
+  @else if $media == md {
+    @media only screen and  (max-width: $break-large - 0.02) { @content; }
+  }
+  @else if $media == lg {
+    @media only screen and (max-width: $break-extra-large - 0.02) { @content; }
+  }
+}

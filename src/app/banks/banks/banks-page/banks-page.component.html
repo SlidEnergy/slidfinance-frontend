@@ -1,4 +1,11 @@
-<app-bank-list [banks]="banks | async"
-               [itemAdding]="addItem"
-               [itemDeleting]="deleteItem"
-               [itemChanging]="editItem"></app-bank-list>
+<as-split unit="percent" direction="horizontal">
+  <as-split-area size="50" minSize="30">
+    <app-bank-list [banks]="banks | async"
+                   [itemAdding]="addItem"
+                   [itemDeleting]="deleteItem"
+                   [itemChanging]="editItem"></app-bank-list>
+  </as-split-area>
+  <as-split-area size="50" minSize="30" [visible]="isBankSelected | async">
+    <router-outlet></router-outlet>
+  </as-split-area>
+</as-split>
