@@ -44,7 +44,7 @@ export class BanksPageComponent implements OnInit {
   }
 
   deleteItem = (item: Bank) => {
-    return this.banksService.delete(item.id).pipe(
+    return this.banksService._delete(item.id).pipe(
       map((result) => {
         this.snackBar.open('Банк отвязан', undefined, { duration: 5000, panelClass: ['background-green'] });
         return true;

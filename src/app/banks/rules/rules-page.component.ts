@@ -48,7 +48,7 @@ export class RulesPageComponent implements OnInit {
   }
 
   deleteItem = (item: Rule) => {
-    return this.rulesService.delete(item.id).pipe(
+    return this.rulesService._delete(item.id).pipe(
       map(() => {
         this.snackBar.open('Правило удалено', undefined, { duration: 5000, panelClass: ['background-green'] });
         return true;

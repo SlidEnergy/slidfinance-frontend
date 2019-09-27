@@ -121,7 +121,7 @@ export class AuthService {
 
 	// Вход/получение токена
 	public login(email: string, password: string): Observable<User> {
-		return this.usersService.login({ email, password }).pipe(
+		return this.usersService.getToken({ email, password }).pipe(
 			map((data: TokenInfo) => {
 				const user = { email: data.email };
 
@@ -153,7 +153,7 @@ export class AuthService {
 	}
 
 	private refreshToken(token: string, refreshToken: string) {
-		return this.tokenService.refresh(token, refreshToken).pipe(
+		return this.tokenService.refresh({ token, refreshToken }).pipe(
 			map((data: TokenInfo) => {
 				const user = { email: data.email };
 

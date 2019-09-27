@@ -25,7 +25,7 @@ export class TransactionsPageComponent implements OnInit {
   }
 
   deleteItem = (item: Transaction) => {
-    return this.transactionsService.delete(item.id).pipe(
+    return this.transactionsService._delete(item.id).pipe(
       map(() => {
         this.snackBar.open('Транзакция удалена', undefined, { duration: 5000, panelClass: ['background-green'] });
         return true;

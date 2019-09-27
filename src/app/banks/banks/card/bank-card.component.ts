@@ -40,7 +40,7 @@ export class BankCardComponent implements OnInit {
   }
 
   deleteItem = (item: BankAccount) => {
-    return this.accountService.delete(item.id).pipe(
+    return this.accountService._delete(item.id).pipe(
       map(() => {
         this.snackBar.open('Счет отвязан', undefined, { duration: 5000, panelClass: ['background-green'] });
         return true;
