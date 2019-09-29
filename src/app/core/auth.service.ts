@@ -53,7 +53,7 @@ export class AuthService {
 
 						this.snackBar.open('Необработанная ошибка',
 							undefined, { duration: 5000, panelClass: ['background-red'] });
-					} else if (err.status == 404) {
+					} else if (err.status == 401) {
 						let refreshToken = AuthService.getRefreshToken();
 
 						if (!refreshToken) {
