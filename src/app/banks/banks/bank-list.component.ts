@@ -14,7 +14,7 @@ import { MessageDialogComponent } from 'src/app/shared/message-dialog/message-di
   styleUrls: ['./bank-list.component.scss']
 })
 export class BankListComponent implements OnInit {
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   @Input() itemAdding: (item: Bank) => Observable<any>;
   @Input() itemDeleting: (item: Bank) => Observable<boolean>;

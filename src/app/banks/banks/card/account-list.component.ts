@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./account-list.component.scss']
 })
 export class AccountListComponent implements OnInit {
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   @Input() itemAdding: (item: BankAccount) => Observable<any>;
   @Input() itemDeleting: (item: BankAccount) => Observable<boolean>;

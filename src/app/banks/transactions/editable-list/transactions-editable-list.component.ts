@@ -13,8 +13,8 @@ import { MessageDialogComponent } from 'src/app/shared/message-dialog/message-di
   styleUrls: ['./transactions-editable-list.component.scss']
 })
 export class TransactionsEditableListComponent implements OnInit {
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   @Input() itemDeleting: (item: Transaction) => Observable<boolean>;
   @Input() itemApproving: (item: Transaction) => Observable<Transaction>;

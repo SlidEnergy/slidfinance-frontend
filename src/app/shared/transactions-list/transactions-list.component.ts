@@ -11,7 +11,7 @@ import { MatSnackBar, MatTableDataSource, MatSort } from '@angular/material';
   styleUrls: ['./transactions-list.component.scss']
 })
 export class TransactionsListComponent implements OnInit {
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
 
   categories: Map<number, Category>;
   accounts: Map<number, BankAccount>;

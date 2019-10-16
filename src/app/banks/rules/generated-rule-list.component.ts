@@ -11,8 +11,8 @@ import { AddRuleDialogComponent } from './dialogs/add-rule-dialog.component';
   styleUrls: ['./generated-rule-list.component.scss']
 })
 export class GeneratedRuleListComponent implements OnInit {
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   @Input('generatedRules') set generatedRulesInternal(value: GeneratedRule[]) {
     if (value) {

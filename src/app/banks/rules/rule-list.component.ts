@@ -14,7 +14,7 @@ import { MessageDialogComponent } from 'src/app/shared/message-dialog/message-di
   styleUrls: ['./rule-list.component.scss']
 })
 export class RuleListComponent implements OnInit {
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   @Input('rules') set generatedRulesInternal(value: Rule[]) {
     if (value) {

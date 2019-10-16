@@ -15,7 +15,7 @@ import { TransactionListDialogComponent } from './transaction-list-dialog.compon
   styleUrls: ['./category-statistic.component.scss']
 })
 export class CategoryStatisticComponent implements OnInit {
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
   @Output() prevMonth = new EventEmitter();
   @Output() nextMonth = new EventEmitter();
 

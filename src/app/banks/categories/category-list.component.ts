@@ -14,7 +14,7 @@ import { DeleteCategoryDialogComponent } from './dialogs/delete-category-dialog.
   styleUrls: ['./category-list.component.scss']
 })
 export class CategoryListComponent implements OnInit {
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   @Input() itemAdding: (item: Category) => Observable<any>;
   @Input() itemDeleting: (item: Category, moveCategoryId?: number) => Observable<boolean>;
