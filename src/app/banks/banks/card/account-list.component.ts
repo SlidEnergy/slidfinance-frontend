@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { BankAccount } from 'src/app/api';
-import { MatTableDataSource, MatDialog, MatSort } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { AddAccountDialogComponent } from './dialogs/add-account-dialog.component';
 import { EditAccountDialogComponent } from './dialogs/edit-account-dialog.component';
 import { Observable } from 'rxjs';

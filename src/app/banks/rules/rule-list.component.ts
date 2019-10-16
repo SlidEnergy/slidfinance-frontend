@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { AccountsService, CategoriesService, Rule, Category, BankAccount } from 'src/app/api';
 import { map, filter, flatMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';

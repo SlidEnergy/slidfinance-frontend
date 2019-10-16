@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Transaction, TransactionsService } from 'src/app/api';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-transactions-page',

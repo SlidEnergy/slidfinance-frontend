@@ -3,7 +3,11 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { map, filter, flatMap } from 'rxjs/operators';
 
 import { Transaction, CategoriesService, Category, TransactionsService, AccountsService, BankAccount } from 'src/app/api';
-import { MatSnackBar, MatTableDataSource, MatSort, MatDialog, MatPaginator } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { MessageDialogComponent } from 'src/app/shared/message-dialog/message-dialog.component';
 

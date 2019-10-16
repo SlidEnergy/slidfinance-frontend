@@ -24,7 +24,7 @@ import {EffectsModule} from '@ngrx/effects';
     ApiModule.forRoot(apiConfigFactory),
 
     // Сторонние компоненты
-    StoreRouterConnectingModule,
+    StoreRouterConnectingModule.forRoot(),
     StoreModule.forRoot({core: coreReducer}),
     EffectsModule.forRoot([CoreEffects]),
   ],

@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Bank } from 'src/app/api';
-import { MatTableDataSource, MatDialog, MatSort } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { AddBankDialogComponent } from './dialogs/add-bank-dialog.component';
 import { EditBankDialogComponent } from './dialogs/edit-bank-dialog.component';
 import { Observable } from 'rxjs';
