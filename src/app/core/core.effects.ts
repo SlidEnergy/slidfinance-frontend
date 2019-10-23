@@ -8,10 +8,10 @@ import { ROUTER_NAVIGATION, RouterNavigationAction } from '@ngrx/router-store';
 
 import { AuthService } from './auth.service';
 import * as coreActions from './core.store';
-import { RouterStateSnapshot } from '@angular/router/src/router_state';
 import { CoreState } from './core.store';
 import { CategoriesService, Category } from '../api';
 import { AppState } from '../shared/app-state';
+import {RouterStateSnapshot} from '@angular/router';
 
 // EFFECTS
 
