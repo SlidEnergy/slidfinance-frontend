@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
    <mat-toolbar-row>
-      <span class="title">Slid Finance</span>
+      <a class="title" routerLink="">SlidFinance</a>
       <span class="user-info"
             *ngIf="isLoggedIn | async">{{(currentUser | async)?.userName}}</span>
       <span class="spacer"></span>
@@ -12,6 +12,8 @@
       </button>
       <div fxShow="true"
            fxHide.lt-md>
+        <a mat-button
+           routerLink="/mcc">Mcc коды</a>
          <a mat-button
             *ngIf="isLoggedIn | async"
             routerLink="/statictics/category">Статистика по категориям</a>
@@ -40,6 +42,8 @@
    </mat-toolbar-row>
 </mat-toolbar>
 <mat-menu #appMenu="matMenu">
+  <a mat-menu-item
+     routerLink="/mcc">Mcc коды</a>
    <a mat-menu-item
       *ngIf="isLoggedIn | async"
       routerLink="/statictics/category">Статистика по категориям</a>
