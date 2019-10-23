@@ -9,6 +9,8 @@ export * from './editBankAccountBindingModel';
 export * from './editBankBindingModel';
 export * from './generatedRule';
 export * from './loginBindingModel';
+export * from './mcc';
+export * from './mccCategory';
 export * from './monthStatistic';
 export * from './operation';
 export * from './patchAccountDataBindingModel';
