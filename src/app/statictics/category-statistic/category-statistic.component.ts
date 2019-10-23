@@ -4,7 +4,9 @@ import { map, filter } from 'rxjs/operators';
 import * as moment from 'moment';
 
 import { Transaction, CategoriesService, Category, CategoryStatistic, TransactionsService } from 'src/app/api';
-import { MatDialog, MatTableDataSource, MatSort } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/shared/app-state';
 import { TransactionListDialogComponent } from './transaction-list-dialog.component';
@@ -15,7 +17,7 @@ import { TransactionListDialogComponent } from './transaction-list-dialog.compon
   styleUrls: ['./category-statistic.component.scss']
 })
 export class CategoryStatisticComponent implements OnInit {
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
   @Output() prevMonth = new EventEmitter();
   @Output() nextMonth = new EventEmitter();
 

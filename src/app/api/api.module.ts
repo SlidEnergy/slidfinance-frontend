@@ -7,6 +7,7 @@ import { AccountsService } from './api/accounts.service';
 import { BanksService } from './api/banks.service';
 import { CategoriesService } from './api/categories.service';
 import { ImportService } from './api/import.service';
+import { MccService } from './api/mcc.service';
 import { RulesService } from './api/rules.service';
 import { StatisticsService } from './api/statistics.service';
 import { TokenService } from './api/token.service';
@@ -22,6 +23,7 @@ import { UsersService } from './api/users.service';
     BanksService,
     CategoriesService,
     ImportService,
+    MccService,
     RulesService,
     StatisticsService,
     TokenService,

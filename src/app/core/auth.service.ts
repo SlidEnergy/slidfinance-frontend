@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { catchError, map } from 'rxjs/operators';
 import { UsersService } from '../api/api/users.service';
 
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { User, TokenService, TokenInfo } from '../api';
 
 @Injectable()

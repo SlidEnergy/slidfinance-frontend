@@ -3,7 +3,9 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { map } from 'rxjs/operators';
 
 import { Transaction, CategoriesService, Category, TransactionsService, AccountsService, BankAccount } from 'src/app/api';
-import { MatSnackBar, MatTableDataSource, MatSort } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-transactions-list',
@@ -11,7 +13,7 @@ import { MatSnackBar, MatTableDataSource, MatSort } from '@angular/material';
   styleUrls: ['./transactions-list.component.scss']
 })
 export class TransactionsListComponent implements OnInit {
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
 
   categories: Map<number, Category>;
   accounts: Map<number, BankAccount>;

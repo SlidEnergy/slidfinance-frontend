@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountsService, BankAccount } from 'src/app/api';
 import { Observable, of } from 'rxjs';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {map, catchError, filter, switchMap} from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 

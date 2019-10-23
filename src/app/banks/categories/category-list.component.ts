@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { Category } from 'src/app/api';
-import { MatDialog, MatTableDataSource, MatSort } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { EditCategoryDialogComponent } from './dialogs/edit-category-dialog.component';
 import { AddCategoryDialogComponent } from './dialogs/add-category-dialog.component';
 import { filter, flatMap, map } from 'rxjs/operators';
@@ -14,7 +16,7 @@ import { DeleteCategoryDialogComponent } from './dialogs/delete-category-dialog.
   styleUrls: ['./category-list.component.scss']
 })
 export class CategoryListComponent implements OnInit {
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   @Input() itemAdding: (item: Category) => Observable<any>;
   @Input() itemDeleting: (item: Category, moveCategoryId?: number) => Observable<boolean>;

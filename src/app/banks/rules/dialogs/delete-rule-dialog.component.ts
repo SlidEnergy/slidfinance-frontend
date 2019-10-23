@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RulesService, CategoriesService, AccountsService, Category, BankAccount } from 'src/app/api';
 import { map } from 'rxjs/operators';
 

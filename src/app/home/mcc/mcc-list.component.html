@@ -1,0 +1,44 @@
+<mat-form-field>
+  <input matInput
+         (keyup)="applyFilter($event.target.value)"
+         placeholder="Filter">
+</mat-form-field>
+<table mat-table
+       [dataSource]="dataSource"
+       matSort
+       matSortActive="order"
+       matSortDirection="asc">
+  <ng-container matColumnDef="code">
+    <mat-header-cell *matHeaderCellDef
+                     mat-sort-header> Код </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{row.code}}
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="ruTitle">
+    <mat-header-cell *matHeaderCellDef
+                     mat-sort-header> Название </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+            {{row.title}}
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="category">
+    <mat-header-cell *matHeaderCellDef
+                     mat-sort-header> Категория </mat-header-cell>
+    <mat-cell *matCellDef="let row"
+              class="amount">
+            {{row.category?.title}}
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+  <mat-row *matRowDef="let rowData; columns: columnsToDisplay"></mat-row>
+</table>
+<mat-paginator [pageSize]="20" [pageSizeOptions]="[5, 10, 20]"
+               showFirstLastButtons></mat-paginator>
+<mat-card *ngIf="loadingVisible"
+          style="display: flex; justify-content: center; align-items: center">
+  <mat-progress-spinner color="primary"
+                        mode="indeterminate">
+  </mat-progress-spinner>
+</mat-card>

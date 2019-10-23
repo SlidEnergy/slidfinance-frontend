@@ -6,12 +6,12 @@ import { Store } from '@ngrx/store';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { ROUTER_NAVIGATION, RouterNavigationAction } from '@ngrx/router-store';
 
-import { AuthService } from './auth.service';
+import { AuthService } from '../auth.service';
 import * as coreActions from './core.store';
-import { RouterStateSnapshot } from '@angular/router/src/router_state';
 import { CoreState } from './core.store';
-import { CategoriesService, Category } from '../api';
-import { AppState } from '../shared/app-state';
+import { CategoriesService, Category } from '../../api';
+import { AppState } from '../../shared/app-state';
+import {RouterStateSnapshot} from '@angular/router';
 
 // EFFECTS
 
@@ -27,17 +27,15 @@ export class CoreEffects {
 	@Effect()
 	loadNodes = this.actions
 		.pipe(
-			ofType(coreActions.LOAD_CATEGORIES),
+			ofType(coreActions.loadCategories),
 			switchMap(() =>
 				this.categoriesService.getList().pipe(
 					map(x => new Map(x.map(i => [i.id, i] as [number, Category]))),
-					map((data) => {
-						return new coreActions.LoadCategoriesCompleted(0, '', data);
-					}),
+					map(data => coreActions.loadCategoriesCompleted({ errorCode: 0, errorMessage: '', categories: data})),
 					catchError(err => {
 						console.error(`Произошла ошибка. errorCode: ${err.code}, errorMessage: ${err.message}`);
 
-						return of(new coreActions.LoadCategoriesCompleted(err.code, err.message));
+						return of(coreActions.loadCategoriesCompleted({ errorCode: err.code, errorMessage: err.message, categories: null}));
 					})
 				)
 			));
@@ -70,7 +68,7 @@ export class CoreEffects {
 		tap((state: CoreState) => {
 
 			if (!state.categories) {
-				this.store.dispatch(new coreActions.LoadCategories());
+				this.store.dispatch(coreActions.loadCategories());
 			}
 		}));
 }

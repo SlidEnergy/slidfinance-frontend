@@ -97,7 +97,6 @@ const routes: Routes = [
     AddTransactionComponent,
   ],
   imports: [
-    CommonModule,
     SharedModule,
     RouterModule.forChild(routes)
   ],
