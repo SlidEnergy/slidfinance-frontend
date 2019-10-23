@@ -1,14 +1,21 @@
 import {AppState} from '../../shared/app-state';
-import {createSelector} from '@ngrx/store';
-import {mccAdapter} from '../core.store';
+import {createSelector, select} from '@ngrx/store';
+import {CoreState, mccAdapter} from './core.store';
+import {pipe} from 'rxjs';
+import {filter, map} from 'rxjs/operators';
 
 const {
   selectAll
 } = mccAdapter.getSelectors();
 
-const selectFeature = (state: AppState) => state.core;
+const selectMccFeature = (state: AppState) => state.core.mcc;
 
-export const selectMccList = createSelector(
-  selectFeature,
+export const mccListSelector = createSelector(
+  selectMccFeature,
   selectAll
 );
+
+export const selectNeedMcc = pipe(
+  select(selectMccFeature),
+  map(mcc => !mcc.loaded)
+)

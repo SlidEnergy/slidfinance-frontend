@@ -1,4 +1,4 @@
-import { CoreState } from '../core/core.store';
+import { CoreState } from '../core/store/core.store';
 
 export interface AppState {
 	core: CoreState

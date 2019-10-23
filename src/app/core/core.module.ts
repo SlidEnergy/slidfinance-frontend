@@ -11,9 +11,11 @@ import {HeaderComponent} from './header/header.component';
 import {InitializationService} from './initialization.service';
 import {StoreRouterConnectingModule} from '@ngrx/router-store';
 import {StoreModule} from '@ngrx/store';
-import {coreReducer} from './core.store';
-import {CoreEffects} from './core.effects';
+import {coreReducer} from './store/core.store';
+import {CoreEffects} from './store/core.effects';
 import {EffectsModule} from '@ngrx/effects';
+import {environment} from '../../environments/environment';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   imports: [
@@ -27,6 +29,10 @@ import {EffectsModule} from '@ngrx/effects';
     StoreRouterConnectingModule.forRoot(),
     StoreModule.forRoot({core: coreReducer}),
     EffectsModule.forRoot([CoreEffects]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
   ],
   declarations: [
     HeaderComponent

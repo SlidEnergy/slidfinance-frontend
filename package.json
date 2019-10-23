@@ -32,6 +32,7 @@
     "@ngrx/effects": "^8.4.0",
     "@ngrx/entity": "^8.4.0",
     "@ngrx/router-store": "^8.4.0",
+    "@ngrx/store-devtools": "^8.4.0",
     "@ngrx/store": "^8.4.0",
     "angular-split": "^3.0.2",
     "core-js": "^3.3.2",
