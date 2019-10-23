@@ -14,10 +14,10 @@ import { MccCategory } from './mccCategory';
 
 export interface Mcc { 
     id?: number;
-    code: string;
-    title: string;
+    code?: string;
+    title?: string;
     ruTitle?: string;
     description?: string;
     ruDescription?: string;
-    category: MccCategory;
+    category?: MccCategory;
 }

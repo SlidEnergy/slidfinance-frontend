@@ -27,7 +27,7 @@
                      mat-sort-header> Категория </mat-header-cell>
     <mat-cell *matCellDef="let row"
               class="amount">
-            {{row.category}}
+            {{row.category?.title}}
     </mat-cell>
   </ng-container>
 

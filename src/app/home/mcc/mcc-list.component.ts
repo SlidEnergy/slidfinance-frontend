@@ -35,7 +35,7 @@ export class MccListComponent implements OnInit {
       return true;
     }
 
-    if (!filter || mcc.code.toLowerCase().indexOf(filter) >= 0 || mcc.title.toLowerCase().indexOf(filter) >= 0) {
+    if (!filter || mcc.code.toLowerCase().indexOf(filter) >= 0 || mcc.title.toLowerCase().indexOf(filter) >= 0 || ( mcc.category && mcc.category.title.toLowerCase().indexOf(filter) >= 0)) {
       return true;
     }
 
