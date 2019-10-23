@@ -1,54 +1,41 @@
-import { Action } from '@ngrx/store';
-import { Category } from '../api';
-import { ActionWithPayload } from '../shared/action-with-payload';
+import {Action, createAction, createReducer, on, props} from '@ngrx/store';
+import {Category, Mcc} from '../api';
+import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
 
 // STATE
 
-export interface CoreState {
-	categories: Map<number, Category> | null;
+export const mccAdapter: EntityAdapter<Mcc> = createEntityAdapter<Mcc>({
+  selectId: (mcc: Mcc) => mcc.id,
+  sortComparer: (a: Mcc, b: Mcc) => a.code.localeCompare(b.code),
+});
 
-	loadCategoriesError: { code: number, message: string } | null;
+export interface CoreState extends EntityState<Mcc> {
+  categories: Map<number, Category> | null;
+
+  loadCategoriesError: { code: number, message: string } | null;
 }
 
-const initialState: CoreState = {
-	categories: null,
+const initialState: CoreState = mccAdapter.getInitialState({
+  categories: null,
 
-	loadCategoriesError: null
-};
+  loadCategoriesError: null
+});
 
-// ACTIONS
+export const loadMcc = createAction('[core] LOAD_MCC', props<{ mcc: Mcc[] }>());
+export const loadCategories = createAction('[core] LOAD_CATEGORIES');
+export const loadCategoriesCompleted = createAction('[core] LOAD_CATEGORIES_COMPLETED', props<{ errorCode: number, errorMessage: string, categories: Map<number, Category> | null }>());
 
-export const LOAD_CATEGORIES = '[core] LOAD_CATEGORIES';
+const reducer = createReducer(initialState,
+  on(loadMcc, (state, { mcc }) => {
+    return mccAdapter.addAll(mcc, state);
+  }),
+  on(loadCategoriesCompleted, (state, {errorCode, errorMessage, categories}) => ({
+    ...state,
+    loadNodesError: errorCode ? {code: errorCode, message: errorMessage} : null,
+    categories: categories
+  }))
+);
 
-export class LoadCategories implements Action {
-	readonly type = LOAD_CATEGORIES;
-}
-
-export const LOAD_CATEGORIES_COMPLETED = '[core] LOAD_CATEGORIES_COMPLETED';
-
-export class LoadCategoriesCompleted implements ActionWithPayload {
-	readonly type = LOAD_CATEGORIES_COMPLETED;
-	public payload: any;
-
-	constructor(errorCode: number, errorMessage: string, categories: Map<number, Category> | null = null) {
-		this.payload = { errorCode, errorMessage, categories };
-	}
-}
-
-// REDUCER
-
-export function coreReducer(state = initialState, action: ActionWithPayload): CoreState {
-	switch (action.type) {
-		case LOAD_CATEGORIES:
-			return state;
-
-		case LOAD_CATEGORIES_COMPLETED:
-			return Object.assign({}, state, {
-				loadNodesError: action.payload.errorCode ? { code: action.payload.errorCode, message: action.payload.errorMessage } : null,
-				categories: action.payload.categories
-			});
-
-		default:
-			return state;
-	}
+export function coreReducer(state: CoreState | undefined, action: Action) {
+  return reducer(state, action);
 }

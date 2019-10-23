@@ -27,17 +27,15 @@ export class CoreEffects {
 	@Effect()
 	loadNodes = this.actions
 		.pipe(
-			ofType(coreActions.LOAD_CATEGORIES),
+			ofType(coreActions.loadCategories),
 			switchMap(() =>
 				this.categoriesService.getList().pipe(
 					map(x => new Map(x.map(i => [i.id, i] as [number, Category]))),
-					map((data) => {
-						return new coreActions.LoadCategoriesCompleted(0, '', data);
-					}),
+					map(data => coreActions.loadCategoriesCompleted({ errorCode: 0, errorMessage: '', categories: data})),
 					catchError(err => {
 						console.error(`Произошла ошибка. errorCode: ${err.code}, errorMessage: ${err.message}`);
 
-						return of(new coreActions.LoadCategoriesCompleted(err.code, err.message));
+						return of(coreActions.loadCategoriesCompleted({ errorCode: err.code, errorMessage: err.message, categories: null}));
 					})
 				)
 			));
@@ -70,7 +68,7 @@ export class CoreEffects {
 		tap((state: CoreState) => {
 
 			if (!state.categories) {
-				this.store.dispatch(new coreActions.LoadCategories());
+				this.store.dispatch(coreActions.loadCategories());
 			}
 		}));
 }
