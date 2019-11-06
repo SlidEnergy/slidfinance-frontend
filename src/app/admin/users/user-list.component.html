@@ -1,0 +1,29 @@
+<mat-form-field>
+  <input matInput
+         (keyup)="applyFilter($event.target.value)"
+         placeholder="Filter">
+</mat-form-field>
+<table mat-table
+       [dataSource]="dataSource"
+       matSort
+       matSortActive="order"
+       matSortDirection="asc">
+  <ng-container matColumnDef="email">
+    <mat-header-cell *matHeaderCellDef
+                     mat-sort-header> Email </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{row.email}}
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+  <mat-row *matRowDef="let rowData; columns: columnsToDisplay"></mat-row>
+</table>
+<mat-paginator [pageSize]="20" [pageSizeOptions]="[5, 10, 20]"
+               showFirstLastButtons></mat-paginator>
+<mat-card *ngIf="loadingVisible"
+          style="display: flex; justify-content: center; align-items: center">
+  <mat-progress-spinner color="primary"
+                        mode="indeterminate">
+  </mat-progress-spinner>
+</mat-card>

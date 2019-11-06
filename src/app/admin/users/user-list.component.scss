@@ -1,0 +1,25 @@
+table {
+  width: 100%;
+}
+mat-cell,
+mat-header-cell {
+  padding-right: 20px;
+  flex: 1 1 30px;
+}
+mat-cell.mat-column-category,
+mat-header-cell.mat-column-category {
+  flex: 1 1 100px;
+}
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+  padding-top: 20px;
+}
+.mat-form-field ::ng-deep .mat-form-field-wrapper {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.multirow-cell {
+  display: flex;
+  flex-direction: column;
+}

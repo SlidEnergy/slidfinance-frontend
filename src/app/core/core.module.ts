@@ -16,6 +16,7 @@ import {CoreEffects} from './store/core.effects';
 import {EffectsModule} from '@ngrx/effects';
 import {environment} from '../../environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import {AdminGuard} from './admin-guard.service';
 
 @NgModule({
   imports: [
@@ -40,6 +41,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
   providers: [
     AuthService,
     AuthGuard,
+    AdminGuard,
     InitializationService,
     // Регистрируем interceptor, который разбирает строки в виде даты в ответе от сервера и преобразует их в даты.
     {

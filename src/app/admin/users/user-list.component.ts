@@ -1,25 +1,25 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {Mcc, Transaction} from '../../api';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
+import {User} from '../../api';
 
 @Component({
-  selector: 'app-mcc-list',
-  templateUrl: './mcc-list.component.html',
-  styleUrls: ['./mcc-list.component.scss']
+  selector: 'app-user-list',
+  templateUrl: './user-list.component.html',
+  styleUrls: ['./user-list.component.scss']
 })
-export class MccListComponent implements OnInit {
+export class UserListComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-  dataSource = new MatTableDataSource<Mcc>();
+  dataSource = new MatTableDataSource<User>();
 
-  @Input() set mcc(value: Mcc[]) {
+  @Input() set users(value: User[]) {
     if (value && value.length > 0) {
       this.loadingVisible = false;
       this.dataSource.data = value;
     }
   }
 
-  columnsToDisplay = ['code', 'ruTitle', 'category'];
+  columnsToDisplay = ['email'];
   loadingVisible = true;
 
   constructor() {
@@ -30,12 +30,12 @@ export class MccListComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  filterPredicate(mcc, filter) {
+  filterPredicate(user: User, filter) {
     if (!filter) {
       return true;
     }
 
-    if (!filter || mcc.code.toLowerCase().indexOf(filter) >= 0 || mcc.title.toLowerCase().indexOf(filter) >= 0 || ( mcc.category && mcc.category.title.toLowerCase().indexOf(filter) >= 0)) {
+    if (!filter || user.email.toLowerCase().indexOf(filter) >= 0) {
       return true;
     }
 
