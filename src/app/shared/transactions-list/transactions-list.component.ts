@@ -29,7 +29,7 @@ export class TransactionsListComponent implements OnInit {
   }
 
   // Список колонок, которые нужно показать в таблице
-  @Input('columns') columnsToDisplay = ['account', 'dateTime', 'mcc', 'bankCategory', 'description', 'income', 'outcome', 'category'];
+  @Input('columns') columnsToDisplay = ['account', 'dateTime', 'mcc', 'bankCategory', 'description', 'amount', 'userDescription'];
   loadingVisible = true;
 
   constructor(

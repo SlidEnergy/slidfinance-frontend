@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 
-import { map, filter, flatMap } from 'rxjs/operators';
+import {map, filter, flatMap, catchError} from 'rxjs/operators';
 
 import { Transaction, CategoriesService, Category, TransactionsService, AccountsService, BankAccount } from 'src/app/api';
 import { MatDialog } from '@angular/material/dialog';
@@ -8,7 +8,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Observable } from 'rxjs';
+import {Observable, of} from 'rxjs';
 import { MessageDialogComponent } from 'src/app/shared/message-dialog/message-dialog.component';
 
 @Component({
@@ -38,7 +38,7 @@ export class TransactionsEditableListComponent implements OnInit {
   }
 
   // Список колонок, которые нужно показать в таблице
-  columnsToDisplay = ['account', 'dateTime', 'mcc', 'bankCategory', 'description', 'income', 'outcome', 'category', 'actions'];
+  columnsToDisplay = ['account', 'dateTime', 'mcc', 'bankCategory', 'description', 'amount', 'userDescription', 'category', 'actions'];
   loadingVisible = true;
 
   constructor(
@@ -123,10 +123,18 @@ export class TransactionsEditableListComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  save(item: Transaction) {
+    this.transactionsService.patch(item.id, [ { op: 'replace', path: '/userDescription', value: item.userDescription }])
+      .subscribe(result => {
+        this.snackBar.open('Описание сохранено', undefined, { duration: 5000, panelClass: ['background-green'] });
+        this.dataSource.data = this.dataSource.data.map(value => value.id == result.id ? result : value);
+      }, error => this.snackBar.open('Не удалось сохранить описание', undefined, { duration: 5000, panelClass: ['background-red'] }));
+  }
+
   approve(item: Transaction) {
     this.itemApproving(item).pipe(filter(x => !!x))
       .subscribe((result) => {
-        this.dataSource.data = this.dataSource.data.map((value) => value.id == result.id ? result : value);
+        this.dataSource.data = this.dataSource.data.map(value => value.id == result.id ? result : value);
       });
   }
 
@@ -137,7 +145,7 @@ export class TransactionsEditableListComponent implements OnInit {
 
     dialogRef.afterClosed().pipe(filter(x => x), flatMap(() => this.itemDeleting(item).pipe(filter(x => x))))
       .subscribe(() => {
-        this.dataSource.data = this.dataSource.data.filter((value) => value.id != item.id);
+        this.dataSource.data = this.dataSource.data.filter(value => value.id != item.id);
       });
   }
 }

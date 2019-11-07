@@ -55,24 +55,30 @@
         <mat-cell *matCellDef="let row"
                   data-label="Описание">{{row.description}} </mat-cell>
     </ng-container>
-    <ng-container matColumnDef="income">
+    <ng-container matColumnDef="amount">
         <mat-header-cell *matHeaderCellDef
-                         mat-sort-header> Приход </mat-header-cell>
-        <mat-cell *matCellDef="let row"
-                  data-label="Приход">
-            {{ row.amount > 0 ? (row.amount | currency : 'RUB' : 'symbol' : '1.2-2' : 'ru') : ''}} </mat-cell>
+                         mat-sort-header> Приход/Расход </mat-header-cell>
+        <mat-cell *matCellDef="let row" [ngClass]="row.amount > 0 ? 'income' : 'outcome'" data-label="Приход">
+            {{row.amount | currency : 'RUB' : 'symbol' : '1.2-2' : 'ru'}} </mat-cell>
     </ng-container>
-    <ng-container matColumnDef="outcome">
-        <mat-header-cell *matHeaderCellDef
-                         mat-sort-header> Расход </mat-header-cell>
-        <mat-cell *matCellDef="let row"
-                  data-label="Расход">
-            {{ row.amount < 0 ? (row.amount | currency : 'RUB' : 'symbol' : '1.2-2' : 'ru') : ''}} </mat-cell>
+    <ng-container matColumnDef="userDescription">
+      <mat-header-cell *matHeaderCellDef
+                       mat-sort-header> Описание пользователя </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="Описание пользователя">
+        <input matInput placeholder="User description" [(ngModel)]="row.userDescription">
+        <button mat-icon-button
+                color="primary"
+                (click)="save(row)">
+          <mat-icon aria-label="Save">save</mat-icon>
+        </button>
+      </mat-cell>
     </ng-container>
     <!-- actions -->
     <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef></mat-header-cell>
         <mat-cell *matCellDef="let row; let i=index;">
+
+
             <button *ngIf="!row.approved"
                     mat-icon-button
                     color="primary"
