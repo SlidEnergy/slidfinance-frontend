@@ -186,7 +186,7 @@ export class AuthService {
 	}
 
 	// Получает токен из локального хранилища браузера
-	private static getRefreshToken() {
+	public static getRefreshToken() {
 		let auth = localStorage.getItem('auth');
 
 		try {

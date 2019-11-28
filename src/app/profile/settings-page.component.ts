@@ -8,7 +8,7 @@ import {AuthService} from '../core/auth/auth.service';
 })
 export class SettingsPageComponent implements OnInit {
 
-  telegramUrl = "https://telegram.me/SlidFinanceBot?start=" + AuthService.getAccessToken()
+  telegramUrl = "https://telegram.me/SlidFinanceBot?start=" + AuthService.getRefreshToken();
 
   constructor() { }
 
