@@ -29,6 +29,9 @@
          <a mat-button
             *ngIf="isLoggedIn | async"
             routerLink="/banks/transactions">Траты</a>
+        <a mat-button
+           *ngIf="isLoggedIn | async"
+           routerLink="/profile">Профиль</a>
          <a mat-button
             *ngIf="!(isLoggedIn | async)"
             routerLink="/entry/register">Регистрация</a>
@@ -59,6 +62,9 @@
    <a mat-menu-item
       *ngIf="isLoggedIn | async"
       routerLink="/banks/transactions">Траты</a>
+  <a mat-menu-item
+     *ngIf="isLoggedIn | async"
+     routerLink="/profile">Профиль</a>
    <a mat-menu-item
       *ngIf="!(isLoggedIn | async)"
       routerLink="/entry/register">Регистрация</a>

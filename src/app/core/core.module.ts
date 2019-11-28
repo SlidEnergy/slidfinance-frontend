@@ -5,8 +5,8 @@ import {apiConfigFactory} from './api-config-factory';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {SharedModule} from '../shared/shared.module';
 import {DateInterceptor} from './date-interceptor';
-import {AuthService} from './auth.service';
-import {AuthGuard} from './auth-guard.service';
+import {AuthService} from './auth/auth.service';
+import {AuthGuard} from './auth/auth-guard.service';
 import {HeaderComponent} from './header/header.component';
 import {InitializationService} from './initialization.service';
 import {StoreRouterConnectingModule} from '@ngrx/router-store';
@@ -16,7 +16,7 @@ import {CoreEffects} from './store/core.effects';
 import {EffectsModule} from '@ngrx/effects';
 import {environment} from '../../environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import {AdminGuard} from './admin-guard.service';
+import {AdminGuard} from './auth/admin-guard.service';
 
 @NgModule({
   imports: [

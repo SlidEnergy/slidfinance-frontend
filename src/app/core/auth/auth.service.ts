@@ -3,10 +3,10 @@ import { throwError as observableThrowError, Observable, ReplaySubject } from 'r
 import { Injectable } from '@angular/core';
 
 import { catchError, map } from 'rxjs/operators';
-import { UsersService } from '../api/api/users.service';
+import { UsersService } from '../../api/api/users.service';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { User, TokenService, TokenInfo } from '../api';
+import { User, TokenService, TokenInfo } from '../../api';
 
 @Injectable()
 export class AuthService {

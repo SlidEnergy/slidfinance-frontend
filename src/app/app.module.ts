@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { NotLoggedInGuard } from './core/not-logged-in-guard.service';
-import { AuthGuard } from './core/auth-guard.service';
+import { AuthGuard } from './core/auth/auth-guard.service';
 
 @NgModule({
   declarations: [

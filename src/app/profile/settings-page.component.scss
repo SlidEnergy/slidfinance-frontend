@@ -1,0 +1,6 @@
+@import 'src/styles.scss';
+
+:host {
+  padding: $padding-rem;
+  display: block;
+}
