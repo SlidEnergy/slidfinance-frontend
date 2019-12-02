@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, ElementRef, Inject, OnInit} from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 import {TelegramService} from '../api';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-settings-page',
@@ -13,7 +14,8 @@ export class SettingsPageComponent implements OnInit, AfterViewInit {
 
   constructor(@Inject(DOCUMENT) private document,
               private elementRef: ElementRef,
-              private telegramService: TelegramService) {
+              private telegramService: TelegramService,
+              private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -37,8 +39,8 @@ export class SettingsPageComponent implements OnInit, AfterViewInit {
 
   onTelegramAuth(user: { first_name: string, last_name: string, id: number, username: string }) {
     this.telegramService.connect(user).subscribe(
-      value => this.result = 'Успешно',
-      error => this.result = 'Не удалось привязать ваш аккаунт Телеграма'
+      value => this.snackBar.open('Ваш аккант Телеграмма успешно привязан', undefined, { duration: 5000, panelClass: ['background-green'] }),
+      error => this.snackBar.open('Не удалось привязать ваш аккаунт Телеграма', undefined, { duration: 5000, panelClass: ['background-red'] })
     );
   }
 }
