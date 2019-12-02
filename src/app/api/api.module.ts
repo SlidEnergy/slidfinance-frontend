@@ -10,6 +10,7 @@ import { ImportService } from './api/import.service';
 import { MccService } from './api/mcc.service';
 import { RulesService } from './api/rules.service';
 import { StatisticsService } from './api/statistics.service';
+import { TelegramService } from './api/telegram.service';
 import { TokenService } from './api/token.service';
 import { TransactionsService } from './api/transactions.service';
 import { UsersService } from './api/users.service';
@@ -26,6 +27,7 @@ import { UsersService } from './api/users.service';
     MccService,
     RulesService,
     StatisticsService,
+    TelegramService,
     TokenService,
     TransactionsService,
     UsersService ]

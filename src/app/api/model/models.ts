@@ -17,6 +17,7 @@ export * from './patchAccountDataBindingModel';
 export * from './problemDetails';
 export * from './registerBindingModel';
 export * from './rule';
+export * from './telegramUser';
 export * from './tokenInfo';
 export * from './tokensCortage';
 export * from './transaction';
