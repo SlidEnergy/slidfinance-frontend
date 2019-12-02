@@ -31,6 +31,8 @@ export class SettingsPageComponent implements OnInit, AfterViewInit {
     s.setAttribute('data-request-access', 'write');
 
     this.elementRef.nativeElement.appendChild(s);
+
+    window['onTelegramAuth'] = (user) => this.onTelegramAuth(user);
   }
 
   onTelegramAuth(user: { first_name: string, last_name: string, id: number, username: string }) {
