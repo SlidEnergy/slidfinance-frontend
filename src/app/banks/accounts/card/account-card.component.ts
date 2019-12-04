@@ -27,7 +27,7 @@ export class AccountCardComponent implements OnInit {
       map(params => +params['id']),
       filter(x => Boolean(x)),
       tap(x => this.accountId = x),
-      switchMap(id => this.transactionsService.getList())
+      switchMap(id => this.transactionsService.getList(this.accountId))
     );
   }
 }
