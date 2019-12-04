@@ -52,7 +52,7 @@ export class CategoryListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().pipe(filter(x => x), flatMap(result => this.itemAdding(result).pipe(filter(x => x))))
-      .subscribe((result) => {
+      .subscribe(result => {
         let data = this.dataSource.data;
         data.push(result);
         this.dataSource.data = data;

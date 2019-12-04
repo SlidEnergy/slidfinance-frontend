@@ -70,10 +70,10 @@ export class RuleListComponent implements OnInit {
       data: {}
     });
 
-    dialogRef.afterClosed().pipe(filter(x => x), flatMap((result) => this.itemAdding(result).pipe(filter(x => !!x))))
-      .subscribe((rule) => {
-        this.dataSource.data = this.dataSource.data.filter(value => value.accountId != rule.accountId &&
-          value.bankCategory != rule.bankCategory && value.description != rule.description && value.mcc != rule.mcc);
+    dialogRef.afterClosed().pipe(filter(x => x), flatMap(result => this.itemAdding(result).pipe(filter(x => !!x))))
+      .subscribe(rule => {
+        // this.dataSource.data = this.dataSource.data.filter(value => value.accountId != rule.accountId &&
+        //   value.bankCategory != rule.bankCategory && value.description != rule.description && value.mcc != rule.mcc);
       });
   }
 
