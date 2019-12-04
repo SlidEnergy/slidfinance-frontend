@@ -1,7 +1,7 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { RulesService, Rule, Category, CategoriesService, AccountsService, BankAccount } from 'src/app/api';
+import { Rule, Category, CategoriesService, AccountsService, BankAccount } from 'src/app/api';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -16,7 +16,6 @@ export class AddRuleDialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<AddRuleDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Rule,
-    public rulesService: RulesService,
     private categoriesService: CategoriesService,
     private accountsService: AccountsService) { }
 

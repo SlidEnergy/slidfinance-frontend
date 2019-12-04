@@ -1,36 +1,38 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountsService, BankAccount } from 'src/app/api';
+import {BanksService, Bank, AccountsService, BankAccount} from 'src/app/api';
 import { Observable, of } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {map, catchError, filter, switchMap, tap} from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
+import {map, catchError, filter, startWith} from 'rxjs/operators';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 
 @Component({
   selector: 'app-accounts-page',
-  templateUrl: './bank-card.component.html',
-  styleUrls: ['./bank-card.component.scss']
+  templateUrl: './accounts-page.component.html',
+  styleUrls: ['./accounts-page.component.scss']
 })
-export class BankCardComponent implements OnInit {
-  accounts: Observable<BankAccount[]>;
-  bankId: number;
+export class AccountsPageComponent implements OnInit {
+  accounts: Observable<Bank[]>;
+  isAccountSelected: Observable<boolean>;
 
   constructor(
+    private router: Router,
     private accountService: AccountsService,
-    private snackBar: MatSnackBar,
-    private route: ActivatedRoute
-  ) { }
-
-  ngOnInit() {
-    this.accounts = this.route.params.pipe(
-      map(params => +params['id']),
-      filter(x=>Boolean(x)),
-      tap(x => this.bankId = x),
-      switchMap(id => this.accountService.getList((id)))
+    private snackBar: MatSnackBar
+  ) {
+    this.isAccountSelected = this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+      map(event => event as NavigationEnd),
+      startWith({url: this.router.url}),
+      map(event => event.url != '/banks')
     );
   }
 
+  ngOnInit() {
+    this.accounts = this.accountService.getList();
+  }
+
   addItem = (item: BankAccount) => {
-    return this.accountService.add({ bankId: this.bankId, ...item }).pipe(
+    return this.accountService.add(item).pipe(
       map((result) => {
         this.snackBar.open('Счет привязан', undefined, { duration: 5000, panelClass: ['background-green'] });
         return result;
