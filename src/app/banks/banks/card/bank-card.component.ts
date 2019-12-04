@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AccountsService, BankAccount } from 'src/app/api';
 import { Observable, of } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {map, catchError, filter, switchMap} from 'rxjs/operators';
+import {map, catchError, filter, switchMap, tap} from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class BankCardComponent implements OnInit {
   accounts: Observable<BankAccount[]>;
+  bankId: number;
 
   constructor(
     private accountService: AccountsService,
@@ -23,12 +24,13 @@ export class BankCardComponent implements OnInit {
     this.accounts = this.route.params.pipe(
       map(params => +params['id']),
       filter(x=>Boolean(x)),
+      tap(x => this.bankId = x),
       switchMap(id => this.accountService.getList((id)))
     );
   }
 
   addItem = (item: BankAccount) => {
-    return this.accountService.add({ bankId: item.balance, ...item }).pipe(
+    return this.accountService.add({ bankId: this.bankId, ...item }).pipe(
       map((result) => {
         this.snackBar.open('Счет привязан', undefined, { duration: 5000, panelClass: ['background-green'] });
         return result;
