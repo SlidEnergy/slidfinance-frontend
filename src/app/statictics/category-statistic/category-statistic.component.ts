@@ -96,7 +96,7 @@ export class CategoryStatisticComponent implements OnInit {
   }
 
   async openTransactionsDialog(categoryId: number, startDate: Date, endDate: Date) {
-    var transactions = await this.transactionsService.getList(categoryId, startDate, endDate).toPromise();
+    var transactions = await this.transactionsService.getList(undefined, categoryId, startDate, endDate).toPromise();
 
     const dialogRef = this.dialog.open(TransactionListDialogComponent, {
       data: transactions

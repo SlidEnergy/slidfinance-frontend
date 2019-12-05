@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { BanksService, Bank } from 'src/app/api';
-import { Observable, of } from 'rxjs';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import {Component, OnInit} from '@angular/core';
+import {BanksService, Bank} from 'src/app/api';
+import {Observable, of} from 'rxjs';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {map, catchError, filter, startWith} from 'rxjs/operators';
-import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import {NavigationEnd, Router} from '@angular/router';
 
 @Component({
   selector: 'app-banks-page',
@@ -34,36 +34,36 @@ export class BanksPageComponent implements OnInit {
   addItem = (item: Bank) => {
     return this.banksService.add(item).pipe(
       map((result) => {
-        this.snackBar.open('Банк привязан', undefined, { duration: 5000, panelClass: ['background-green'] });
+        this.snackBar.open('Банк привязан', undefined, {duration: 5000, panelClass: ['background-green']});
         return result;
       }),
       catchError(() => {
-        this.snackBar.open('Не удалось привязать банк', undefined, { duration: 5000, panelClass: ['background-red'] });
+        this.snackBar.open('Не удалось привязать банк', undefined, {duration: 5000, panelClass: ['background-red']});
         return of(false);
       }));
-  }
+  };
 
   deleteItem = (item: Bank) => {
     return this.banksService._delete(item.id).pipe(
       map((result) => {
-        this.snackBar.open('Банк отвязан', undefined, { duration: 5000, panelClass: ['background-green'] });
+        this.snackBar.open('Банк отвязан', undefined, {duration: 5000, panelClass: ['background-green']});
         return true;
       }),
       catchError(() => {
-        this.snackBar.open('Не удалось отвязать банк', undefined, { duration: 5000, panelClass: ['background-red'] });
+        this.snackBar.open('Не удалось отвязать банк', undefined, {duration: 5000, panelClass: ['background-red']});
         return of(false);
       }));
-  }
+  };
 
   editItem = (item: Bank) => {
     return this.banksService.update(item.id, item).pipe(
       map((result) => {
-        this.snackBar.open('Банк переименован', undefined, { duration: 5000, panelClass: ['background-green'] });
+        this.snackBar.open('Банк переименован', undefined, {duration: 5000, panelClass: ['background-green']});
         return result;
       }),
       catchError(() => {
-        this.snackBar.open('Не удалось переименовать банк', undefined, { duration: 5000, panelClass: ['background-red'] });
+        this.snackBar.open('Не удалось переименовать банк', undefined, {duration: 5000, panelClass: ['background-red']});
         return of(false);
       }));
-  }
+  };
 }

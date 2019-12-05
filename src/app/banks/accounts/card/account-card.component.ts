@@ -13,7 +13,7 @@ import {ActivatedRoute} from '@angular/router';
 export class AccountCardComponent implements OnInit {
   transactions: Observable<Transaction[]>;
   accountId: number;
-  transactionColumns = ['account', 'dateTime', 'mcc', 'bankCategory', 'description', 'amount', 'userDescription'];
+  transactionColumns = ['dateTime', 'mcc', 'bankCategory', 'description', 'amount', 'userDescription'];
 
   constructor(
     private transactionsService: TransactionsService,

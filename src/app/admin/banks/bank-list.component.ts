@@ -33,7 +33,7 @@ export class BankListComponent implements OnInit {
   }
 
   // Список колонок, которые нужно показать в таблице
-  columnsToDisplay = ['title', 'ownFunds', 'actions'];
+  columnsToDisplay = ['title', 'actions'];
   loadingVisible = true;
 
   constructor(
@@ -54,10 +54,6 @@ export class BankListComponent implements OnInit {
 
       default: return bank[property];
     }
-  }
-
-  row_click(row: Bank) {
-    this.router.navigate(['banks', row.id, 'accounts']);
   }
 
   addNew() {
@@ -93,9 +89,5 @@ export class BankListComponent implements OnInit {
       .subscribe(() => {
         this.dataSource.data = this.dataSource.data.filter((value) => value.id != item.id);
       });
-  }
-
-  getTotalOwnFunds() {
-    return this.dataSource.data.map(b => b.ownFunds).reduce((acc, value) => acc + value, 0);
   }
 }
