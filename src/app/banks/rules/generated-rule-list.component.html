@@ -9,7 +9,7 @@
   <ng-container matColumnDef="mcc">
       <mat-header-cell *matHeaderCellDef
                        mat-sort-header> МСС </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.mcc}} </mat-cell>
+      <mat-cell *matCellDef="let row"> {{getMccCodeById(row.mccId)}} </mat-cell>
   </ng-container>
   <ng-container matColumnDef="bankCategory">
       <mat-header-cell *matHeaderCellDef

@@ -14,6 +14,8 @@
            fxHide.lt-md>
         <a mat-button
            routerLink="/mcc">Mcc коды</a>
+        <a mat-button
+           routerLink="/merchants">Точки</a>
          <a mat-button
             *ngIf="isLoggedIn | async"
             routerLink="/statictics/category">Статистика по категориям</a>
@@ -47,6 +49,8 @@
 <mat-menu #appMenu="matMenu">
   <a mat-menu-item
      routerLink="/mcc">Mcc коды</a>
+  <a mat-menu-item
+     routerLink="/merchants">Точки</a>
    <a mat-menu-item
       *ngIf="isLoggedIn | async"
       routerLink="/statictics/category">Статистика по категориям</a>

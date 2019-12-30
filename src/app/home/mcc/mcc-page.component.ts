@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs';
 import {Mcc} from '../../api';
-import {MccService} from '../../core/domain/mcc.service';
+import {MccService} from '../../core/mcc/mcc.service';
 
 @Component({
   selector: 'app-mcc-page',
@@ -12,7 +12,9 @@ export class MccPageComponent implements OnInit {
 
   mcc: Observable<Mcc[]> = this.mccService.getList();
 
-  constructor(private mccService: MccService) { }
+  constructor(private mccService: MccService) {
+    console.log("Mcc page component")
+  }
 
   ngOnInit() {
   }

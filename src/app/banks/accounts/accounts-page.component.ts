@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {BanksService, Bank, AccountsService, BankAccount} from 'src/app/api';
+import {AccountsService, BankAccount} from 'src/app/api';
 import { Observable, of } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {map, catchError, filter, startWith} from 'rxjs/operators';
-import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import {NavigationEnd, Router} from '@angular/router';
 
 @Component({
   selector: 'app-accounts-page',
@@ -11,7 +11,7 @@ import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
   styleUrls: ['./accounts-page.component.scss']
 })
 export class AccountsPageComponent implements OnInit {
-  accounts: Observable<Bank[]>;
+  accounts: Observable<BankAccount[]>;
   isAccountSelected: Observable<boolean>;
 
   constructor(
