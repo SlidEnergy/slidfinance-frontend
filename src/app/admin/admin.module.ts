@@ -6,6 +6,8 @@ import { UsersPageComponent } from './users/users-page.component';
 import { UserListComponent } from './users/user-list.component';
 import {BanksPageComponent} from './banks/banks-page.component';
 import {BankListComponent} from './banks/bank-list.component';
+import {AddBankDialogComponent} from './banks/dialogs/add-bank-dialog.component';
+import {EditBankDialogComponent} from './banks/dialogs/edit-bank-dialog.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'users', pathMatch: 'full' },
@@ -18,12 +20,19 @@ const routes: Routes = [
     UsersPageComponent,
     UserListComponent,
     BanksPageComponent,
-    BankListComponent
+    BankListComponent,
+
+    AddBankDialogComponent,
+    EditBankDialogComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
     RouterModule.forChild(routes)
+  ],
+  entryComponents: [
+    AddBankDialogComponent,
+    EditBankDialogComponent
   ]
 })
 export class AdminModule { }
