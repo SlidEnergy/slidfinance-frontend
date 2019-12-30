@@ -1,1 +1,5 @@
-<p>merchant-list works!</p>
+<mat-selection-list>
+  <mat-list-option *ngFor="let merch of merchants">
+    {{merch.name}} - {{getMccCodeById(merch.mccId)}}
+  </mat-list-option>
+</mat-selection-list>
