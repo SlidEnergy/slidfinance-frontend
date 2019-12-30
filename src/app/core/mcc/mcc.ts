@@ -3,6 +3,10 @@ import * as api from '../../api';
 export class Mcc {
   model: api.Mcc;
 
+  get id() {
+    return this.model.id;
+  }
+
   get code() {
     return this.model.code;
   }
@@ -16,6 +20,9 @@ export class Mcc {
   }
 
   constructor(mcc: api.Mcc) {
+    if(!mcc)
+      throw Error();
+
     this.model = mcc;
   }
 }

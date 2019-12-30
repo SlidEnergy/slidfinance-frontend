@@ -5,6 +5,18 @@
         #formControl="ngForm">
 
     <div class="form">
+      <mat-form-field color="accent" required="">
+        <mat-select [(value)]="data.bankId"
+                    placeholder="Банк" required>
+          <mat-option *ngFor="let bank of getBanksArray()"
+                      [value]="bank.id">
+            {{bank.title}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form">
       <mat-form-field color="accent">
         <input type="text"
                matInput

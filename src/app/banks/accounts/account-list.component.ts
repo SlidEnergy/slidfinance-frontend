@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { BankAccount } from 'src/app/api';
+import {Bank, BankAccount} from 'src/app/api';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -25,7 +25,7 @@ export class AccountListComponent implements OnInit {
   // список транзакций пользователя
   dataSource = new MatTableDataSource<BankAccount>();
 
-  @Input('banks') set transactionsInput(value: BankAccount[]) {
+  @Input('accounts') set accountsInput(value: BankAccount[]) {
     if (value) {
       this.loadingVisible = false;
       this.dataSource.data = value;
@@ -52,6 +52,10 @@ export class AccountListComponent implements OnInit {
 
       default: return account[property];
     }
+  }
+
+  row_click(row: BankAccount) {
+    this.router.navigate(['banks', row.id, 'accounts']);
   }
 
   addNew() {
@@ -91,5 +95,13 @@ export class AccountListComponent implements OnInit {
       .subscribe(() => {
         this.dataSource.data = this.dataSource.data.filter((value) => value.id != item.id);
       });
+  }
+
+  getTotalOwnFunds() {
+    return this.dataSource.data.map(b => b.balance - b.creditLimit).reduce((acc, value) => acc + value, 0);
+  }
+
+  getTotalCreditLimits() {
+    return this.dataSource.data.map(b => b.creditLimit).reduce((acc, value) => acc + value, 0);
   }
 }

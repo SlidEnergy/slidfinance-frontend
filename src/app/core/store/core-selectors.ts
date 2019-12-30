@@ -5,7 +5,8 @@ import {pipe} from 'rxjs';
 import {filter, map} from 'rxjs/operators';
 
 const {
-  selectAll
+  selectAll,
+  selectEntities
 } = mccAdapter.getSelectors();
 
 const selectMccFeature = (state: AppState) => state.core.mcc;
@@ -15,7 +16,19 @@ export const mccListSelector = createSelector(
   selectAll
 );
 
-export const selectNeedMcc = pipe(
+export const selectLoadMccRequired = pipe(
   select(selectMccFeature),
-  map(mcc => !mcc.loaded)
-)
+  map(mcc => !mcc.loaded && !mcc.loading)
+);
+
+export const mccMapSelector = createSelector(
+  selectMccFeature,
+  selectEntities,
+);
+
+export const selectMccById = (id) => {
+  return pipe(
+    select(mccMapSelector),
+    map(mcc => mcc[id])
+  );
+};

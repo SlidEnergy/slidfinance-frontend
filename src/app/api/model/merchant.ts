@@ -9,16 +9,16 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { MccCategory } from './mccCategory';
+import { Mcc } from './mcc';
 
 
-export interface Mcc { 
+export interface Merchant { 
     id?: number;
-    code?: string;
-    title?: string;
-    ruTitle?: string;
-    description?: string;
-    ruDescription?: string;
-    category?: MccCategory;
-    isSystem?: boolean;
+    address?: string;
+    mccId: number;
+    mcc: Mcc;
+    name: string;
+    displayName?: string;
+    created: Date;
+    updated?: Date;
 }

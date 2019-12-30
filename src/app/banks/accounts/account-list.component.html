@@ -5,25 +5,29 @@
        matSortDirection="asc">
   <ng-container matColumnDef="title">
     <mat-header-cell *matHeaderCellDef
-                     mat-sort-header> Банк </mat-header-cell>
+                     mat-sort-header> Аккаунт </mat-header-cell>
     <mat-cell *matCellDef="let row"> {{row.title}} </mat-cell>
+    <mat-footer-cell *matFooterCellDef> Итого </mat-footer-cell>
   </ng-container>
   <ng-container matColumnDef="code">
     <mat-header-cell *matHeaderCellDef
                      mat-sort-header> Код </mat-header-cell>
     <mat-cell *matCellDef="let row"> {{row.code}} </mat-cell>
+    <mat-footer-cell *matFooterCellDef></mat-footer-cell>
   </ng-container>
   <ng-container matColumnDef="balance">
     <mat-header-cell *matHeaderCellDef
                      mat-sort-header> Баланс </mat-header-cell>
     <mat-cell *matCellDef="let row"> {{(row.balance ? row.balance : 0) | currency : 'RUB' : 'symbol' : '1.2-2' : 'ru'}}
     </mat-cell>
+    <mat-footer-cell *matFooterCellDef></mat-footer-cell>
   </ng-container>
   <ng-container matColumnDef="creditLimit">
     <mat-header-cell *matHeaderCellDef
                      mat-sort-header> Кредитный лимит </mat-header-cell>
     <mat-cell *matCellDef="let row"> {{(row.creditLimit ? row.creditLimit : 0) | currency : 'RUB' : 'symbol' : '1.2-2' : 'ru'}}
     </mat-cell>
+    <mat-footer-cell *matFooterCellDef> {{getTotalCreditLimits() | currency : 'RUB' : 'symbol' : '1.2-2' : 'ru'}} </mat-footer-cell>
   </ng-container>
 
   <!-- actions -->
@@ -55,10 +59,12 @@
         <mat-icon aria-label="Delete">delete</mat-icon>
       </button>
     </mat-cell>
+    <mat-footer-cell *matFooterCellDef> {{getTotalOwnFunds() | currency : 'RUB' : 'symbol' : '1.2-2' : 'ru'}} </mat-footer-cell>
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
-  <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
+  <mat-row *matRowDef="let row; columns: columnsToDisplay" (click)="row_click(row)"></mat-row>
+  <mat-footer-row *matFooterRowDef="columnsToDisplay; sticky: true"></mat-footer-row>
 </table>
 <mat-card *ngIf="loadingVisible"
           style="display: flex; justify-content: center; align-items: center">

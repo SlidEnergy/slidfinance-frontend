@@ -11,6 +11,7 @@ export const mccAdapter: EntityAdapter<Mcc> = createEntityAdapter<Mcc>({
 
 interface MccState extends EntityState<Mcc> {
   loaded: boolean;
+  loading: boolean;
 }
 
 export interface CoreState {
@@ -22,19 +23,29 @@ export interface CoreState {
 
 const initialState: CoreState = {
   categories: null,
-  mcc: mccAdapter.getInitialState({loaded: false}),
+  mcc: mccAdapter.getInitialState({loaded: false, loading: false}),
 
   loadCategoriesError: null
 };
 
-export const loadMcc = createAction('[core] LOAD_MCC', props<{ mcc: Mcc[] }>());
+export const loadMcc = createAction('[core] LOAD_MCC');
+export const loadMccCompleted = createAction('[core] LOAD_MCC_COMPLETED', props<{ mcc: Mcc[] }>());
+export const loadMccCanceled = createAction('[core] LOAD_MCC_CANCELED');
 export const loadCategories = createAction('[core] LOAD_CATEGORIES');
 export const loadCategoriesCompleted = createAction('[core] LOAD_CATEGORIES_COMPLETED', props<{ errorCode: number, errorMessage: string, categories: Map<number, Category> | null }>());
 
 const reducer = createReducer(initialState,
-  on(loadMcc, (state, {mcc}) => ({
+  on(loadMcc, state => ({
     ...state,
-    mcc: mccAdapter.addAll(mcc, { ...state.mcc, loaded: true })
+    mcc: { ...state.mcc, loading: true }
+  })),
+  on(loadMccCompleted, (state, {mcc}) => ({
+    ...state,
+    mcc: mccAdapter.addAll(mcc, { ...state.mcc, loaded: true, loading: false })
+  })),
+  on(loadMccCanceled, state => ({
+    ...state,
+    mcc: { ...state.mcc, loading: false }
   })),
   on(loadCategoriesCompleted, (state, {errorCode, errorMessage, categories}) => ({
     ...state,

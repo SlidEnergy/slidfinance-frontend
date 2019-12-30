@@ -9,6 +9,8 @@ import { AddRuleDialogComponent } from './dialogs/add-rule-dialog.component';
 import { DeleteRuleDialogComponent } from './dialogs/delete-rule-dialog.component';
 import { EditRuleDialogComponent } from './dialogs/edit-rule-dialog.component';
 import { MessageDialogComponent } from 'src/app/shared/message-dialog/message-dialog.component';
+import {MccService} from '../../core/mcc/mcc.service';
+import {Mcc} from '../../core/mcc/mcc';
 
 @Component({
   selector: 'app-rule-list',
@@ -38,15 +40,20 @@ export class RuleListComponent implements OnInit {
   columnsToDisplay = ['account', 'mcc', 'bankCategory', 'description', 'category', 'actions'];
   loadingVisible = true;
 
+  mcc: Mcc[];
+
   constructor(
     private categoriesService: CategoriesService,
     public dialog: MatDialog,
-    private accountsService: AccountsService) { }
+    private accountsService: AccountsService,
+    private mccService: MccService) { }
 
   ngOnInit() {
     this.categoriesService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [number, Category])))).subscribe(data => this.categories = data);
     this.accountsService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [number, BankAccount])))).subscribe(data => this.accounts = data);
     this.dataSource.sort = this.sort;
+
+    this.mccService.getList().subscribe(x => this.mcc = x);
   }
 
   getAccountTitle(accountId: number) {
@@ -63,6 +70,17 @@ export class RuleListComponent implements OnInit {
 
     let category = this.categories.get(categoryId);
     return category ? category.title : '';
+  }
+
+  getMccCodeById(id: number) {
+    if(!this.mcc)
+      return;
+
+    let mcc = this.mcc.find(x => x.id == id);
+    if(!mcc)
+      return;
+
+    return mcc.code;
   }
 
   addNew() {
