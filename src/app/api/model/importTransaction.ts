@@ -9,12 +9,12 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { ImportTransaction } from './importTransaction';
 
 
-export interface PatchAccountDataBindingModel { 
-    token?: string;
-    code?: string;
-    balance?: number;
-    transactions?: Array<ImportTransaction>;
+export interface ImportTransaction { 
+    dateTime?: Date;
+    amount?: number;
+    description?: string;
+    mcc?: number;
+    category?: string;
 }

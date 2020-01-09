@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, ElementRef, Inject, OnInit} from '@angular/core';
 import {DOCUMENT} from '@angular/common';
-import {TelegramService} from '../api';
+import {ImportService, TelegramService} from '../api';
 import {MatSnackBar} from '@angular/material';
 
 @Component({
@@ -9,7 +9,6 @@ import {MatSnackBar} from '@angular/material';
   styleUrls: ['./settings-page.component.scss']
 })
 export class SettingsPageComponent implements OnInit, AfterViewInit {
-
   result = '';
 
   constructor(@Inject(DOCUMENT) private document,

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import {SharedModule} from '../shared/shared.module';
 import { SettingsPageComponent } from './settings-page.component';
 import {RouterModule, Routes} from '@angular/router';
+import { ImportTokenComponent } from './import-token.component';
 
 const routes: Routes = [
   {
@@ -16,7 +17,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [SettingsPageComponent],
+  declarations: [SettingsPageComponent, ImportTokenComponent],
   imports: [
     SharedModule,
     RouterModule.forChild(routes)
