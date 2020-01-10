@@ -13,7 +13,6 @@ import { ImportTransaction } from './importTransaction';
 
 
 export interface PatchAccountDataBindingModel { 
-    token?: string;
     code?: string;
     balance?: number;
     transactions?: Array<ImportTransaction>;

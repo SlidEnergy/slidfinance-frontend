@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ImportService} from '../api';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 
 @Component({
   selector: 'app-import-token',
@@ -16,6 +16,6 @@ export class ImportTokenComponent implements OnInit {
   }
 
   getImportToken() {
-    this.importToken = this.importService.getToken();
+    this.importToken = this.importService.getRefreshToken();
   }
 }
