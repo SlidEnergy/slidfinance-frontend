@@ -6,6 +6,7 @@ export * from './categoryDistribution';
 export * from './categoryStatistic';
 export * from './editBankAccountBindingModel';
 export * from './generatedRule';
+export * from './importTransaction';
 export * from './loginBindingModel';
 export * from './mcc';
 export * from './mccCategory';
