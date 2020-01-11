@@ -22,6 +22,7 @@ import {SelectCategoryComponent} from './transactions/add-transaction/select-cat
 import {AddTransactionComponent} from './transactions/add-transaction/add-transaction.component';
 import {DeleteCategoryDialogComponent} from './categories/dialogs/delete-category-dialog.component';
 import {AccountsPageComponent} from './accounts/accounts-page.component';
+import { AccountSettingsComponent } from './accounts/card/account-settings.component';
 
 const routes: Routes = [
   {
@@ -88,6 +89,7 @@ const routes: Routes = [
     AddTransactionPageComponent,
     SelectCategoryComponent,
     AddTransactionComponent,
+    AccountSettingsComponent,
   ],
   imports: [
     SharedModule,

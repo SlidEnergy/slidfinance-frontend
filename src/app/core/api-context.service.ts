@@ -8,6 +8,7 @@ import {Store} from '@ngrx/store';
 import {AppState} from '../shared/app-state';
 import {of, throwError} from 'rxjs';
 import {loadMccCompleted} from './store/core.store';
+import {AccountsService} from "../api";
 
 @Injectable({
   providedIn: 'root'
@@ -45,7 +46,10 @@ export class ApiContextService {
     this.store.select(mccMapSelector)
   );
 
+  accounts = this.accountsService.getList();
+
   constructor(private mccService: api.MccService,
+              private accountsService: AccountsService,
               private store: Store<AppState>) {
     console.log("SINGLETON API CONTEXT");
   }

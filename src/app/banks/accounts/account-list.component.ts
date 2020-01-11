@@ -1,14 +1,11 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import {Bank, BankAccount} from 'src/app/api';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { AddAccountDialogComponent } from './dialogs/add-account-dialog.component';
-import { EditAccountDialogComponent } from './dialogs/edit-account-dialog.component';
-import { Observable } from 'rxjs';
-import { filter, flatMap, map } from 'rxjs/operators';
-import { MessageDialogComponent } from 'src/app/shared/message-dialog/message-dialog.component';
-import { Router } from '@angular/router';
+import {Component, OnInit, Input} from '@angular/core';
+import {BankAccount} from 'src/app/api';
+import {MatDialog} from '@angular/material/dialog';
+import {AddAccountDialogComponent} from './dialogs/add-account-dialog.component';
+import {filter, switchMap} from 'rxjs/operators';
+import {Router} from '@angular/router';
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {AccountsService} from "../../core/accounts/accounts.service";
 
 @Component({
   selector: 'app-account-list',
@@ -16,42 +13,23 @@ import { Router } from '@angular/router';
   styleUrls: ['./account-list.component.scss']
 })
 export class AccountListComponent implements OnInit {
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-
-  @Input() itemAdding: (item: BankAccount) => Observable<any>;
-  @Input() itemDeleting: (item: BankAccount) => Observable<boolean>;
-  @Input() itemChanging: (item: BankAccount) => Observable<BankAccount>;
-
-  // список транзакций пользователя
-  dataSource = new MatTableDataSource<BankAccount>();
+  accounts: BankAccount[];
 
   @Input('accounts') set accountsInput(value: BankAccount[]) {
     if (value) {
       this.loadingVisible = false;
-      this.dataSource.data = value;
+      this.accounts = value;
     }
   }
-
-  // Список колонок, которые нужно показать в таблице
-  columnsToDisplay = ['title', 'code', 'balance', 'creditLimit', 'actions'];
   loadingVisible = true;
 
   constructor(private dialog: MatDialog,
-    private router: Router) { }
-
-  ngOnInit() {
-    this.dataSource.sort = this.sort;
-    this.dataSource.sortingDataAccessor = this.sortingDataAccessor.bind(this);
+              private router: Router,
+              private snackBar: MatSnackBar,
+              private accountsService: AccountsService) {
   }
 
-  sortingDataAccessor(account: BankAccount, property: string) {
-    switch (property) {
-      case 'title': {
-        return account.title.toLowerCase();
-      }
-
-      default: return account[property];
-    }
+  ngOnInit() {
   }
 
   row_click(row: BankAccount) {
@@ -63,45 +41,22 @@ export class AccountListComponent implements OnInit {
       data: {}
     });
 
-    dialogRef.afterClosed().pipe(filter(x => x), flatMap(result => this.itemAdding(result).pipe(filter(x => x))))
-      .subscribe((result) => {
-        let data = this.dataSource.data;
-        data.push(result);
-        this.dataSource.data = data;
-      });
-  }
-
-  addTramsaction(account: BankAccount) {
-    this.router.navigate(['banks', account.bankId, 'accounts', account.id, 'transactions', 'new']);
-  }
-
-  editItem(account: BankAccount) {
-    const dialogRef = this.dialog.open(EditAccountDialogComponent, {
-      data: { ...account }
-    });
-
-    dialogRef.afterClosed().pipe(filter(x => x), flatMap(result => this.itemChanging(result).pipe(filter(x => !!x))))
-      .subscribe((result) => {
-        this.dataSource.data = this.dataSource.data.map((value) => value.id == result.id ? result : value);
-      });
-  }
-
-  deleteItem(item: BankAccount) {
-    const dialogRef = this.dialog.open(MessageDialogComponent, {
-      data: { caption: 'Вы уверены что хотите отвязать счет?', text: item.title }
-    });
-
-    dialogRef.afterClosed().pipe(filter(x => x), flatMap(() => this.itemDeleting(item).pipe(filter(x => x))))
-      .subscribe(() => {
-        this.dataSource.data = this.dataSource.data.filter((value) => value.id != item.id);
+    dialogRef.afterClosed().pipe(
+      filter(x => x),
+      switchMap(item => this.accountsService.add(item))
+    ).subscribe(result => {
+        this.snackBar.open('Счет привязан', undefined, {duration: 5000, panelClass: ['background-green']});
+        this.accounts.push(result);
+      },
+      error => {
+        console.error(error);
+        this.snackBar.open('Не удалось привязать счет', undefined, {duration: 5000, panelClass: ['background-red']});
       });
   }
 
   getTotalOwnFunds() {
-    return this.dataSource.data.map(b => b.balance - b.creditLimit).reduce((acc, value) => acc + value, 0);
+    if(this.accounts)
+      return this.accounts.map(b => b.balance - b.creditLimit).reduce((acc, value) => acc + value, 0);
   }
 
-  getTotalCreditLimits() {
-    return this.dataSource.data.map(b => b.creditLimit).reduce((acc, value) => acc + value, 0);
-  }
 }

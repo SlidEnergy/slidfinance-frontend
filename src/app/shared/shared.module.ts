@@ -29,6 +29,7 @@ import {MessageDialogComponent} from './message-dialog/message-dialog.component'
 import {NonFractionCurrencyOrDashPipe} from './non-fraction-currency-or-dash.pipe';
 import {TransactionsListComponent} from './transactions-list/transactions-list.component';
 import {AngularSplitModule} from 'angular-split';
+import {MatTabsModule} from "@angular/material/tabs";
 
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ import {AngularSplitModule} from 'angular-split';
     MatMenuModule,
     MatDialogModule,
     MatPaginatorModule,
+    MatTabsModule,
     MessageDialogComponent,
     TransactionsListComponent,
 

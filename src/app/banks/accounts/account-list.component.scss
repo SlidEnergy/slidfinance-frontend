@@ -23,3 +23,26 @@ mat-row:active {
 .mat-footer-row {
   font-weight: bold;
 }
+:host {
+  ::ng-deep.mat-pseudo-checkbox{
+    display: none !important;
+  }
+}
+.row-title {
+  flex: 1 1 auto;
+}
+.row-balance {
+}
+.row-total {
+  font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 16px;
+  position: relative;
+  height: inherit;
+}
+h3 {
+  display: inline-block;
+}
