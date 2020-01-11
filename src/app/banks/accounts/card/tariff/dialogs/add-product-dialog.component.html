@@ -1,0 +1,42 @@
+<div class="container">
+  <h3 mat-dialog-title>Добавить продукт</h3>
+  <p>Сначала нужно добавить банковский продукт.</p>
+  <form class="mat-dialog-content"
+        #formControl="ngForm">
+
+    <div class="form">
+      <mat-form-field color="accent" required="">
+        <mat-select [(value)]="data.bankId"
+                    placeholder="Банк" required>
+          <mat-option *ngFor="let bank of getBanksArray()"
+                      [value]="bank.id">
+            {{bank.title}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form">
+      <mat-form-field color="accent">
+        <input type="text"
+               matInput
+               placeholder="Название"
+               [(ngModel)]="data.title"
+               name="title"
+               required>
+      </mat-form-field>
+    </div>
+
+    <div mat-dialog-actions>
+      <button mat-button
+              type="submit"
+              [mat-dialog-close]="data"
+              [disabled]="!formControl.valid">Добавить
+      </button>
+      <button mat-button
+              [mat-dialog-close]
+              tabindex="-1">Отменить
+      </button>
+    </div>
+  </form>
+</div>

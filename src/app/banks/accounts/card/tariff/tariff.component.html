@@ -1,0 +1,9 @@
+<ng-container *ngIf="product else addProduct">
+  <p>Продукт: {{product.title}}</p>
+  <p>Банк: {{}}</p>
+</ng-container>
+<ng-template #addProduct>
+  <button mat-button color="primary"
+          (click)="addTariff()">Добавить тариф
+  </button>
+</ng-template>
