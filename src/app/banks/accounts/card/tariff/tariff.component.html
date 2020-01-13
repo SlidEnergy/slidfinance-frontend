@@ -1,9 +1,18 @@
-<ng-container *ngIf="product else addProduct">
-  <p>Продукт: {{product.title}}</p>
-  <p>Банк: {{}}</p>
-</ng-container>
-<ng-template #addProduct>
-  <button mat-button color="primary"
-          (click)="addTariff()">Добавить тариф
-  </button>
-</ng-template>
+<mat-form-field>
+  <mat-label>Продукт</mat-label>
+  <mat-select [(value)]="account.productId" (selectionChange)="product_selectionChange()">
+    <mat-option *ngFor="let product of products | async" [value]="product.id">
+      {{product.title}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<div *ngIf="tariffs | async, let tar">
+  <mat-form-field>
+    <mat-label>Тариф</mat-label>
+    <mat-select [(value)]="account.selectedTariffId" (selectionChange)="tariff_selectionChange()">
+      <mat-option *ngFor="let tariff of tar" [value]="tariff.id">
+        {{tariff.title}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>

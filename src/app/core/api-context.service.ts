@@ -8,7 +8,7 @@ import {Store} from '@ngrx/store';
 import {AppState} from '../shared/app-state';
 import {of, throwError} from 'rxjs';
 import {loadMccCompleted} from './store/core.store';
-import {AccountsService} from "../api";
+import {AccountsService, ProductsService} from '../api';
 
 @Injectable({
   providedIn: 'root'
@@ -23,12 +23,12 @@ export class ApiContextService {
     switchMap(() => this.mccService.getList()),
     tap(mcc => this.store.dispatch(coreActions.loadMccCompleted({mcc}))),
     catchError((error => {
-      console.log("CATCH ERROR");
+      console.log('CATCH ERROR');
       console.log(error);
       return throwError(error);
     })),
     finalize(() => {
-      console.log("FINALIZE");
+      console.log('FINALIZE');
       this.store.dispatch(coreActions.loadMccCanceled());
     }),
     mapTo(undefined),
@@ -46,11 +46,14 @@ export class ApiContextService {
     this.store.select(mccMapSelector)
   );
 
-  accounts = this.accountsService.getList();
+  accounts = this.accountsService.getList().pipe(share());
+
+  products = this.productsService.getList().pipe(share());
 
   constructor(private mccService: api.MccService,
               private accountsService: AccountsService,
+              private productsService: ProductsService,
               private store: Store<AppState>) {
-    console.log("SINGLETON API CONTEXT");
+
   }
 }

@@ -9,14 +9,14 @@ export const mccAdapter: EntityAdapter<Mcc> = createEntityAdapter<Mcc>({
   sortComparer: (a: Mcc, b: Mcc) => a.code.localeCompare(b.code),
 });
 
-interface MccState extends EntityState<Mcc> {
+interface ExtendedEntityState<T> extends EntityState<T> {
   loaded: boolean;
   loading: boolean;
 }
 
 export interface CoreState {
   categories: Map<number, Category> | null;
-  mcc: MccState;
+  mcc: ExtendedEntityState<Mcc>;
 
   loadCategoriesError: { code: number, message: string } | null;
 }
