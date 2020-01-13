@@ -18,17 +18,16 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
-import { AddBankAccountBindingModel } from '../model/addBankAccountBindingModel';
-import { BankAccount } from '../model/bankAccount';
 import { Operation } from '../model/operation';
 import { ProblemDetails } from '../model/problemDetails';
+import { Product } from '../model/product';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
 
 
 @Injectable()
-export class AccountsService {
+export class ProductsService {
 
     protected basePath = 'https://localhost';
     public defaultHeaders = new HttpHeaders();
@@ -102,7 +101,7 @@ export class AccountsService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.delete<any>(`${this.basePath}/api/v1/Accounts/${encodeURIComponent(String(id))}`,
+        return this.httpClient.delete<any>(`${this.basePath}/api/v1/Products/${encodeURIComponent(String(id))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -115,14 +114,14 @@ export class AccountsService {
     /**
      * 
      * 
-     * @param account 
+     * @param product 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public add(account?: AddBankAccountBindingModel, observe?: 'body', reportProgress?: boolean): Observable<BankAccount>;
-    public add(account?: AddBankAccountBindingModel, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<BankAccount>>;
-    public add(account?: AddBankAccountBindingModel, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<BankAccount>>;
-    public add(account?: AddBankAccountBindingModel, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public add(product?: Product, observe?: 'body', reportProgress?: boolean): Observable<Product>;
+    public add(product?: Product, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Product>>;
+    public add(product?: Product, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Product>>;
+    public add(product?: Product, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
         let headers = this.defaultHeaders;
@@ -163,8 +162,8 @@ export class AccountsService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<BankAccount>(`${this.basePath}/api/v1/Accounts`,
-            account,
+        return this.httpClient.post<Product>(`${this.basePath}/api/v1/Products`,
+            product,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -177,20 +176,13 @@ export class AccountsService {
     /**
      * 
      * 
-     * @param bankId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getList(bankId?: number, observe?: 'body', reportProgress?: boolean): Observable<Array<BankAccount>>;
-    public getList(bankId?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<BankAccount>>>;
-    public getList(bankId?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<BankAccount>>>;
-    public getList(bankId?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-
-        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (bankId !== undefined && bankId !== null) {
-            queryParameters = queryParameters.set('bankId', <any>bankId);
-        }
+    public getList(observe?: 'body', reportProgress?: boolean): Observable<Array<Product>>;
+    public getList(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Product>>>;
+    public getList(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Product>>>;
+    public getList(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -222,9 +214,8 @@ export class AccountsService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<Array<BankAccount>>(`${this.basePath}/api/v1/Accounts`,
+        return this.httpClient.get<Array<Product>>(`${this.basePath}/api/v1/Products`,
             {
-                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -241,13 +232,13 @@ export class AccountsService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public patchAccount(id: number, patchDoc?: Array<Operation>, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public patchAccount(id: number, patchDoc?: Array<Operation>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public patchAccount(id: number, patchDoc?: Array<Operation>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public patchAccount(id: number, patchDoc?: Array<Operation>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public patchProduct(id: number, patchDoc?: Array<Operation>, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public patchProduct(id: number, patchDoc?: Array<Operation>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public patchProduct(id: number, patchDoc?: Array<Operation>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public patchProduct(id: number, patchDoc?: Array<Operation>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling patchAccount.');
+            throw new Error('Required parameter id was null or undefined when calling patchProduct.');
         }
 
 
@@ -289,7 +280,7 @@ export class AccountsService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.patch<any>(`${this.basePath}/api/v1/Accounts/${encodeURIComponent(String(id))}`,
+        return this.httpClient.patch<any>(`${this.basePath}/api/v1/Products/${encodeURIComponent(String(id))}`,
             patchDoc,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -304,14 +295,14 @@ export class AccountsService {
      * 
      * 
      * @param id 
-     * @param account 
+     * @param product 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public update(id: number, account?: BankAccount, observe?: 'body', reportProgress?: boolean): Observable<BankAccount>;
-    public update(id: number, account?: BankAccount, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<BankAccount>>;
-    public update(id: number, account?: BankAccount, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<BankAccount>>;
-    public update(id: number, account?: BankAccount, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public update(id: number, product?: Product, observe?: 'body', reportProgress?: boolean): Observable<Product>;
+    public update(id: number, product?: Product, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Product>>;
+    public update(id: number, product?: Product, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Product>>;
+    public update(id: number, product?: Product, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling update.');
@@ -356,8 +347,8 @@ export class AccountsService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.put<BankAccount>(`${this.basePath}/api/v1/Accounts/${encodeURIComponent(String(id))}`,
-            account,
+        return this.httpClient.put<Product>(`${this.basePath}/api/v1/Products/${encodeURIComponent(String(id))}`,
+            product,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

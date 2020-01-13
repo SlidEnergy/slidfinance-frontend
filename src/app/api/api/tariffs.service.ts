@@ -18,17 +18,16 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
-import { AddBankAccountBindingModel } from '../model/addBankAccountBindingModel';
-import { BankAccount } from '../model/bankAccount';
 import { Operation } from '../model/operation';
 import { ProblemDetails } from '../model/problemDetails';
+import { ProductTariff } from '../model/productTariff';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
 
 
 @Injectable()
-export class AccountsService {
+export class TariffsService {
 
     protected basePath = 'https://localhost';
     public defaultHeaders = new HttpHeaders();
@@ -63,16 +62,21 @@ export class AccountsService {
      * 
      * 
      * @param id 
+     * @param productId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public _delete(id: number, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public _delete(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public _delete(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public _delete(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public _delete(id: number, productId: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public _delete(id: number, productId: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public _delete(id: number, productId: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public _delete(id: number, productId: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling _delete.');
+        }
+
+        if (productId === null || productId === undefined) {
+            throw new Error('Required parameter productId was null or undefined when calling _delete.');
         }
 
         let headers = this.defaultHeaders;
@@ -102,7 +106,7 @@ export class AccountsService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.delete<any>(`${this.basePath}/api/v1/Accounts/${encodeURIComponent(String(id))}`,
+        return this.httpClient.delete<any>(`${this.basePath}/api/v1/products/${encodeURIComponent(String(productId))}/tariffs/${encodeURIComponent(String(id))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -115,14 +119,19 @@ export class AccountsService {
     /**
      * 
      * 
-     * @param account 
+     * @param productId 
+     * @param tariff 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public add(account?: AddBankAccountBindingModel, observe?: 'body', reportProgress?: boolean): Observable<BankAccount>;
-    public add(account?: AddBankAccountBindingModel, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<BankAccount>>;
-    public add(account?: AddBankAccountBindingModel, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<BankAccount>>;
-    public add(account?: AddBankAccountBindingModel, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public add(productId: string, tariff?: ProductTariff, observe?: 'body', reportProgress?: boolean): Observable<ProductTariff>;
+    public add(productId: string, tariff?: ProductTariff, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ProductTariff>>;
+    public add(productId: string, tariff?: ProductTariff, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ProductTariff>>;
+    public add(productId: string, tariff?: ProductTariff, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (productId === null || productId === undefined) {
+            throw new Error('Required parameter productId was null or undefined when calling add.');
+        }
 
 
         let headers = this.defaultHeaders;
@@ -163,8 +172,8 @@ export class AccountsService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<BankAccount>(`${this.basePath}/api/v1/Accounts`,
-            account,
+        return this.httpClient.post<ProductTariff>(`${this.basePath}/api/v1/products/${encodeURIComponent(String(productId))}/tariffs`,
+            tariff,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -177,19 +186,17 @@ export class AccountsService {
     /**
      * 
      * 
-     * @param bankId 
+     * @param productId 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getList(bankId?: number, observe?: 'body', reportProgress?: boolean): Observable<Array<BankAccount>>;
-    public getList(bankId?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<BankAccount>>>;
-    public getList(bankId?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<BankAccount>>>;
-    public getList(bankId?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getList(productId: number, observe?: 'body', reportProgress?: boolean): Observable<Array<ProductTariff>>;
+    public getList(productId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ProductTariff>>>;
+    public getList(productId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ProductTariff>>>;
+    public getList(productId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
-
-        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (bankId !== undefined && bankId !== null) {
-            queryParameters = queryParameters.set('bankId', <any>bankId);
+        if (productId === null || productId === undefined) {
+            throw new Error('Required parameter productId was null or undefined when calling getList.');
         }
 
         let headers = this.defaultHeaders;
@@ -222,9 +229,8 @@ export class AccountsService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<Array<BankAccount>>(`${this.basePath}/api/v1/Accounts`,
+        return this.httpClient.get<Array<ProductTariff>>(`${this.basePath}/api/v1/products/${encodeURIComponent(String(productId))}/tariffs`,
             {
-                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -237,17 +243,22 @@ export class AccountsService {
      * 
      * 
      * @param id 
+     * @param productId 
      * @param patchDoc 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public patchAccount(id: number, patchDoc?: Array<Operation>, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public patchAccount(id: number, patchDoc?: Array<Operation>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public patchAccount(id: number, patchDoc?: Array<Operation>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public patchAccount(id: number, patchDoc?: Array<Operation>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public patch(id: number, productId: string, patchDoc?: Array<Operation>, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public patch(id: number, productId: string, patchDoc?: Array<Operation>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public patch(id: number, productId: string, patchDoc?: Array<Operation>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public patch(id: number, productId: string, patchDoc?: Array<Operation>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling patchAccount.');
+            throw new Error('Required parameter id was null or undefined when calling patch.');
+        }
+
+        if (productId === null || productId === undefined) {
+            throw new Error('Required parameter productId was null or undefined when calling patch.');
         }
 
 
@@ -289,7 +300,7 @@ export class AccountsService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.patch<any>(`${this.basePath}/api/v1/Accounts/${encodeURIComponent(String(id))}`,
+        return this.httpClient.patch<any>(`${this.basePath}/api/v1/products/${encodeURIComponent(String(productId))}/tariffs/${encodeURIComponent(String(id))}`,
             patchDoc,
             {
                 withCredentials: this.configuration.withCredentials,
@@ -304,17 +315,22 @@ export class AccountsService {
      * 
      * 
      * @param id 
-     * @param account 
+     * @param productId 
+     * @param product 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public update(id: number, account?: BankAccount, observe?: 'body', reportProgress?: boolean): Observable<BankAccount>;
-    public update(id: number, account?: BankAccount, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<BankAccount>>;
-    public update(id: number, account?: BankAccount, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<BankAccount>>;
-    public update(id: number, account?: BankAccount, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public update(id: number, productId: string, product?: ProductTariff, observe?: 'body', reportProgress?: boolean): Observable<ProductTariff>;
+    public update(id: number, productId: string, product?: ProductTariff, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ProductTariff>>;
+    public update(id: number, productId: string, product?: ProductTariff, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ProductTariff>>;
+    public update(id: number, productId: string, product?: ProductTariff, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling update.');
+        }
+
+        if (productId === null || productId === undefined) {
+            throw new Error('Required parameter productId was null or undefined when calling update.');
         }
 
 
@@ -356,8 +372,8 @@ export class AccountsService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.put<BankAccount>(`${this.basePath}/api/v1/Accounts/${encodeURIComponent(String(id))}`,
-            account,
+        return this.httpClient.put<ProductTariff>(`${this.basePath}/api/v1/products/${encodeURIComponent(String(productId))}/tariffs/${encodeURIComponent(String(id))}`,
+            product,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

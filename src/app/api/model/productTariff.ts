@@ -12,14 +12,9 @@
 import { ProductType } from './productType';
 
 
-export interface BankAccount { 
+export interface ProductTariff { 
     id?: number;
-    code?: string;
-    balance?: number;
-    creditLimit?: number;
     title?: string;
-    bankId?: number;
-    selectedTariffId?: number;
     productId?: number;
     type?: ProductType;
 }
