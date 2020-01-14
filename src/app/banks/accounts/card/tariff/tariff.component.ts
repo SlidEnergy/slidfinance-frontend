@@ -7,7 +7,7 @@ import {
   AccountsService,
   BankAccount,
   CashbackCategoriesService,
-  CashbackCategory,
+  CashbackCategory, CashbackCategoryType,
   Product,
   ProductTariff,
   TariffsService
@@ -64,6 +64,7 @@ export class TariffComponent implements OnInit, OnChanges {
       switchMap(product => this.tariffsService.getList(product.id)),
       map(tariffs => tariffs.find(tariff => tariff.id == tariffId)),
       switchMap(tariff => this.categoriesService.getList(tariff.id)),
+      map(categories => categories.filter(x => x.type != CashbackCategoryType.DefaultCashback))
     );
   }
 
