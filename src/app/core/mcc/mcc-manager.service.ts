@@ -1,29 +1,26 @@
 import {Injectable} from '@angular/core';
-import {Observable, of} from 'rxjs';
-import {Mcc} from './mcc';
 import {ApiContextService} from '../api-context.service';
 import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MccService {
+export class MccManagerService {
 
   constructor(
     private apiContext: ApiContextService
   ) {
-    console.log("SINGLETON MCC SERVICE");
   }
 
-  getList(): Observable<Mcc[]> {
+  getList() {
     return this.apiContext.mccDict.pipe(
-      map(mcc => Object.keys(mcc).map(key => mcc[key] && new Mcc(mcc[key])))
+      map(mcc => Object.keys(mcc).map(key => mcc[key]))
     );
   }
 
-  getById(id: number): Observable<Mcc> {
+  getById(id: number) {
     return this.apiContext.mccDict.pipe(
-      map(mcc => mcc && mcc[id] && new Mcc(mcc[id]))
+      map(mcc => mcc && mcc[id])
     );
   }
 }

@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {BankAccount} from "../../../api";
+import {AccountsService, BankAccount} from '../../../api';
 import {MessageDialogComponent} from "../../../shared/message-dialog/message-dialog.component";
 import {filter, switchMapTo} from "rxjs/operators";
 import {MatDialog} from "@angular/material/dialog";
-import {AccountsService} from "../../../core/accounts/accounts.service";
+import {AccountsManagerService} from "../../../core/accounts/accounts-manager.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
 
@@ -31,7 +31,7 @@ export class AccountSettingsComponent implements OnInit {
 
     dialogRef.afterClosed().pipe(
       filter(x => x),
-      switchMapTo(this.accountsService.delete(this.account.id))
+      switchMapTo(this.accountsService._delete(this.account.id))
     ).subscribe(
       data => {
         this.snackBar.open('Карта удалена', undefined, {duration: 5000, panelClass: ['background-green']});

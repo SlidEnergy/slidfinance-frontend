@@ -7,7 +7,7 @@ import {BankAccount} from "../../api";
 @Injectable({
   providedIn: 'root'
 })
-export class AccountsService {
+export class AccountsManagerService {
 
   constructor(private context: ApiContextService,
               private api: api.AccountsService) { }
@@ -19,17 +19,4 @@ export class AccountsService {
   getById(id: number) {
     return this.context.accounts.pipe(map(entities=> entities.find(entity => entity.id == id)));
   }
-
-  delete(id: number) {
-    return this.api._delete(id);
-  }
-
-  add(bank: BankAccount) {
-    return this.api.add(bank);
-  }
-
-  update(id: number, bank: BankAccount) {
-    return this.api.update(id, bank);
-  }
-
 }

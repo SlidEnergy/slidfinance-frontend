@@ -3,13 +3,11 @@ import {MatDialog} from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-import {Category, GeneratedRule, CategoriesService, AccountsService, BankAccount, Rule} from 'src/app/api';
+import {Category, GeneratedRule, CategoriesService, AccountsService, BankAccount, Rule, Mcc} from 'src/app/api';
 import {map, filter, flatMap} from 'rxjs/operators';
 import {Observable, pipe} from 'rxjs';
 import {AddRuleDialogComponent} from './dialogs/add-rule-dialog.component';
-import {selectMccById} from '../../core/store/core-selectors';
-import {MccService} from '../../core/mcc/mcc.service';
-import {Mcc} from '../../core/mcc/mcc';
+import {MccManagerService} from '../../core/mcc/mcc-manager.service';
 
 @Component({
   selector: 'app-generated-rule-list',
@@ -45,7 +43,7 @@ export class GeneratedRuleListComponent implements OnInit {
     private categoriesService: CategoriesService,
     public dialog: MatDialog,
     private accountsService: AccountsService,
-    private mccService: MccService) {
+    private mccService: MccManagerService) {
   }
 
   ngOnInit() {

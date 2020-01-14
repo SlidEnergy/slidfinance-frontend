@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Merchant} from '../../api';
-import {MccService} from '../../core/mcc/mcc.service';
-import {Mcc} from '../../core/mcc/mcc';
+import {Mcc, Merchant} from '../../api';
+import {MccManagerService} from '../../core/mcc/mcc-manager.service';
 
 @Component({
   selector: 'app-merchant-list',
@@ -13,7 +12,7 @@ export class MerchantListComponent implements OnInit {
 
   mcc: Mcc[];
 
-  constructor(private mccService: MccService) {
+  constructor(private mccService: MccManagerService) {
   }
 
   ngOnInit() {

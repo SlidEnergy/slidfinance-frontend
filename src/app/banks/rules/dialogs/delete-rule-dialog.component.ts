@@ -1,9 +1,8 @@
 import {Component, OnInit, Inject} from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {RulesService, CategoriesService, AccountsService, Category, BankAccount} from 'src/app/api';
+import {RulesService, CategoriesService, AccountsService, Category, BankAccount, Mcc} from 'src/app/api';
 import {map} from 'rxjs/operators';
-import {MccService} from '../../../core/mcc/mcc.service';
-import {Mcc} from '../../../core/mcc/mcc';
+import {MccManagerService} from '../../../core/mcc/mcc-manager.service';
 
 @Component({
   selector: 'app-delete-rule-dialog',
@@ -20,7 +19,7 @@ export class DeleteRuleDialogComponent implements OnInit {
               public rulesService: RulesService,
               private categoriesService: CategoriesService,
               private accountsService: AccountsService,
-              private mccService: MccService) {
+              private mccService: MccManagerService) {
   }
 
   ngOnInit() {

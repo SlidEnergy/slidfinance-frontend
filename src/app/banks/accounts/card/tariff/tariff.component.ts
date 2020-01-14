@@ -1,13 +1,20 @@
-import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {map, share, switchMap} from 'rxjs/operators';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {map, switchMap} from 'rxjs/operators';
 import {MatDialog} from '@angular/material/dialog';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {BankAccount, CashbackCategory, ProductTariff} from '../../../../api';
-import {ProductsService} from '../../../../core/accounts/products.service';
+import {
+  AccountsService,
+  BankAccount,
+  CashbackCategoriesService,
+  CashbackCategory,
+  Product,
+  ProductTariff,
+  TariffsService
+} from '../../../../api';
+import {ProductsManagerService} from '../../../../core/accounts/products-manager.service';
 import {Observable, of} from 'rxjs';
-import {AccountsService} from '../../../../core/accounts/accounts.service';
-import {Product} from '../../../../core/accounts/Product';
+import {AccountsManagerService} from '../../../../core/accounts/accounts-manager.service';
 
 @Component({
   selector: 'app-tariff',
@@ -23,8 +30,10 @@ export class TariffComponent implements OnInit, OnChanges {
   constructor(private dialog: MatDialog,
               private router: Router,
               private snackBar: MatSnackBar,
-              private productsService: ProductsService,
-              private accountsService: AccountsService
+              private productsService: ProductsManagerService,
+              private accountsService: AccountsService,
+              private tariffsService: TariffsService,
+              private categoriesService: CashbackCategoriesService
   ) {
   }
 
@@ -42,19 +51,19 @@ export class TariffComponent implements OnInit, OnChanges {
     this.products = this.productsService.getList();
   }
 
-  getTariffs(productId: number): Observable<ProductTariff[] | undefined> {
+  getTariffs(productId: number) {
     return this.productsService.getList().pipe(
       map(products => products.find(product => product.id == productId)),
-      switchMap(product => product.getTariffs()),
+      switchMap(product => this.tariffsService.getList(product.id)),
     );
   }
 
-  getCategories(productId: number, tariffId: number): Observable<CashbackCategory[] | undefined> {
+  getCategories(productId: number, tariffId: number) {
     return this.productsService.getList().pipe(
       map(products => products.find(product => product.id == productId)),
-      switchMap(product => product.getTariffs()),
+      switchMap(product => this.tariffsService.getList(product.id)),
       map(tariffs => tariffs.find(tariff => tariff.id == tariffId)),
-      switchMap(tariff => tariff.getCategories()),
+      switchMap(tariff => this.categoriesService.getList(tariff.id)),
     );
   }
 

@@ -2,15 +2,13 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { AccountsService, CategoriesService, Rule, Category, BankAccount } from 'src/app/api';
+import {AccountsService, CategoriesService, Rule, Category, BankAccount, Mcc} from 'src/app/api';
 import { map, filter, flatMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { AddRuleDialogComponent } from './dialogs/add-rule-dialog.component';
 import { DeleteRuleDialogComponent } from './dialogs/delete-rule-dialog.component';
 import { EditRuleDialogComponent } from './dialogs/edit-rule-dialog.component';
-import { MessageDialogComponent } from 'src/app/shared/message-dialog/message-dialog.component';
-import {MccService} from '../../core/mcc/mcc.service';
-import {Mcc} from '../../core/mcc/mcc';
+import {MccManagerService} from '../../core/mcc/mcc-manager.service';
 
 @Component({
   selector: 'app-rule-list',
@@ -46,7 +44,7 @@ export class RuleListComponent implements OnInit {
     private categoriesService: CategoriesService,
     public dialog: MatDialog,
     private accountsService: AccountsService,
-    private mccService: MccService) { }
+    private mccService: MccManagerService) { }
 
   ngOnInit() {
     this.categoriesService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [number, Category])))).subscribe(data => this.categories = data);

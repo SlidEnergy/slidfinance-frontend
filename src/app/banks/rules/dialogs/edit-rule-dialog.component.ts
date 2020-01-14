@@ -1,10 +1,9 @@
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
-import {RulesService, Rule, Category, CategoriesService, AccountsService, BankAccount} from 'src/app/api';
+import {RulesService, Rule, Category, CategoriesService, AccountsService, BankAccount, Mcc} from 'src/app/api';
 import {map} from 'rxjs/operators';
-import {Mcc} from '../../../core/mcc/mcc';
-import {MccService} from '../../../core/mcc/mcc.service';
+import {MccManagerService} from '../../../core/mcc/mcc-manager.service';
 
 @Component({
   selector: 'app-edit-rule-dialog',
@@ -21,7 +20,7 @@ export class EditRuleDialogComponent implements OnInit {
               public rulesService: RulesService,
               private categoriesService: CategoriesService,
               private accountsService: AccountsService,
-              private mccService: MccService) {
+              private mccService: MccManagerService) {
   }
 
   ngOnInit() {

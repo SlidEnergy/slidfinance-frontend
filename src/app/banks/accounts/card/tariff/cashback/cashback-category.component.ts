@@ -11,7 +11,7 @@ export class CashbackCategoryComponent implements OnInit {
   newMccCode: string = '';
   addingMode: boolean = false;
 
-  constructor(private cashbackMcc: CashbackCategoryMccService) { }
+  constructor(private cashbackMcc: CashbackCategoryMccService,) { }
 
   ngOnInit() {
   }

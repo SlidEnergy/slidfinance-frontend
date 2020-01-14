@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {BankAccount, Transaction, TransactionsService} from 'src/app/api';
+import {AccountsService, BankAccount, Transaction, TransactionsService} from 'src/app/api';
 import {Observable, of} from 'rxjs';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {map, filter, switchMap, tap, share, flatMap, catchError} from 'rxjs/operators';
+import {map, filter, switchMap, tap, share} from 'rxjs/operators';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AccountsService} from "../../../core/accounts/accounts.service";
+import {AccountsManagerService} from "../../../core/accounts/accounts-manager.service";
 import {EditAccountDialogComponent} from "../dialogs/edit-account-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 
@@ -30,6 +30,7 @@ export class AccountCardComponent implements OnInit {
     private transactionsService: TransactionsService,
     private snackBar: MatSnackBar,
     private route: ActivatedRoute,
+    private accountsManager: AccountsManagerService,
     private accountsService: AccountsService,
     private router: Router,
     private dialog: MatDialog,
@@ -45,7 +46,7 @@ export class AccountCardComponent implements OnInit {
     );
 
     this.account = this.accountId$.pipe(
-      switchMap(id => this.accountsService.getById(id))
+      switchMap(id => this.accountsManager.getById(id))
     )
   }
 

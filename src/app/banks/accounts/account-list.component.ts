@@ -1,11 +1,11 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {BankAccount} from 'src/app/api';
+import {AccountsService, BankAccount} from 'src/app/api';
 import {MatDialog} from '@angular/material/dialog';
 import {AddAccountDialogComponent} from './dialogs/add-account-dialog.component';
 import {filter, switchMap} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {AccountsService} from "../../core/accounts/accounts.service";
+import {AccountsManagerService} from "../../core/accounts/accounts-manager.service";
 
 @Component({
   selector: 'app-account-list',
