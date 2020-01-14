@@ -16,3 +16,6 @@
     </mat-select>
   </mat-form-field>
 </div>
+<div *ngIf="categories | async, let cat" >
+  <app-cashback-category *ngFor="let category of cat" [category]="category"></app-cashback-category>
+</div>

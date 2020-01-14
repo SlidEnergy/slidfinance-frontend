@@ -3,7 +3,7 @@ import {map, share, switchMap} from 'rxjs/operators';
 import {MatDialog} from '@angular/material/dialog';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {BankAccount, ProductTariff} from '../../../../api';
+import {BankAccount, CashbackCategory, ProductTariff} from '../../../../api';
 import {ProductsService} from '../../../../core/accounts/products.service';
 import {Observable, of} from 'rxjs';
 import {AccountsService} from '../../../../core/accounts/accounts.service';
@@ -18,6 +18,7 @@ export class TariffComponent implements OnInit, OnChanges {
   @Input() account: BankAccount;
   products: Observable<Product[]>;
   tariffs: Observable<ProductTariff[] | undefined>;
+  categories: Observable<CashbackCategory[] | undefined>;
 
   constructor(private dialog: MatDialog,
               private router: Router,
@@ -28,8 +29,12 @@ export class TariffComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.account && changes.account.currentValue && changes.account.currentValue.productId) {
-      this.tariffs = this.getTariffs(this.account.productId);
+    if (changes.account && changes.account.currentValue) {
+      if(this.account.productId)
+        this.tariffs = this.getTariffs(this.account.productId);
+
+      if(this.account.selectedTariffId)
+        this.categories = this.getCategories(this.account.productId, this.account.selectedTariffId);
     }
   }
 
@@ -44,6 +49,15 @@ export class TariffComponent implements OnInit, OnChanges {
     );
   }
 
+  getCategories(productId: number, tariffId: number): Observable<CashbackCategory[] | undefined> {
+    return this.productsService.getList().pipe(
+      map(products => products.find(product => product.id == productId)),
+      switchMap(product => product.getTariffs()),
+      map(tariffs => tariffs.find(tariff => tariff.id == tariffId)),
+      switchMap(tariff => tariff.getCategories()),
+    );
+  }
+
   product_selectionChange() {
     if (this.account.productId) {
       this.saveChanges();
@@ -54,7 +68,7 @@ export class TariffComponent implements OnInit, OnChanges {
   tariff_selectionChange() {
     if (this.account.selectedTariffId) {
       this.saveChanges();
-      this.tariffs = this.getTariffs(this.account.productId);
+      this.categories = this.getCategories(this.account.productId, this.account.selectedTariffId);
     }
   }
 

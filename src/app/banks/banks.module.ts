@@ -25,6 +25,7 @@ import {AccountsPageComponent} from './accounts/accounts-page.component';
 import {AccountSettingsComponent} from './accounts/card/account-settings.component';
 import {TariffComponent} from './accounts/card/tariff/tariff.component';
 import {AddProductDialogComponent} from './accounts/card/tariff/dialogs/add-product-dialog.component';
+import { CashbackCategoryComponent } from './accounts/card/tariff/cashback/cashback-category.component';
 
 const routes: Routes = [
   {
@@ -95,6 +96,7 @@ const routes: Routes = [
     AddTransactionComponent,
     AccountSettingsComponent,
     TariffComponent,
+    CashbackCategoryComponent,
   ],
   imports: [
     SharedModule,
