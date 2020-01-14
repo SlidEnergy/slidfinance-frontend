@@ -14,5 +14,5 @@
 export interface CashbackCategoryMcc { 
     id?: number;
     categoryId?: number;
-    mccId?: number;
+    mccCode?: number;
 }

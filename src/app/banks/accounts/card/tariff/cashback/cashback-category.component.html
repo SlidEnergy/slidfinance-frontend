@@ -1,10 +1,11 @@
 <p>{{category.title}}</p>
+{{cashbackMccCodes | async}}
 <ng-container *ngIf="!addingMode else newMccTemplate">
   <button mat-button (click)="addingMode = true">+</button>
 </ng-container>
 <ng-template #newMccTemplate>
   <div>
-    <input matInput [(ngModel)]="newMccCode">
+    <input matInput [(ngModel)]="newMccCodes">
     <button mat-button (click)="addCashbackMcc()">Добавить</button>
   </div>
 </ng-template>
