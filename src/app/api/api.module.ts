@@ -5,6 +5,8 @@ import { HttpClient } from '@angular/common/http';
 
 import { AccountsService } from './api/accounts.service';
 import { BanksService } from './api/banks.service';
+import { CashbackCategoriesService } from './api/cashbackCategories.service';
+import { CashbackCategoryMccService } from './api/cashbackCategoryMcc.service';
 import { CategoriesService } from './api/categories.service';
 import { ImportService } from './api/import.service';
 import { MccService } from './api/mcc.service';
@@ -25,6 +27,8 @@ import { UsersService } from './api/users.service';
   providers: [
     AccountsService,
     BanksService,
+    CashbackCategoriesService,
+    CashbackCategoryMccService,
     CategoriesService,
     ImportService,
     MccService,
