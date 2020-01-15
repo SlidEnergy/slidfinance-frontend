@@ -2,4 +2,4 @@
 <p>Для импорта данных используется <a>расширение для Chrome</a>.</p>
 <p>Сгенерируйте токен доступа и сохраните его в настройках расширения, чтобы оно могло импортировать данные.</p>
 <mat-form-field *ngIf="importToken | async"><input matInput [value]="importToken | async"></mat-form-field>
-<mat-form-field><button mat-button (click)="getImportToken()">Сгенерировать новый токен</button></mat-form-field>
+<button mat-button (click)="getImportToken()">Сгенерировать новый токен</button>
