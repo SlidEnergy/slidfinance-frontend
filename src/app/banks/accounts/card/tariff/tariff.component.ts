@@ -14,7 +14,6 @@ import {
 } from '../../../../api';
 import {ProductsManagerService} from '../../../../core/accounts/products-manager.service';
 import {Observable, of} from 'rxjs';
-import {AccountsManagerService} from '../../../../core/accounts/accounts-manager.service';
 
 @Component({
   selector: 'app-tariff',
@@ -64,7 +63,7 @@ export class TariffComponent implements OnInit, OnChanges {
       switchMap(product => this.tariffsService.getList(product.id)),
       map(tariffs => tariffs.find(tariff => tariff.id == tariffId)),
       switchMap(tariff => this.categoriesService.getList(tariff.id)),
-      map(categories => categories.filter(x => x.type != CashbackCategoryType.DefaultCashback))
+      map(categories => categories.filter(x => x.type != CashbackCategoryType.BaseCashback))
     );
   }
 

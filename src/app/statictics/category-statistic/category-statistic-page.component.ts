@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
 
-import { CategoryStatistic, StatisticsService } from 'src/app/api';
+import {AnalysisService, CategoryStatistic} from 'src/app/api';
 
 @Component({
   selector: 'app-category-statistic-page',
@@ -15,7 +15,7 @@ export class CategoryStatisticPageComponent implements OnInit {
   startDate = moment.utc().add(-2, 'month').startOf('month');
   endDate = moment.utc().endOf('month');
 
-  constructor(private statisticsService: StatisticsService) { }
+  constructor(private statisticsService: AnalysisService) { }
 
   ngOnInit() {
     this.update();

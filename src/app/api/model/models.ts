@@ -27,3 +27,4 @@ export * from './tokenInfo';
 export * from './tokensCortage';
 export * from './transaction';
 export * from './user';
+export * from './whichCardToPay';

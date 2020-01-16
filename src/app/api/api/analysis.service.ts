@@ -19,13 +19,14 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 import { CategoryStatistic } from '../model/categoryStatistic';
+import { WhichCardToPay } from '../model/whichCardToPay';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
 
 
 @Injectable()
-export class StatisticsService {
+export class AnalysisService {
 
     protected basePath = 'https://localhost';
     public defaultHeaders = new HttpHeaders();
@@ -109,7 +110,66 @@ export class StatisticsService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<Array<CategoryStatistic>>(`${this.basePath}/api/v1/Statistics/category`,
+        return this.httpClient.get<Array<CategoryStatistic>>(`${this.basePath}/api/v1/Analysis/category`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param search 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public whichCardToPay(search?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<WhichCardToPay>>;
+    public whichCardToPay(search?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<WhichCardToPay>>>;
+    public whichCardToPay(search?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<WhichCardToPay>>>;
+    public whichCardToPay(search?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (search !== undefined && search !== null) {
+            queryParameters = queryParameters.set('search', <any>search);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Bearer) required
+        if (this.configuration.apiKeys["Authorization"]) {
+            headers = headers.set('Authorization', this.configuration.apiKeys["Authorization"]);
+        }
+
+        // authentication (Oauth2) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Array<WhichCardToPay>>(`${this.basePath}/api/v1/Analysis/whichcardtopay`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,

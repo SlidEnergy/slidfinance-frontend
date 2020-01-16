@@ -11,10 +11,10 @@
  */
 
 
-export type CashbackCategoryType = 'BaseCashback' | 'NoCashback' | 'IncreasedCashback';
-
-export const CashbackCategoryType = {
-    BaseCashback: 'BaseCashback' as CashbackCategoryType,
-    NoCashback: 'NoCashback' as CashbackCategoryType,
-    IncreasedCashback: 'IncreasedCashback' as CashbackCategoryType
-};
+export interface WhichCardToPay { 
+    searchPart?: string;
+    bankTitle?: string;
+    accountTitle?: string;
+    categoryTitle?: string;
+    percent?: number;
+}

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {AnalysisService, WhichCardToPay} from '../api';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-which-card-to-pay',
@@ -6,13 +8,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./which-card-to-pay.component.scss']
 })
 export class WhichCardToPayComponent implements OnInit {
+  search: string = '';
+  cards: Observable<WhichCardToPay[]>;
 
-  constructor() { }
+  constructor(private analysisService: AnalysisService) { }
 
   ngOnInit() {
   }
 
   button_click() {
-
+    this.cards = this.analysisService.whichCardToPay(this.search)
   }
 }
