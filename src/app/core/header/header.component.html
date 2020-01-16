@@ -15,12 +15,12 @@
       <a mat-button
          *ngIf="isLoggedIn | async"
          routerLink="/banks">Мои карты</a>
+      <a mat-button
+         routerLink="/merchants">Торговые точки</a>
       <ng-container *ngIf="isLoggedIn | async">
         <a mat-button
-           routerLink="/merchants">Торговые точки</a>
-        <button mat-icon-button [matMenuTriggerFor]="analysis" aria-label="Анализ">
-          <mat-icon>insert_chart_outlined</mat-icon>
-        </button>
+           routerLink="/summary">Обзор</a>
+        <a mat-button [matMenuTriggerFor]="analysis">Анализ</a>
         <mat-menu #analysis="matMenu">
           <button mat-menu-item routerLink="/statictics/category">Статистика по категориям</button>
           <button mat-menu-item routerLink="/banks/transactions">Мои операции</button>
@@ -52,6 +52,8 @@
   <a mat-menu-item
      routerLink="/merchants">Торговые точки</a>
   <ng-container *ngIf="isLoggedIn | async">
+    <a mat-menu-item
+       routerLink="/summary">Обзор</a>
     <a mat-menu-item
        routerLink="/banks">Мои карты</a>
     <mat-divider></mat-divider>

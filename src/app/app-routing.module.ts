@@ -6,6 +6,7 @@ import {AdminGuard} from './core/auth/admin-guard.service';
 
 const routes: Routes = [
   {path: '', loadChildren: './home/home.module#HomeModule'},
+  {path: 'summary', loadChildren: './summary/summary.module#SummaryModule'},
   {path: 'entry', loadChildren: './entry/entry.module#EntryModule', canActivate: [NotLoggedInGuard]},
   {path: 'banks', loadChildren: './banks/banks.module#BanksModule', canActivate: [AuthGuard]},
   {path: 'statictics', loadChildren: './statictics/statictics.module#StaticticsModule', canActivate: [AuthGuard]},
