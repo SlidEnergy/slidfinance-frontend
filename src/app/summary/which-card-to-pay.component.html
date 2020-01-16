@@ -3,3 +3,11 @@
   <input matInput placeholder="Список мсс кодов" [(ngModel)]="search">
 </mat-form-field>
 <button mat-button (click)="button_click()">Узнать</button>
+
+<div *ngIf="cards | async, let list">
+  <mat-list>
+    <mat-list-item *ngFor="let card of list">
+      <span class="search-part">{{card.searchPart}}</span>: {{card.accountTitle}}&nbsp;<span class="bank-part">от {{card.bankTitle}} ({{card.categoryTitle}})</span>&nbsp;- {{card.percent | percent}}
+    </mat-list-item>
+  </mat-list>
+</div>
