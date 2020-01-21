@@ -1,0 +1,16 @@
+@import '../../../styles';
+
+@mixin make-popup-card() {
+  left: 0;
+  position: absolute;
+  background-color: white;
+  z-index: 20;
+  width: 100%;
+  min-height: 100%;
+}
+
+@include media-down(sm) {
+  :host ::ng-deep app-account-card {
+    @include make-popup-card();
+  }
+}

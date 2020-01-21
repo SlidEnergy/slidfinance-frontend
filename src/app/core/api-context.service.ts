@@ -8,7 +8,7 @@ import {Store} from '@ngrx/store';
 import {AppState} from '../shared/app-state';
 import {of, throwError} from 'rxjs';
 import {loadMccCompleted} from './store/core.store';
-import {AccountsService, ProductsService} from '../api';
+import {AccountsService, BanksService, ProductsService} from '../api';
 
 @Injectable({
   providedIn: 'root'
@@ -50,9 +50,12 @@ export class ApiContextService {
 
   products = this.productsService.getList().pipe(share());
 
+  banks = this.banksService.getList().pipe(share());
+
   constructor(private mccService: api.MccService,
               private accountsService: AccountsService,
               private productsService: ProductsService,
+              private banksService: BanksService,
               private store: Store<AppState>) {
 
   }
