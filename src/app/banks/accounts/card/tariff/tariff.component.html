@@ -16,6 +16,15 @@
     </mat-select>
   </mat-form-field>
 </div>
+<p>Дата открытия счета:
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="account.opened" (dateChange)="saveChanges()">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+</p>
+<p>Кэшбэк</p>
 <div *ngIf="categories | async, let cat" >
   <app-cashback-category *ngFor="let category of cat" [category]="category"></app-cashback-category>
 </div>
+

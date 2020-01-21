@@ -5,7 +5,6 @@
   </button>
 
   <p>Баланс: {{(acc.balance - acc.creditLimit)  | currency : 'RUB' : 'symbol' : '1.2-2' : 'ru'}}</p>
-  <p>Код: {{acc.code}}</p>
   <button mat-button color="primary"
           (click)="addTransaction(acc)">Добавить операцию
   </button>
