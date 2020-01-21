@@ -36,7 +36,7 @@
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: columnsToDisplay" (click)="row_click(row)"></mat-row>
+  <mat-row *matRowDef="let row; columns: columnsToDisplay"></mat-row>
 </table>
 <mat-card *ngIf="loadingVisible"
           style="display: flex; justify-content: center; align-items: center">

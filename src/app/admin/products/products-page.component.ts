@@ -12,19 +12,11 @@ import {NavigationEnd, Router} from '@angular/router';
 })
 export class ProductsPageComponent implements OnInit {
   products: Observable<Product[]>;
-  isProductSelected: Observable<boolean>;
 
   constructor(
     private router: Router,
     private productsService: ProductsService,
-    private snackBar: MatSnackBar
   ) {
-    this.isProductSelected = this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd),
-      map(event => event as NavigationEnd),
-      startWith({url: this.router.url}),
-      map(event => event.url != '/products')
-    );
   }
 
   ngOnInit() {

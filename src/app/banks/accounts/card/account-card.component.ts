@@ -18,7 +18,7 @@ export class AccountCardComponent implements OnInit {
   accountId: number;
   transactionColumns = ['dateTime', 'mcc', 'bankCategory', 'description', 'amount', 'userDescription'];
 
-  accountId$ = this.route.params.pipe(
+  cardEntityId = this.route.params.pipe(
     map(params => +params['id']),
     filter(x => Boolean(x)),
     share()
@@ -45,7 +45,7 @@ export class AccountCardComponent implements OnInit {
       switchMap(id => this.transactionsService.getList(this.accountId))
     );
 
-    this.account = this.accountId$.pipe(
+    this.account = this.cardEntityId.pipe(
       switchMap(id => this.accountsManager.getById(id))
     )
   }

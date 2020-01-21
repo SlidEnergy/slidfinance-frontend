@@ -316,14 +316,14 @@ export class TariffsService {
      * 
      * @param id 
      * @param productId 
-     * @param product 
+     * @param tariff 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public update(id: number, productId: string, product?: ProductTariff, observe?: 'body', reportProgress?: boolean): Observable<ProductTariff>;
-    public update(id: number, productId: string, product?: ProductTariff, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ProductTariff>>;
-    public update(id: number, productId: string, product?: ProductTariff, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ProductTariff>>;
-    public update(id: number, productId: string, product?: ProductTariff, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public update(id: number, productId: string, tariff?: ProductTariff, observe?: 'body', reportProgress?: boolean): Observable<ProductTariff>;
+    public update(id: number, productId: string, tariff?: ProductTariff, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ProductTariff>>;
+    public update(id: number, productId: string, tariff?: ProductTariff, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ProductTariff>>;
+    public update(id: number, productId: string, tariff?: ProductTariff, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling update.');
@@ -373,7 +373,7 @@ export class TariffsService {
         }
 
         return this.httpClient.put<ProductTariff>(`${this.basePath}/api/v1/products/${encodeURIComponent(String(productId))}/tariffs/${encodeURIComponent(String(id))}`,
-            product,
+            tariff,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

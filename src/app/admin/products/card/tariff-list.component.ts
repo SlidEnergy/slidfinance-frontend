@@ -1,32 +1,34 @@
 import {Component, OnInit, Input, ViewChild} from '@angular/core';
-import {Bank, Product, ProductsService, ProductType} from 'src/app/api';
+import {ProductTariff, ProductType, TariffsService} from 'src/app/api';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-import {EditProductDialogComponent} from './dialogs/edit-product-dialog.component';
-import {filter, switchMap} from 'rxjs/operators';
+import {filter, switchMap, switchMapTo} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {MessageDialogComponent} from 'src/app/shared/message-dialog/message-dialog.component';
 import {MatSnackBar} from '@angular/material';
-import {AddProductDialogComponent} from './dialogs/add-product-dialog.component';
+import {EditTariffDialogComponent} from './dialogs/edit-tariff-dialog.component';
+import {AddTariffDialogComponent} from './dialogs/add-tariff-dialog.component';
 
 @Component({
-  selector: 'app-product-list',
-  templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.scss']
+  selector: 'app-tariff-list',
+  templateUrl: './tariff-list.component.html',
+  styleUrls: ['./tariff-list.component.scss']
 })
-export class ProductListComponent implements OnInit {
+export class TariffListComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   // список транзакций пользователя
-  dataSource = new MatTableDataSource<Product>();
+  dataSource = new MatTableDataSource<ProductTariff>();
 
-  @Input('products') set transactionsInput(value: Product[]) {
+  @Input('entities') set transactionsInput(value: ProductTariff[]) {
     if (value) {
       this.loadingVisible = false;
       this.dataSource.data = value;
     }
   }
+
+  @Input() cardEntityId: number;
 
   // Список колонок, которые нужно показать в таблице
   columnsToDisplay = ['title', 'actions'];
@@ -35,7 +37,7 @@ export class ProductListComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private router: Router,
-    private productsService: ProductsService,
+    private tariffsService: TariffsService,
     private snackBar: MatSnackBar
   ) {
   }
@@ -45,25 +47,25 @@ export class ProductListComponent implements OnInit {
     this.dataSource.sortingDataAccessor = this.sortingDataAccessor.bind(this);
   }
 
-  sortingDataAccessor(bank: Bank, property: string) {
+  sortingDataAccessor(item: ProductTariff, property: string) {
     switch (property) {
       case 'title': {
-        return bank.title.toLowerCase();
+        return item.title.toLowerCase();
       }
 
       default:
-        return bank[property];
+        return item[property];
     }
   }
 
   addNew() {
-    const dialogRef = this.dialog.open(AddProductDialogComponent, {
-      data: { type: ProductType.Card, isPublic: true, approved: true}
+    const dialogRef = this.dialog.open(AddTariffDialogComponent, {
+      data: { type: ProductType.Card, productId: this.cardEntityId}
     });
 
     dialogRef.afterClosed().pipe(
       filter(x => x),
-      switchMap(item => this.productsService.add(item))
+      switchMap(item => this.tariffsService.add("0", item))
     ).subscribe(
       value => {
         let data = this.dataSource.data;
@@ -75,14 +77,14 @@ export class ProductListComponent implements OnInit {
     );
   }
 
-  editItem(bank: Bank) {
-    const dialogRef = this.dialog.open(EditProductDialogComponent, {
+  editItem(bank: ProductTariff) {
+    const dialogRef = this.dialog.open(EditTariffDialogComponent, {
       data: {...bank}
     });
 
     dialogRef.afterClosed().pipe(
       filter(x => x),
-      switchMap(item => this.productsService.update(item.id, item))
+      switchMap(item => this.tariffsService.update(item.id, "0", item))
     ).subscribe(
       value => {
         this.dataSource.data = this.dataSource.data.map(x => x.id == value.id ? value : x);
@@ -92,14 +94,14 @@ export class ProductListComponent implements OnInit {
     );
   }
 
-  deleteItem(item: Bank) {
+  deleteItem(item: ProductTariff) {
     const dialogRef = this.dialog.open(MessageDialogComponent, {
       data: {caption: 'Вы уверены что хотите отвязать банк?', text: item.title}
     });
 
     dialogRef.afterClosed().pipe(
       filter(x => x),
-      switchMap(() => this.productsService._delete(item.id))
+      switchMapTo(this.tariffsService._delete(item.id, "0"))
     ).subscribe(
       value => {
         this.dataSource.data = this.dataSource.data.filter((value) => value.id != item.id);
@@ -107,9 +109,5 @@ export class ProductListComponent implements OnInit {
       },
       error => this.snackBar.open('Не удалось отвязать продукт', undefined, {duration: 5000, panelClass: ['background-red']})
     );
-  }
-
-  row_click(row: Product) {
-    this.router.navigate(['admin/product', row.id]);
   }
 }
