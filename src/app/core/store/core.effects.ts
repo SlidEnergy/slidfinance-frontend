@@ -10,7 +10,7 @@ import { AuthService } from '../auth/auth.service';
 import * as coreActions from './core.store';
 import { CoreState } from './core.store';
 import { CategoriesService, Category } from '../../api';
-import { AppState } from '../../shared/app-state';
+import { AppState } from './app-state';
 import {RouterStateSnapshot} from '@angular/router';
 
 // EFFECTS
@@ -23,22 +23,6 @@ export class CoreEffects {
 		private store: Store<AppState>,
 		private authService: AuthService,
 	) { }
-
-	@Effect()
-	loadNodes = this.actions
-		.pipe(
-			ofType(coreActions.loadCategories),
-			switchMap(() =>
-				this.categoriesService.getList().pipe(
-					map(x => new Map(x.map(i => [i.id, i] as [number, Category]))),
-					map(data => coreActions.loadCategoriesCompleted({ errorCode: 0, errorMessage: '', categories: data})),
-					catchError(err => {
-						console.error(`Произошла ошибка. errorCode: ${err.code}, errorMessage: ${err.message}`);
-
-						return of(coreActions.loadCategoriesCompleted({ errorCode: err.code, errorMessage: err.message, categories: null}));
-					})
-				)
-			));
 
 	// ROUTER NAVIGATION
 
@@ -67,8 +51,6 @@ export class CoreEffects {
 		map(([isLoggedIn, state]: [boolean, AppState]) => state.core),
 		tap((state: CoreState) => {
 
-			if (!state.categories) {
-				this.store.dispatch(coreActions.loadCategories());
-			}
+
 		}));
 }

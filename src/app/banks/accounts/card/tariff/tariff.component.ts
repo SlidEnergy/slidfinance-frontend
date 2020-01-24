@@ -12,8 +12,8 @@ import {
   ProductTariff,
   TariffsService
 } from '../../../../api';
-import {ProductsManagerService} from '../../../../core/accounts/products-manager.service';
 import {Observable, of} from 'rxjs';
+import {AppEntityServicesService} from '../../../../core/store/entity/app-entity-services.service';
 
 @Component({
   selector: 'app-tariff',
@@ -29,7 +29,7 @@ export class TariffComponent implements OnInit, OnChanges {
   constructor(private dialog: MatDialog,
               private router: Router,
               private snackBar: MatSnackBar,
-              private productsService: ProductsManagerService,
+              private dataContext: AppEntityServicesService,
               private accountsService: AccountsService,
               private tariffsService: TariffsService,
               private categoriesService: CashbackCategoriesService
@@ -47,18 +47,18 @@ export class TariffComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.products = this.productsService.getList();
+    this.products = this.dataContext.products.getListLazy();
   }
 
   getTariffs(productId: number) {
-    return this.productsService.getList().pipe(
+    return this.dataContext.products.getListLazy().pipe(
       map(products => products.find(product => product.id == productId)),
       switchMap(product => this.tariffsService.getList(product.id)),
     );
   }
 
   getCategories(productId: number, tariffId: number) {
-    return this.productsService.getList().pipe(
+    return this.dataContext.products.getListLazy().pipe(
       map(products => products.find(product => product.id == productId)),
       switchMap(product => this.tariffsService.getList(product.id)),
       map(tariffs => tariffs.find(tariff => tariff.id == tariffId)),

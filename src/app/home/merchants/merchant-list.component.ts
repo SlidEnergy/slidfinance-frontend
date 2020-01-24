@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Mcc, Merchant} from '../../api';
-import {MccManagerService} from '../../core/mcc/mcc-manager.service';
+import {AppEntityServicesService} from '../../core/store/entity/app-entity-services.service';
 
 @Component({
   selector: 'app-merchant-list',
@@ -12,11 +12,11 @@ export class MerchantListComponent implements OnInit {
 
   mcc: Mcc[];
 
-  constructor(private mccService: MccManagerService) {
+  constructor(private dataContext: AppEntityServicesService) {
   }
 
   ngOnInit() {
-    this.mccService.getList().subscribe(x => this.mcc = x);
+    this.dataContext.mcc.getListLazy().subscribe(x => this.mcc = x);
   }
 
   getMccCodeById(id: number) {

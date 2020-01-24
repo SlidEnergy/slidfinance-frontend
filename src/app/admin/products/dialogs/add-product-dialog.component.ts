@@ -1,10 +1,9 @@
 import {Component, OnInit, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {Bank, BanksService, Product} from 'src/app/api';
-import {Observable} from 'rxjs';
-import {BanksManagerService} from '../../../core/accounts/banks-manager.service';
 import {map} from 'rxjs/operators';
 import {FormControl, Validators} from '@angular/forms';
+import {AppEntityServicesService} from '../../../core/store/entity/app-entity-services.service';
 
 @Component({
   selector: 'app-add-product-dialog',
@@ -14,11 +13,13 @@ import {FormControl, Validators} from '@angular/forms';
 export class AddProductDialogComponent implements OnInit {
   banks: Map<number, Bank>;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Product, private banksService: BanksService) {
+  constructor(
+      @Inject(MAT_DIALOG_DATA) public data: Product,
+      private dataContext: AppEntityServicesService) {
   }
 
   ngOnInit() {
-    this.banksService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [number, Bank])))).subscribe(data => this.banks = data);
+    this.dataContext.banks.getListLazy().pipe(map(x => new Map(x.map(i => [i.id, i] as [number, Bank])))).subscribe(data => this.banks = data);
   }
 
   formControl = new FormControl('', [

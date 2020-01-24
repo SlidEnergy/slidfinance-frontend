@@ -4,9 +4,9 @@ import {Observable, of} from 'rxjs';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {map, filter, switchMap, tap, share} from 'rxjs/operators';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AccountsManagerService} from "../../../core/accounts/accounts-manager.service";
 import {EditAccountDialogComponent} from "../dialogs/edit-account-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {AppEntityServicesService} from '../../../core/store/entity/app-entity-services.service';
 
 @Component({
   selector: 'app-account-card',
@@ -30,7 +30,7 @@ export class AccountCardComponent implements OnInit {
     private transactionsService: TransactionsService,
     private snackBar: MatSnackBar,
     private route: ActivatedRoute,
-    private accountsManager: AccountsManagerService,
+    private dataContext: AppEntityServicesService,
     private accountsService: AccountsService,
     private router: Router,
     private dialog: MatDialog,
@@ -46,7 +46,7 @@ export class AccountCardComponent implements OnInit {
     );
 
     this.account = this.cardEntityId.pipe(
-      switchMap(id => this.accountsManager.getById(id))
+      switchMap(id => this.dataContext.accounts.getByIdLazy(id))
     )
   }
 

@@ -1,4 +1,4 @@
-# Editor configuration, see https://editorconfig.org
+# Editor configuration, see http://editorconfig.org
 root = true
 
 [*]
@@ -11,3 +11,18 @@ trim_trailing_whitespace = true
 [*.md]
 max_line_length = off
 trim_trailing_whitespace = false
+
+[*.ts]
+charset = utf-8
+indent_style = space
+indent_size = 4
+
+[*.html]
+charset = utf-8
+indent_style = space
+indent_size = 4
+
+[*.json]
+charset = utf-8
+indent_style = space
+indent_size = 2

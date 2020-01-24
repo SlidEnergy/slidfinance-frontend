@@ -7,7 +7,7 @@ import {Category, GeneratedRule, CategoriesService, AccountsService, BankAccount
 import {map, filter, flatMap} from 'rxjs/operators';
 import {Observable, pipe} from 'rxjs';
 import {AddRuleDialogComponent} from './dialogs/add-rule-dialog.component';
-import {MccManagerService} from '../../core/mcc/mcc-manager.service';
+import {AppEntityServicesService} from '../../core/store/entity/app-entity-services.service';
 
 @Component({
   selector: 'app-generated-rule-list',
@@ -43,7 +43,7 @@ export class GeneratedRuleListComponent implements OnInit {
     private categoriesService: CategoriesService,
     public dialog: MatDialog,
     private accountsService: AccountsService,
-    private mccService: MccManagerService) {
+    private dataContext: AppEntityServicesService) {
   }
 
   ngOnInit() {
@@ -53,7 +53,7 @@ export class GeneratedRuleListComponent implements OnInit {
     this.dataSource.sortingDataAccessor = this.sortingDataAccessor.bind(this);
     this.dataSource.paginator = this.paginator;
 
-    this.mccService.getList().subscribe(x => this.mcc = x);
+    this.dataContext.mcc.getListLazy().subscribe(x => this.mcc = x);
   }
 
   sortingDataAccessor(rule: GeneratedRule, property: string) {

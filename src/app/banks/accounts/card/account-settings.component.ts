@@ -3,7 +3,6 @@ import {AccountsService, BankAccount} from '../../../api';
 import {MessageDialogComponent} from "../../../shared/message-dialog/message-dialog.component";
 import {filter, switchMapTo} from "rxjs/operators";
 import {MatDialog} from "@angular/material/dialog";
-import {AccountsManagerService} from "../../../core/accounts/accounts-manager.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
 

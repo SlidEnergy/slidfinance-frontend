@@ -1,30 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { Category, CategoriesService } from 'src/app/api';
-import { Observable } from 'rxjs';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/shared/app-state';
-import { map, filter } from 'rxjs/operators';
+import {Component, OnInit} from '@angular/core';
+import {Category} from 'src/app/api';
+import {Observable} from 'rxjs';
+import {Router, ActivatedRoute} from '@angular/router';
+import {AppEntityServicesService} from '../../../core/store/entity/app-entity-services.service';
 
 @Component({
-  selector: 'app-select-category',
-  templateUrl: './select-category.component.html',
-  styleUrls: ['./select-category.component.scss']
+    selector: 'app-select-category',
+    templateUrl: './select-category.component.html',
+    styleUrls: ['./select-category.component.scss']
 })
 export class SelectCategoryComponent implements OnInit {
-  categories: Observable<Category[]>;
-  
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private store: Store<AppState>) { }
+    categories: Observable<Category[]>;
 
-  ngOnInit() {
-    this.categories = this.store.select(x => x.core.categories).pipe(filter(x=>!!x), map(x=>Array.from(x.values())));
-  }
+    constructor(
+        private router: Router,
+        private route: ActivatedRoute,
+        private dataContext: AppEntityServicesService) {
+    }
 
-  selectCategory(category: Category) {
-    this.router.navigate(['../', 'add-transaction'], { relativeTo: this.route, queryParams: { categoryId: category.id } })
-  }
+    ngOnInit() {
+        this.categories = this.dataContext.categories.getListLazy();
+    }
+
+    selectCategory(category: Category) {
+        this.router.navigate(['../', 'add-transaction'], {relativeTo: this.route, queryParams: {categoryId: category.id}});
+    }
 
 }

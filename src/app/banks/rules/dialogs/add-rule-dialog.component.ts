@@ -3,7 +3,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import {Rule, Category, CategoriesService, AccountsService, BankAccount, Mcc} from 'src/app/api';
 import {map} from 'rxjs/operators';
-import {MccManagerService} from '../../../core/mcc/mcc-manager.service';
+import {AppEntityServicesService} from '../../../core/store/entity/app-entity-services.service';
 
 @Component({
   selector: 'app-add-rule-dialog',
@@ -20,14 +20,14 @@ export class AddRuleDialogComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: Rule,
               private categoriesService: CategoriesService,
               private accountsService: AccountsService,
-              private mccService: MccManagerService) {
+              private dataContext: AppEntityServicesService) {
   }
 
   ngOnInit() {
     this.categoriesService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [number, Category])))).subscribe(data => this.categories = data);
     this.accountsService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [number, BankAccount])))).subscribe(data => this.accounts = data);
 
-    this.mccService.getList().subscribe(x => this.mcc = x);
+    this.dataContext.mcc.getListLazy().subscribe(x => this.mcc = x);
   }
 
   formControl = new FormControl('', [
