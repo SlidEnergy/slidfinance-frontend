@@ -1,12 +1,9 @@
-
 import { throwError as observableThrowError, Observable, ReplaySubject } from 'rxjs';
 import { Injectable } from '@angular/core';
-
 import { catchError, map } from 'rxjs/operators';
-import { UsersService } from '../../api/api/users.service';
-
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { User, TokenService, TokenInfo } from '../../api';
+import { TokenService, TokenInfo, UsersService } from '../../api';
+import {User} from "./user";
 
 @Injectable()
 export class AuthService {
@@ -63,7 +60,6 @@ export class AuthService {
 						}
 
 						try {
-							let a = 4 + 4;
 							let tokenInfo = await this.refreshToken(token, refreshToken).toPromise();
 							// Если получили новый токен, пробуем инициализировать сервис повторно.
 							if (tokenInfo && tokenInfo.token)
@@ -81,10 +77,6 @@ export class AuthService {
 					}
 			}
 		}
-	}
-
-	public refreshUserInfo() {
-		this.get().subscribe(user => this._currentUser.next(user));
 	}
 
 	// Текущий пользователь
@@ -113,6 +105,7 @@ export class AuthService {
 	// Получает информацию по пользователю, авторизованному в данным момент
 	private get() {
 		return this.usersService.getCurrentUser().pipe(
+		    map(user => new User(user)),
 			catchError(error => {
 				console.error(`Произошла ошибка. errorCode: ${error.code}, errorMessage: ${error.message}`);
 				return observableThrowError(error);
@@ -123,7 +116,7 @@ export class AuthService {
 	public login(email: string, password: string): Observable<User> {
 		return this.usersService.getToken({ email, password }).pipe(
 			map((data: TokenInfo) => {
-				const user = { email: data.email };
+				const user = new User({ email: data.email });
 
 				localStorage.setItem('auth', JSON.stringify(data));
 
@@ -140,6 +133,7 @@ export class AuthService {
 	// Регистрация/Создание нового пользователя
 	public register(email: string, password: string, confirmPassword: string): Observable<User> {
 		return this.usersService.register({ email, password, confirmPassword }).pipe(
+		    map(user => new User(user)),
 			catchError(error => {
 				console.error(`Произошла ошибка. errorCode: ${error.code}, errorMessage: ${error.message}`);
 				return observableThrowError(error);
@@ -155,7 +149,7 @@ export class AuthService {
 	private refreshToken(token: string, refreshToken: string) {
 		return this.tokenService.refresh({ token, refreshToken }).pipe(
 			map((data: TokenInfo) => {
-				const user = { email: data.email };
+				const user = new User({ email: data.email });
 
 				localStorage.setItem('auth', JSON.stringify(data));
 

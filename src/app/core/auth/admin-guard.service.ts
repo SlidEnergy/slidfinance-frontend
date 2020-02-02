@@ -21,7 +21,7 @@ export class AdminGuard implements CanActivate, CanActivateChild {
 			}
 		);
 
-		return this.auth.currentUser.pipe(map(user => user && user.email == "slidenergy@gmail.com"));
+		return this.auth.currentUser.pipe(map(user => user && user.isAdmin));
 	}
 
 	canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
@@ -34,6 +34,6 @@ export class AdminGuard implements CanActivate, CanActivateChild {
 			}
 		);
 
-		return this.auth.currentUser.pipe(map(user => user && user.email == "slidenergy@gmail.com"));
+		return this.auth.currentUser.pipe(map(user => user && user.isAdmin));
 	}
 }

@@ -1,7 +1,7 @@
 @import '../../../styles';
 
 @mixin make-popup-card() {
-  top: 0;
+  top: $header-height;
   left: 0;
   position: absolute;
   background-color: white;

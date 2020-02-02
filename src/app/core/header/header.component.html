@@ -1,82 +1,100 @@
 <mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <a class="title" routerLink="">SlidFinance</a>
-    <span class="spacer"></span>
-    <button mat-icon-button
-            fxShow="true"
-            fxHide.gt-sm
-            [matMenuTriggerFor]="appMenu">
-      <mat-icon>more_vert</mat-icon>
-    </button>
-    <div fxShow="true"
-         fxHide.lt-md>
-      <a mat-button
-         routerLink="/mcc">Mcc коды</a>
-      <a mat-button
-         *ngIf="isLoggedIn | async"
-         routerLink="/banks">Мои карты</a>
-      <a mat-button
-         routerLink="/merchants">Торговые точки</a>
-      <ng-container *ngIf="isLoggedIn | async">
-        <a mat-button
-           routerLink="/summary">Обзор</a>
-        <a mat-button [matMenuTriggerFor]="analysis">Анализ</a>
-        <mat-menu #analysis="matMenu">
-          <button mat-menu-item routerLink="/statictics/category">Статистика по категориям</button>
-          <button mat-menu-item routerLink="/banks/transactions">Мои операции</button>
-        </mat-menu>
-        <button mat-icon-button [matMenuTriggerFor]="profile" aria-label="Профиль">
-          <mat-icon>person</mat-icon>
+    <mat-toolbar-row>
+        <a class="title" routerLink="">SlidFinance</a>
+        <span class="spacer"></span>
+        <button mat-icon-button
+                fxShow="true"
+                fxHide.gt-sm
+                [matMenuTriggerFor]="appMenu">
+            <mat-icon>more_vert</mat-icon>
         </button>
-        <mat-menu #profile="matMenu">
-          <span class="user-email">{{(currentUser | async)?.email}}</span>
-          <mat-divider></mat-divider>
-          <button mat-menu-item routerLink="/banks/categories">Мои категории</button>
-          <button mat-menu-item routerLink="/banks/rules">Мои правила</button>
-          <button mat-menu-item routerLink="/profile">Настройки</button>
-          <button mat-menu-item (click)="logout()">Выход</button>
-        </mat-menu>
-      </ng-container>
-      <ng-container *ngIf="!(isLoggedIn | async)">
-        <a mat-button
-           routerLink="/entry/register">Регистрация</a>
-        <a mat-button
-           routerLink="/entry/login">Вход</a>
-      </ng-container>
-    </div>
-  </mat-toolbar-row>
+        <div fxShow="true"
+             fxHide.lt-md>
+            <a mat-button
+               routerLink="/mcc">Mcc коды</a>
+            <a mat-button
+               *ngIf="isLoggedIn | async"
+               routerLink="/banks">Мои карты</a>
+            <a mat-button
+               routerLink="/merchants">Торговые точки</a>
+            <ng-container *ngIf="isLoggedIn | async">
+                <a mat-button
+                   routerLink="/summary">Обзор</a>
+                <a mat-button [matMenuTriggerFor]="analysis">Анализ</a>
+                <mat-menu #analysis="matMenu">
+                    <button mat-menu-item routerLink="/statictics/category">Статистика по категориям</button>
+                    <button mat-menu-item routerLink="/banks/transactions">Мои операции</button>
+                </mat-menu>
+                <button mat-icon-button [matMenuTriggerFor]="profile" aria-label="Профиль">
+                    <mat-icon>person</mat-icon>
+                </button>
+                <mat-menu #profile="matMenu">
+                    <span class="menu-group-title">{{(currentUser | async)?.email}}</span>
+                    <mat-divider></mat-divider>
+                    <button mat-menu-item routerLink="/banks/categories">Мои категории</button>
+                    <button mat-menu-item routerLink="/banks/rules">Мои правила</button>
+                    <button mat-menu-item routerLink="/profile">Настройки</button>
+                    <mat-divider></mat-divider>
+                    <ng-container *ngIf="(currentUser | async)?.isAdmin">
+                        <mat-divider></mat-divider>
+                        <span class="menu-group-title">Администрирование</span>
+                        <button mat-menu-item routerLink="/admin/users">Пользователи</button>
+                        <button mat-menu-item routerLink="/admin/banks">Банки</button>
+                        <button mat-menu-item routerLink="/admin/products">Продукты</button>
+                    </ng-container>
+                    <button mat-menu-item (click)="logout()">Выход</button>
+                </mat-menu>
+            </ng-container>
+            <ng-container *ngIf="!(isLoggedIn | async)">
+                <a mat-button
+                   routerLink="/entry/register">Регистрация</a>
+                <a mat-button
+                   routerLink="/entry/login">Вход</a>
+            </ng-container>
+        </div>
+    </mat-toolbar-row>
 </mat-toolbar>
 <mat-menu #appMenu="matMenu">
-  <a mat-menu-item
-     routerLink="/mcc">Mcc коды</a>
-  <a mat-menu-item
-     routerLink="/merchants">Торговые точки</a>
-  <ng-container *ngIf="isLoggedIn | async">
     <a mat-menu-item
-       routerLink="/summary">Обзор</a>
+       routerLink="/mcc">Mcc коды</a>
     <a mat-menu-item
-       routerLink="/banks">Мои карты</a>
-    <mat-divider></mat-divider>
-    <a mat-menu-item
-       routerLink="/statictics/category">Статистика по категориям</a>
-    <a mat-menu-item
-       routerLink="/banks/categories">Мои Категории</a>
-    <mat-divider></mat-divider>
-    <span class="user-email">{{(currentUser | async)?.email}}</span>
-    <a mat-menu-item
-       routerLink="/banks/rules">Мои правила</a>
-    <a mat-menu-item
-       routerLink="/banks/transactions">Мои операции</a>
-    <a mat-menu-item
-       routerLink="/profile">Настройки</a>
-    <mat-divider></mat-divider>
-    <a mat-menu-item
-       (click)="logout()">Выход</a>
-  </ng-container>
-  <ng-container *ngIf="!(isLoggedIn | async)">
-    <a mat-menu-item
-       routerLink="/entry/register">Регистрация</a>
-    <a mat-menu-item
-       routerLink="/entry/login">Вход</a>
-  </ng-container>
+       routerLink="/merchants">Торговые точки</a>
+    <ng-container *ngIf="isLoggedIn | async">
+        <a mat-menu-item
+           routerLink="/summary">Обзор</a>
+        <a mat-menu-item
+           routerLink="/banks">Мои карты</a>
+        <mat-divider></mat-divider>
+        <a mat-menu-item
+           routerLink="/statictics/category">Статистика по категориям</a>
+        <a mat-menu-item
+           routerLink="/banks/categories">Мои Категории</a>
+        <mat-divider></mat-divider>
+        <span class="menu-group-title">{{(currentUser | async)?.email}}</span>
+        <a mat-menu-item
+           routerLink="/banks/rules">Мои правила</a>
+        <a mat-menu-item
+           routerLink="/banks/transactions">Мои операции</a>
+        <a mat-menu-item
+           routerLink="/profile">Настройки</a>
+        <mat-divider></mat-divider>
+        <ng-container *ngIf="(currentUser | async)?.isAdmin">
+            <span class="menu-group-title">Администрирование</span>
+            <a mat-menu-item
+               routerLink="/admin/users">Пользователи</a>
+            <a mat-menu-item
+               routerLink="/admin/banks">Банки</a>
+            <a mat-menu-item
+               routerLink="/admin/products">Продукты</a>
+            <mat-divider></mat-divider>
+        </ng-container>
+        <a mat-menu-item
+           (click)="logout()">Выход</a>
+    </ng-container>
+    <ng-container *ngIf="!(isLoggedIn | async)">
+        <a mat-menu-item
+           routerLink="/entry/register">Регистрация</a>
+        <a mat-menu-item
+           routerLink="/entry/login">Вход</a>
+    </ng-container>
 </mat-menu>

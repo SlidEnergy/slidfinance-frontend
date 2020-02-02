@@ -19,6 +19,8 @@ $break-extra-large: 1200px;
 
 $z-index-card-level: 1000;
 
+$header-height: 64px;
+
 @mixin media-to($media) {
   @if $media == xs {
     @media only screen and (max-width: $break-small - 0.02) { @content; }
