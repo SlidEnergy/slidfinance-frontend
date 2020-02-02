@@ -1,8 +1,3 @@
-<as-split unit="percent" direction="horizontal">
-  <as-split-area size="50" minSize="30">
-    <app-account-list [accounts]="accounts | async"></app-account-list>
-  </as-split-area>
-  <as-split-area size="50" minSize="30" [visible]="isAccountSelected | async">
-    <router-outlet></router-outlet>
-  </as-split-area>
-</as-split>
+<app-account-list [accounts]="accounts | async"></app-account-list>
+<router-outlet></router-outlet>
+
