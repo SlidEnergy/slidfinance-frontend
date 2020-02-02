@@ -2,11 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {AccountsService, BankAccount, Transaction, TransactionsService} from 'src/app/api';
 import {Observable, of} from 'rxjs';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {map, filter, switchMap, tap, share} from 'rxjs/operators';
+import {map, filter, switchMap, tap, share, shareReplay} from 'rxjs/operators';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AccountsManagerService} from "../../../core/accounts/accounts-manager.service";
 import {EditAccountDialogComponent} from "../dialogs/edit-account-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {AppEntityServicesService} from '../../../core/store/entity/app-entity-services.service';
 
 @Component({
   selector: 'app-account-card',
@@ -15,7 +15,6 @@ import {MatDialog} from "@angular/material/dialog";
 })
 export class AccountCardComponent implements OnInit {
   transactions: Observable<Transaction[]>;
-  accountId: number;
   transactionColumns = ['dateTime', 'mcc', 'bankCategory', 'description', 'amount', 'userDescription'];
 
   cardEntityId = this.route.params.pipe(
@@ -30,7 +29,7 @@ export class AccountCardComponent implements OnInit {
     private transactionsService: TransactionsService,
     private snackBar: MatSnackBar,
     private route: ActivatedRoute,
-    private accountsManager: AccountsManagerService,
+    private dataContext: AppEntityServicesService,
     private accountsService: AccountsService,
     private router: Router,
     private dialog: MatDialog,
@@ -38,15 +37,12 @@ export class AccountCardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.transactions = this.route.params.pipe(
-      map(params => +params['id']),
-      filter(x => Boolean(x)),
-      tap(x => this.accountId = x),
-      switchMap(id => this.transactionsService.getList(this.accountId))
+    this.transactions = this.cardEntityId.pipe(
+      switchMap(id => this.transactionsService.getList(id))
     );
 
     this.account = this.cardEntityId.pipe(
-      switchMap(id => this.accountsManager.getById(id))
+      switchMap(id => this.dataContext.accounts.getByIdLazy(id))
     )
   }
 

@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CashbackCategory, CashbackCategoryMcc, CashbackCategoryMccService, Mcc} from '../../../../../api';
-import {MccManagerService} from '../../../../../core/mcc/mcc-manager.service';
+import {CashbackCategory, CashbackCategoryMccService, Mcc} from '../../../../../api';
 import {MatSnackBar} from '@angular/material';
 import {combineLatest, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {AppEntityServicesService} from '../../../../../core/store/entity/app-entity-services.service';
 
 @Component({
   selector: 'app-cashback-category',
@@ -18,13 +18,13 @@ export class CashbackCategoryComponent implements OnInit {
   cashbackMccCodes: Observable<string>;
 
   constructor(private cashbackMcc: CashbackCategoryMccService,
-              private mccManager: MccManagerService,
+              private dataContext: AppEntityServicesService,
               private snackBar: MatSnackBar
   ) {
   }
 
   ngOnInit() {
-    this.mccManager.getList().subscribe(
+    this.dataContext.mcc.getListLazy().subscribe(
       value => this.mcc = value
     );
 

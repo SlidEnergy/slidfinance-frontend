@@ -5,7 +5,6 @@ import {AddAccountDialogComponent} from './dialogs/add-account-dialog.component'
 import {filter, switchMap} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {AccountsManagerService} from "../../core/accounts/accounts-manager.service";
 
 @Component({
   selector: 'app-account-list',

@@ -19,7 +19,7 @@
     <mat-header-cell *matHeaderCellDef
                      mat-sort-header> Название </mat-header-cell>
     <mat-cell *matCellDef="let row">
-            {{row.title}}
+            {{row.ruTitle || row.title}}
     </mat-cell>
   </ng-container>
   <ng-container matColumnDef="category">

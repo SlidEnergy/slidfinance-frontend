@@ -9,14 +9,8 @@ import {AuthService} from './auth/auth.service';
 import {AuthGuard} from './auth/auth-guard.service';
 import {HeaderComponent} from './header/header.component';
 import {InitializationService} from './initialization.service';
-import {StoreRouterConnectingModule} from '@ngrx/router-store';
-import {StoreModule} from '@ngrx/store';
-import {coreReducer} from './store/core.store';
-import {CoreEffects} from './store/core.effects';
-import {EffectsModule} from '@ngrx/effects';
-import {environment} from '../../environments/environment';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import {AdminGuard} from './auth/admin-guard.service';
+import {StoreModule} from './store/store.module';
 
 @NgModule({
   imports: [
@@ -25,15 +19,9 @@ import {AdminGuard} from './auth/admin-guard.service';
 
     SharedModule,
     ApiModule.forRoot(apiConfigFactory),
+    StoreModule
 
     // Сторонние компоненты
-    StoreRouterConnectingModule.forRoot(),
-    StoreModule.forRoot({core: coreReducer}),
-    EffectsModule.forRoot([CoreEffects]),
-    StoreDevtoolsModule.instrument({
-      maxAge: 25,
-      logOnly: environment.production,
-    }),
   ],
   declarations: [
     HeaderComponent

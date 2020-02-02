@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {SharedModule} from '../shared/shared.module';
 import {TransactionsPageComponent} from './transactions/transactions-page.component';
-import {TransactionsEditableListComponent} from './transactions/editable-list/transactions-editable-list.component';
+import {TransactionsEditableListComponent} from './transactions/transactions-editable-list.component';
 import {Routes, RouterModule} from '@angular/router';
 import {RulesPageComponent} from './rules/rules-page.component';
 import {RuleListComponent} from './rules/rule-list.component';
