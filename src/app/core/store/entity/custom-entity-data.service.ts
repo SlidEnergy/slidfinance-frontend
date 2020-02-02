@@ -9,6 +9,7 @@ export class CustomEntityDataService<T> implements EntityCollectionDataService<T
     constructor(
         private options: {
             getAll?: () => Observable<T[]>,
+            getById?: (id: any) => Observable<T>
         }) {
     }
 
@@ -28,7 +29,10 @@ export class CustomEntityDataService<T> implements EntityCollectionDataService<T
     }
 
     getById(id: any): Observable<T> {
-        throw new Error('not implemented');
+        if(this.options.getById)
+            return this.options.getById(id);
+        else
+            throw new Error('not implemented');
     }
 
     getWithQuery(params: string | QueryParams): Observable<T[]> {

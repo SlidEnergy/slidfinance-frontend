@@ -46,7 +46,7 @@ export class LazyEntityCollectionService<Entity> extends EntityCollectionService
             // Возвращаем список из хранилища, если он уже загружен
             this.loaded$.pipe(
                 filter(loaded => loaded),
-                switchMapTo(this.getByKey(id))
+                switchMapTo(this.entityMap$.pipe(map(map => map[id])))
             )
         );
     }
