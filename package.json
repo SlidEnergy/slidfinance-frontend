@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "generate-api": "swagger-codegen-cli generate -i http://localhost:5000/swagger/v1/swagger.json -l typescript-angular -o ./src/app/api -c ./openapi.json --remove-operation-id-prefix --type-mappings Date=Date --additional-properties ngVersion=8.0.0"
+    "generate-api": "openapi-generator generate -i http://localhost:5000/swagger/v1/swagger.json -g typescript-angular -o ./src/app/api --remove-operation-id-prefix --type-mappings Date=Date"
   },
   "engines": {
     "node": "10.14.1",
@@ -60,7 +60,6 @@
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.2",
     "protractor": "~5.4.2",
-    "swagger-nodegen-cli": "2.4.4",
     "ts-node": "^8.4.1",
     "tslint": "~5.20.0",
     "typescript": "~3.5.0"
