@@ -20,7 +20,7 @@ export class AccountCardComponent implements OnInit {
   cardEntityId = this.route.params.pipe(
     map(params => +params['id']),
     filter(x => Boolean(x)),
-    share()
+    shareReplay()
   );
 
   account: Observable<BankAccount>;

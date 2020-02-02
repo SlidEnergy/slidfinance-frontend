@@ -1,6 +1,7 @@
 @import '../../../styles';
 
 @mixin make-popup-card() {
+  top: 0;
   left: 0;
   position: absolute;
   background-color: white;
