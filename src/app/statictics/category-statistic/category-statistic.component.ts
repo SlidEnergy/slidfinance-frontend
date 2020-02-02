@@ -84,7 +84,8 @@ export class CategoryStatisticComponent implements OnInit {
     }
 
     getCategoryTitle(categoryId: number) {
-        return this.dataContext.categories.getByIdLazy(categoryId).pipe(map(x => x.title));
+        if(categoryId && this.categories)
+            return this.categories[categoryId].title;
     }
 
     getAmount(row: CategoryStatistic, date: moment.Moment) {

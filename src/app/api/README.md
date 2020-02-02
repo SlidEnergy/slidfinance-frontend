@@ -10,7 +10,7 @@ npm run build
 
 ### publishing
 
-First build the package than run ```npm publish```
+First build the package then run ```npm publish```
 
 ### consuming
 
@@ -25,8 +25,10 @@ npm install @ --save
 _without publishing (not recommended):_
 
 ```
-npm install PATH_TO_GENERATED_PACKAGE --save
+npm install PATH_TO_GENERATED_PACKAGE/-.tgz --save
 ```
+
+_It's important to take the tgz file, otherwise you'll get trouble with links on windows_
 
 _using `npm link`:_
 
@@ -101,8 +103,8 @@ export class AppComponent {
 Note: The ApiModule is restricted to being instantiated once app wide.
 This is to ensure that all services are treated as singletons.
 
-#### Using multiple swagger files / APIs / ApiModules
-In order to use multiple `ApiModules` generated from different swagger files,
+#### Using multiple OpenAPI files / APIs / ApiModules
+In order to use multiple `ApiModules` generated from different OpenAPI files,
 you can create an alias name when importing the modules
 in order to avoid naming conflicts:
 ```

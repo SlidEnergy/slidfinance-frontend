@@ -47,7 +47,7 @@ export class AppEntityServicesService extends EntityServicesBase {
         entityDataService.registerService(BANK_ENTITY_NAME, new CustomEntityDataService<Bank>({getAll: () => banksApi.getList()}));
         entityDataService.registerService(PRODUCT_ENTITY_NAME, new CustomEntityDataService<Product>({getAll: () => productsApi.getList()}));
         entityDataService.registerService(ACCOUNT_ENTITY_NAME, new CustomEntityDataService<BankAccount>({getAll: () => accountsApi.getList()}));
-        entityDataService.registerService(CATEGORY_ENTITY_NAME, new CustomEntityDataService<Category>({getAll: () => accountsApi.getList()}));
+        entityDataService.registerService(CATEGORY_ENTITY_NAME, new CustomEntityDataService<Category>({getAll: () => categoriesApi.getList()}));
 
         this.registerEntityCollectionServices([
             this.mcc,

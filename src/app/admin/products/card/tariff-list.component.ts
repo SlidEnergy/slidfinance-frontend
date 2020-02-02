@@ -65,7 +65,7 @@ export class TariffListComponent implements OnInit {
 
     dialogRef.afterClosed().pipe(
       filter(x => x),
-      switchMap(item => this.tariffsService.add("0", item))
+      switchMap(item => this.tariffsService.add(item))
     ).subscribe(
       value => {
         let data = this.dataSource.data;
@@ -84,7 +84,7 @@ export class TariffListComponent implements OnInit {
 
     dialogRef.afterClosed().pipe(
       filter(x => x),
-      switchMap(item => this.tariffsService.update(item.id, "0", item))
+      switchMap(item => this.tariffsService.update(item.id, item))
     ).subscribe(
       value => {
         this.dataSource.data = this.dataSource.data.map(x => x.id == value.id ? value : x);
@@ -101,7 +101,7 @@ export class TariffListComponent implements OnInit {
 
     dialogRef.afterClosed().pipe(
       filter(x => x),
-      switchMapTo(this.tariffsService._delete(item.id, "0"))
+      switchMapTo(this.tariffsService._delete(item.id))
     ).subscribe(
       value => {
         this.dataSource.data = this.dataSource.data.filter((value) => value.id != item.id);
