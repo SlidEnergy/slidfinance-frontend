@@ -1,4 +1,3 @@
-export * from './addBankAccountBindingModel';
 export * from './bank';
 export * from './bankAccount';
 export * from './cashbackCategory';

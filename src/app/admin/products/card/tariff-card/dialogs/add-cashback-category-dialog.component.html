@@ -1,0 +1,46 @@
+<div class="container">
+    <h3 mat-dialog-title>Добавить категорию</h3>
+
+    <form class="mat-dialog-content"
+          #formControl="ngForm">
+
+        <div class="form">
+            <mat-form-field color="accent">
+                <input matInput
+                       placeholder="Название"
+                       [(ngModel)]="data.title"
+                       name="title"
+                       required>
+            </mat-form-field>
+        </div>
+
+        <div class="form">
+            <mat-form-field color="accent">
+                <input matInput
+                       placeholder="Описание"
+                       [(ngModel)]="data.description"
+                       name="description">
+            </mat-form-field>
+        </div>
+
+        <div class="form">
+            <mat-select [(value)]="data.type">
+                <mat-option [value]="type.BaseCashback">Базовый кэшбэк</mat-option>
+                <mat-option [value]="type.IncreasedCashback">Повышенный кэшбэк</mat-option>
+                <mat-option [value]="type.NoCashback">Нет кэшбэка</mat-option>
+            </mat-select>
+        </div>
+
+        <div mat-dialog-actions>
+            <button mat-button
+                    type="submit"
+                    [mat-dialog-close]="data"
+                    [disabled]="!formControl.valid">Привязать
+            </button>
+            <button mat-button
+                    [mat-dialog-close]
+                    tabindex="-1">Отменить
+            </button>
+        </div>
+    </form>
+</div>

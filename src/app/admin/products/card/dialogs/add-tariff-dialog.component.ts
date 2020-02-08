@@ -1,6 +1,6 @@
 import {Component, OnInit, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {BanksService, Product} from 'src/app/api';
+import {BanksService, Product, ProductTariff} from 'src/app/api';
 import {FormControl, Validators} from '@angular/forms';
 
 @Component({
@@ -9,7 +9,7 @@ import {FormControl, Validators} from '@angular/forms';
   styleUrls: ['./add-tariff-dialog.component.scss']
 })
 export class AddTariffDialogComponent implements OnInit {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Product, private banksService: BanksService) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: ProductTariff) {
   }
 
   ngOnInit() {

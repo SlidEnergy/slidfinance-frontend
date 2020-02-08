@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Bank } from 'src/app/api';
+import {Bank, ProductTariff} from 'src/app/api';
 
 @Component({
   selector: 'app-edit-tariff-dialog',
@@ -8,7 +8,7 @@ import { Bank } from 'src/app/api';
   styleUrls: ['./edit-tariff-dialog.component.scss']
 })
 export class EditTariffDialogComponent implements OnInit {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Bank) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: ProductTariff) { }
 
   ngOnInit() {
   }

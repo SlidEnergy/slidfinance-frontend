@@ -17,7 +17,6 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
-import { AddBankAccountBindingModel } from '../model/addBankAccountBindingModel';
 import { BankAccount } from '../model/bankAccount';
 import { Operation } from '../model/operation';
 import { ProblemDetails } from '../model/problemDetails';
@@ -100,14 +99,14 @@ export class AccountsService {
     }
 
     /**
-     * @param addBankAccountBindingModel 
+     * @param bankAccount 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public add(addBankAccountBindingModel?: AddBankAccountBindingModel, observe?: 'body', reportProgress?: boolean): Observable<BankAccount>;
-    public add(addBankAccountBindingModel?: AddBankAccountBindingModel, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<BankAccount>>;
-    public add(addBankAccountBindingModel?: AddBankAccountBindingModel, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<BankAccount>>;
-    public add(addBankAccountBindingModel?: AddBankAccountBindingModel, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public add(bankAccount?: BankAccount, observe?: 'body', reportProgress?: boolean): Observable<BankAccount>;
+    public add(bankAccount?: BankAccount, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<BankAccount>>;
+    public add(bankAccount?: BankAccount, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<BankAccount>>;
+    public add(bankAccount?: BankAccount, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -149,7 +148,7 @@ export class AccountsService {
         }
 
         return this.httpClient.post<BankAccount>(`${this.configuration.basePath}/api/v1/Accounts`,
-            addBankAccountBindingModel,
+            bankAccount,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
