@@ -65,7 +65,8 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "port": 4201,
-            "browserTarget": "Frontend:build"
+            "browserTarget": "Frontend:build",
+            "proxyConfig": "src/proxy.conf.js"
           },
           "configurations": {
             "production": {
