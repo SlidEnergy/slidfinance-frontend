@@ -1,4 +1,4 @@
-import {EntityCollectionServiceBase, EntityCollectionServiceElementsFactory} from "@ngrx/data";
+import {EntityCollectionServiceBase, EntityCollectionServiceElementsFactory, QueryParams} from '@ngrx/data';
 import {muteFirst} from "../operators";
 import {filter, map, startWith, switchMapTo} from "rxjs/operators";
 import {LazyLoaderFactoryService} from "./lazy-loader-factory.service";

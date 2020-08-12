@@ -5,7 +5,7 @@ const entityMetadata: EntityMetadataMap = {
     bank: {},
     product: {},
     account: {},
-    category: {}
+    category: {},
 };
 
 const pluralNames = {
@@ -13,7 +13,7 @@ const pluralNames = {
     bank: "banks",
     product: "products",
     account: "accounts",
-    category: "categories"
+    category: "categories",
 };
 
 export const entityConfig = {
