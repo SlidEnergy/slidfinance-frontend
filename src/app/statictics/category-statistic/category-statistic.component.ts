@@ -10,7 +10,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {Store} from '@ngrx/store';
 import {AppState} from 'src/app/core/store/app-state';
 import {TransactionListDialogComponent} from './transaction-list-dialog.component';
-import {AppEntityServicesService} from '../../core/store/entity/app-entity-services.service';
+import {AppEntityServicesService} from '../../core/entity/app-entity-services.service';
 import {Dictionary} from '@ngrx/entity';
 
 @Component({

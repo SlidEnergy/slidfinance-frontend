@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Mcc, Merchant} from '../../api';
-import {AppEntityServicesService} from '../../core/store/entity/app-entity-services.service';
+import {AppEntityServicesService} from '../../core/entity/app-entity-services.service';
 
 @Component({
   selector: 'app-merchant-list',

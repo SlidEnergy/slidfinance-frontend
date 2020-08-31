@@ -19,7 +19,7 @@ import {
     MccService,
     Product,
     ProductsService
-} from '../../../api';
+} from '../../api';
 
 @Injectable({
     providedIn: 'root'

@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 import { AddRuleDialogComponent } from './dialogs/add-rule-dialog.component';
 import { DeleteRuleDialogComponent } from './dialogs/delete-rule-dialog.component';
 import { EditRuleDialogComponent } from './dialogs/edit-rule-dialog.component';
-import {AppEntityServicesService} from '../../core/store/entity/app-entity-services.service';
+import {AppEntityServicesService} from '../../core/entity/app-entity-services.service';
 
 @Component({
   selector: 'app-rule-list',

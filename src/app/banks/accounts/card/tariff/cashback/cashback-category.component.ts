@@ -3,7 +3,7 @@ import {CashbackCategory, CashbackCategoryMccService, Mcc} from '../../../../../
 import {MatSnackBar} from '@angular/material';
 import {combineLatest, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {AppEntityServicesService} from '../../../../../core/store/entity/app-entity-services.service';
+import {AppEntityServicesService} from '../../../../../core/entity/app-entity-services.service';
 
 @Component({
   selector: 'app-cashback-category',

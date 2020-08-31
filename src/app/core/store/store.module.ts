@@ -7,7 +7,7 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from '../../../environments/environment';
 import {EntityDataModule} from "@ngrx/data";
 import {StoreModule as NgrxStoreModule} from "@ngrx/store";
-import {entityConfig} from './entity/entity-metadata';
+import {entityConfig} from '../entity/entity-metadata';
 
 @NgModule({
   declarations: [],

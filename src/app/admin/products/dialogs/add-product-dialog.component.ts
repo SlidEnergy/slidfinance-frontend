@@ -3,7 +3,7 @@ import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {Bank, BanksService, Product} from 'src/app/api';
 import {map} from 'rxjs/operators';
 import {FormControl, Validators} from '@angular/forms';
-import {AppEntityServicesService} from '../../../core/store/entity/app-entity-services.service';
+import {AppEntityServicesService} from '../../../core/entity/app-entity-services.service';
 
 @Component({
   selector: 'app-add-product-dialog',

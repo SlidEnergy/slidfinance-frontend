@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Category} from 'src/app/api';
 import {Observable} from 'rxjs';
 import {Router, ActivatedRoute} from '@angular/router';
-import {AppEntityServicesService} from '../../../core/store/entity/app-entity-services.service';
+import {AppEntityServicesService} from '../../../core/entity/app-entity-services.service';
 
 @Component({
     selector: 'app-select-category',

@@ -3,7 +3,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import {RulesService, Rule, Category, CategoriesService, AccountsService, BankAccount, Mcc} from 'src/app/api';
 import {map} from 'rxjs/operators';
-import {AppEntityServicesService} from '../../../core/store/entity/app-entity-services.service';
+import {AppEntityServicesService} from '../../../core/entity/app-entity-services.service';
 
 @Component({
   selector: 'app-edit-rule-dialog',

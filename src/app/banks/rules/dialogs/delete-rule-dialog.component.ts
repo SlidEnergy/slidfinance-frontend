@@ -2,7 +2,7 @@ import {Component, OnInit, Inject} from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {RulesService, CategoriesService, AccountsService, Category, BankAccount, Mcc} from 'src/app/api';
 import {map} from 'rxjs/operators';
-import {AppEntityServicesService} from '../../../core/store/entity/app-entity-services.service';
+import {AppEntityServicesService} from '../../../core/entity/app-entity-services.service';
 
 @Component({
   selector: 'app-delete-rule-dialog',

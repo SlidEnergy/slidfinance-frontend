@@ -6,7 +6,7 @@ import {map, filter, switchMap, tap, share, shareReplay} from 'rxjs/operators';
 import {ActivatedRoute, Router} from '@angular/router';
 import {EditAccountDialogComponent} from "../dialogs/edit-account-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
-import {AppEntityServicesService} from '../../../core/store/entity/app-entity-services.service';
+import {AppEntityServicesService} from '../../../core/entity/app-entity-services.service';
 
 @Component({
   selector: 'app-account-card',

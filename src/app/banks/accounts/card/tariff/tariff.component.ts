@@ -13,7 +13,7 @@ import {
   TariffsService
 } from '../../../../api';
 import {Observable, of} from 'rxjs';
-import {AppEntityServicesService} from '../../../../core/store/entity/app-entity-services.service';
+import {AppEntityServicesService} from '../../../../core/entity/app-entity-services.service';
 
 @Component({
   selector: 'app-tariff',

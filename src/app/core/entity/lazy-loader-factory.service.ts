@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {catchError, filter, finalize, mapTo, share, switchMap, tap} from 'rxjs/operators';
 import {Observable, throwError} from 'rxjs';
-import {ErrorHandlerService} from '../../errors/error-handler.service.';
-import {AppState} from '../app-state';
+import {ErrorHandlerService} from '../errors/error-handler.service.';
+import {AppState} from '../store/app-state';
 
 @Injectable({
     providedIn: 'root'

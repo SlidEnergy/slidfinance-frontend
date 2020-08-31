@@ -7,7 +7,7 @@ import {Category, GeneratedRule, CategoriesService, AccountsService, BankAccount
 import {map, filter, flatMap} from 'rxjs/operators';
 import {Observable, pipe} from 'rxjs';
 import {AddRuleDialogComponent} from './dialogs/add-rule-dialog.component';
-import {AppEntityServicesService} from '../../core/store/entity/app-entity-services.service';
+import {AppEntityServicesService} from '../../core/entity/app-entity-services.service';
 
 @Component({
   selector: 'app-generated-rule-list',
