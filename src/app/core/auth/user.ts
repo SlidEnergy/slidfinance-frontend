@@ -9,11 +9,11 @@ export class User {
         return this.model.email;
     }
 
-    constructor(private model: apiUser) {
-
+    get isAdmin() {
+        return this.model.isAdmin;
     }
 
-    get isAdmin() {
-        return this.model.email == "slidenergy@gmail.com";
+    constructor(private model: apiUser) {
+
     }
 }

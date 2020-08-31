@@ -116,7 +116,7 @@ export class AuthService {
 	public login(email: string, password: string): Observable<User> {
 		return this.usersService.getToken({ email, password }).pipe(
 			map((data: TokenInfo) => {
-				const user = new User({ email: data.email });
+				const user = new User({ email: data.email, isAdmin: false });
 
 				localStorage.setItem('auth', JSON.stringify(data));
 
@@ -149,7 +149,7 @@ export class AuthService {
 	private refreshToken(token: string, refreshToken: string) {
 		return this.tokenService.refresh({ token, refreshToken }).pipe(
 			map((data: TokenInfo) => {
-				const user = new User({ email: data.email });
+				const user = new User({ email: data.email, isAdmin: false });
 
 				localStorage.setItem('auth', JSON.stringify(data));
 
