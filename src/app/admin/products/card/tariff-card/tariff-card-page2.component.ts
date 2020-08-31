@@ -6,10 +6,10 @@ import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-tariff-card-page',
-  templateUrl: './tariff-card-page.component.html',
-  styleUrls: ['./tariff-card-page.component.scss']
+  templateUrl: './tariff-card-page2.component.html',
+  styleUrls: ['./tariff-card-page2.component.scss']
 })
-export class TariffCardPageComponent implements OnInit {
+export class TariffCardPage2Component implements OnInit {
   categories: Observable<CashbackCategory[]>;
 
   cardEntityId = this.route.params.pipe(

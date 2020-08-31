@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Product, ProductsService} from 'src/app/api';
-import {Observable, of} from 'rxjs';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {map, catchError, filter, startWith} from 'rxjs/operators';
-import {NavigationEnd, Router} from '@angular/router';
+import {Observable} from 'rxjs';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-products-page',

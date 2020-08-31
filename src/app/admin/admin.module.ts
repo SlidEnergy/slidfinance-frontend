@@ -16,13 +16,17 @@ import {ProductCardPageComponent} from './products/card/product-card-page.compon
 import {TariffListComponent} from './products/card/tariff-list.component';
 import {EditTariffDialogComponent} from './products/card/dialogs/edit-tariff-dialog.component';
 import {AddTariffDialogComponent} from './products/card/dialogs/add-tariff-dialog.component';
-import {TariffCardPageComponent} from "./products/card/tariff-card/tariff-card-page.component";
-import {CashbackCategoryListComponent} from "./products/card/tariff-card/cashback-category-list.component";
-import {AddCashbackCategoryDialogComponent} from "./products/card/tariff-card/dialogs/add-cashback-category-dialog.component";
-import {EditCashbackCategoryDialogComponent} from "./products/card/tariff-card/dialogs/edit-cashback-category-dialog.component";
+import {TariffCardPage2Component} from "./products/card/tariff-card/tariff-card-page2.component";
+import {TariffCashbackCategoryListComponent} from "./products/card/tariff-card/tariff-cashback-category-list.component";
+import {TariffAddCashbackCategoryDialogComponent} from "./products/card/tariff-card/dialogs/tariff-add-cashback-category-dialog.component";
+import {TariffEditCashbackCategoryDialogComponent} from "./products/card/tariff-card/dialogs/tariff-edit-cashback-category-dialog.component";
 import {
     EditableMccListComponent
 } from "./products/card/tariff-card/dialogs/editable-mcc-list.component";
+import {TariffCardPageComponent} from './products/card/tariff-card-page.component';
+import {AddCashbackCategoryDialogComponent} from './products/card/cashback-category/dialogs/add-cashback-category-dialog.component';
+import {EditCashbackCategoryDialogComponent} from './products/card/cashback-category/dialogs/edit-cashback-category-dialog.component';
+import {CashbackCategoryListComponent} from './products/card/cashback-category/cashback-category-list.component';
 
 const routes: Routes = [
     {path: '', redirectTo: 'users', pathMatch: 'full'},
@@ -44,8 +48,11 @@ const routes: Routes = [
         ProductCardPageComponent,
         TariffListComponent,
         TariffCardPageComponent,
-        CashbackCategoryListComponent,
+        TariffCashbackCategoryListComponent,
         EditableMccListComponent,
+        TariffCardPageComponent,
+        CashbackCategoryListComponent,
+        TariffCardPage2Component,
 
         AddBankDialogComponent,
         EditBankDialogComponent,
@@ -53,8 +60,10 @@ const routes: Routes = [
         EditProductDialogComponent,
         AddTariffDialogComponent,
         EditTariffDialogComponent,
+        TariffAddCashbackCategoryDialogComponent,
+        TariffEditCashbackCategoryDialogComponent,
         AddCashbackCategoryDialogComponent,
-        EditCashbackCategoryDialogComponent,
+        EditCashbackCategoryDialogComponent
     ],
     imports: [
         CommonModule,
@@ -68,8 +77,10 @@ const routes: Routes = [
         EditProductDialogComponent,
         AddTariffDialogComponent,
         EditTariffDialogComponent,
+        TariffAddCashbackCategoryDialogComponent,
+        TariffEditCashbackCategoryDialogComponent,
         AddCashbackCategoryDialogComponent,
-        EditCashbackCategoryDialogComponent,
+        EditCashbackCategoryDialogComponent
     ]
 })
 export class AdminModule {
