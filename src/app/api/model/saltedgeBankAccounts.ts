@@ -9,13 +9,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ImportTransaction } from './importTransaction';
+import { SeAccount } from './seAccount';
+import { SeConnection } from './seConnection';
 
 
-export interface PatchAccountDataBindingModel { 
-    code?: string | null;
-    accountId?: number | null;
-    balance?: number | null;
-    transactions?: Array<ImportTransaction> | null;
+export interface SaltedgeBankAccounts { 
+    connection?: SeConnection | null;
+    accounts?: Array<SeAccount> | null;
 }
 

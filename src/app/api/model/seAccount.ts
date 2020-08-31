@@ -9,13 +9,18 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ImportTransaction } from './importTransaction';
+import { SeAccountExtra } from './seAccountExtra';
 
 
-export interface PatchAccountDataBindingModel { 
-    code?: string | null;
-    accountId?: number | null;
+export interface SeAccount { 
+    id?: string | null;
+    name?: string | null;
+    nature?: string | null;
     balance?: number | null;
-    transactions?: Array<ImportTransaction> | null;
+    currencyCode?: string | null;
+    extra?: SeAccountExtra | null;
+    connectionId?: string | null;
+    createdAt?: Date | null;
+    updatedAt?: Date | null;
 }
 

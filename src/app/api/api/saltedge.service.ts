@@ -17,7 +17,8 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
-import { Merchant } from '../model/merchant';
+import { SaltedgeAccount } from '../model/saltedgeAccount';
+import { SaltedgeBankAccounts } from '../model/saltedgeBankAccounts';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -27,7 +28,7 @@ import { Configuration }                                     from '../configurat
 @Injectable({
   providedIn: 'root'
 })
-export class MerchantsService {
+export class SaltedgeService {
 
     protected basePath = 'http://localhost';
     public defaultHeaders = new HttpHeaders();
@@ -50,51 +51,14 @@ export class MerchantsService {
 
 
     /**
+     * @param saltedgeAccount 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getList(observe?: 'body', reportProgress?: boolean): Observable<Array<Merchant>>;
-    public getList(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Merchant>>>;
-    public getList(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Merchant>>>;
-    public getList(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        let headers = this.defaultHeaders;
-
-        // to determine the Accept header
-        const httpHeaderAccepts: string[] = [
-            'text/plain',
-            'application/json',
-            'text/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected !== undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-
-        return this.httpClient.get<Array<Merchant>>(`${this.configuration.basePath}/api/v1/Merchants`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * @param id 
-     * @param merchant 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public update(id: number, merchant?: Merchant, observe?: 'body', reportProgress?: boolean): Observable<Merchant>;
-    public update(id: number, merchant?: Merchant, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Merchant>>;
-    public update(id: number, merchant?: Merchant, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Merchant>>;
-    public update(id: number, merchant?: Merchant, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling update.');
-        }
+    public addCustomer(saltedgeAccount?: SaltedgeAccount, observe?: 'body', reportProgress?: boolean): Observable<SaltedgeAccount>;
+    public addCustomer(saltedgeAccount?: SaltedgeAccount, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<SaltedgeAccount>>;
+    public addCustomer(saltedgeAccount?: SaltedgeAccount, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<SaltedgeAccount>>;
+    public addCustomer(saltedgeAccount?: SaltedgeAccount, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -122,8 +86,72 @@ export class MerchantsService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.put<Merchant>(`${this.configuration.basePath}/api/v1/Merchants/${encodeURIComponent(String(id))}`,
-            merchant,
+        return this.httpClient.post<SaltedgeAccount>(`${this.configuration.basePath}/api/v1/Saltedge`,
+            saltedgeAccount,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getList(observe?: 'body', reportProgress?: boolean): Observable<Array<SaltedgeBankAccounts>>;
+    public getList(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<SaltedgeBankAccounts>>>;
+    public getList(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<SaltedgeBankAccounts>>>;
+    public getList(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.get<Array<SaltedgeBankAccounts>>(`${this.configuration.basePath}/api/v1/Saltedge/accounts`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public runImport(observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public runImport(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public runImport(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public runImport(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        const httpHeaderAccepts: string[] = [
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        return this.httpClient.post<any>(`${this.configuration.basePath}/api/v1/Saltedge/import/run`,
+            null,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

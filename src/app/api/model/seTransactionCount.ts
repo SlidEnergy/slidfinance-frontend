@@ -9,13 +9,10 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ImportTransaction } from './importTransaction';
 
 
-export interface PatchAccountDataBindingModel { 
-    code?: string | null;
-    accountId?: number | null;
-    balance?: number | null;
-    transactions?: Array<ImportTransaction> | null;
+export interface SeTransactionCount { 
+    posted?: number;
+    pending?: number;
 }
 

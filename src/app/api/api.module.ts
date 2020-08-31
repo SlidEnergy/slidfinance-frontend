@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { AccountsService } from './api/accounts.service';
 import { AnalysisService } from './api/analysis.service';
+import { ApiKeysService } from './api/apiKeys.service';
 import { BanksService } from './api/banks.service';
 import { CashbackCategoriesService } from './api/cashbackCategories.service';
 import { CashbackCategoryMccService } from './api/cashbackCategoryMcc.service';
@@ -14,6 +15,9 @@ import { MccService } from './api/mcc.service';
 import { MerchantsService } from './api/merchants.service';
 import { ProductsService } from './api/products.service';
 import { RulesService } from './api/rules.service';
+import { SaltedgeService } from './api/saltedge.service';
+import { SaltedgeAccountInformationService } from './api/saltedgeAccountInformation.service';
+import { SaltedgePaymentInitiationService } from './api/saltedgePaymentInitiation.service';
 import { TariffsService } from './api/tariffs.service';
 import { TelegramService } from './api/telegram.service';
 import { TokenService } from './api/token.service';
@@ -27,6 +31,7 @@ import { UsersService } from './api/users.service';
   providers: [
     AccountsService,
     AnalysisService,
+    ApiKeysService,
     BanksService,
     CashbackCategoriesService,
     CashbackCategoryMccService,
@@ -36,6 +41,9 @@ import { UsersService } from './api/users.service';
     MerchantsService,
     ProductsService,
     RulesService,
+    SaltedgeService,
+    SaltedgeAccountInformationService,
+    SaltedgePaymentInitiationService,
     TariffsService,
     TelegramService,
     TokenService,

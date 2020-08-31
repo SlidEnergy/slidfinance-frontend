@@ -23,5 +23,6 @@ export interface BankAccount {
     productId?: number | null;
     type?: ProductType;
     opened?: Date | null;
+    saltedgeBankAccountId?: string | null;
 }
 
