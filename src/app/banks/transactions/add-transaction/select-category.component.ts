@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Category} from 'src/app/api';
 import {Observable} from 'rxjs';
 import {Router, ActivatedRoute} from '@angular/router';
-import {AppEntityServicesService} from '../../../core/entity/app-entity-services.service';
+import {EntityDataContextService} from '../../../core/entity/entity-data-context.service';
 
 @Component({
     selector: 'app-select-category',
@@ -15,7 +15,7 @@ export class SelectCategoryComponent implements OnInit {
     constructor(
         private router: Router,
         private route: ActivatedRoute,
-        private dataContext: AppEntityServicesService) {
+        private dataContext: EntityDataContextService) {
     }
 
     ngOnInit() {

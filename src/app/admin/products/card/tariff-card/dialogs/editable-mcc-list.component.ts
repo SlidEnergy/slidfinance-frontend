@@ -3,7 +3,7 @@ import {CashbackCategory, CashbackCategoryMccService, Mcc} from '../../../../../
 import {MatSnackBar} from '@angular/material';
 import {combineLatest, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {AppEntityServicesService} from '../../../../../core/entity/app-entity-services.service';
+import {EntityDataContextService} from '../../../../../core/entity/entity-data-context.service';
 
 @Component({
   selector: 'app-editable-mcc-list',
@@ -18,7 +18,7 @@ export class EditableMccListComponent implements OnInit {
   cashbackMccCodes: Observable<string>;
 
   constructor(private cashbackMcc: CashbackCategoryMccService,
-              private dataContext: AppEntityServicesService,
+              private dataContext: EntityDataContextService,
               private snackBar: MatSnackBar
   ) {
   }

@@ -3,7 +3,7 @@ import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {Bank, BanksService, Product} from 'src/app/api';
 import {map} from 'rxjs/operators';
 import {FormControl, Validators} from '@angular/forms';
-import {AppEntityServicesService} from '../../../core/entity/app-entity-services.service';
+import {EntityDataContextService} from '../../../core/entity/entity-data-context.service';
 
 @Component({
   selector: 'app-add-product-dialog',
@@ -15,7 +15,7 @@ export class AddProductDialogComponent implements OnInit {
 
   constructor(
       @Inject(MAT_DIALOG_DATA) public data: Product,
-      private dataContext: AppEntityServicesService) {
+      private dataContext: EntityDataContextService) {
   }
 
   ngOnInit() {

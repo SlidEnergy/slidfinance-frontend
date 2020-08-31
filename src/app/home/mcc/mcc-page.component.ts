@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs';
 import {Mcc} from '../../api';
-import {AppEntityServicesService} from '../../core/entity/app-entity-services.service';
+import {EntityDataContextService} from '../../core/entity/entity-data-context.service';
 
 @Component({
   selector: 'app-mcc-page',
@@ -12,7 +12,7 @@ export class MccPageComponent implements OnInit {
 
   mcc: Observable<Mcc[]> = this.dataContext.mcc.getListLazy();
 
-  constructor(private dataContext: AppEntityServicesService) {
+  constructor(private dataContext: EntityDataContextService) {
     console.log("Mcc page component")
   }
 

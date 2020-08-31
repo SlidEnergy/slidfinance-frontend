@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 import { AddRuleDialogComponent } from './dialogs/add-rule-dialog.component';
 import { DeleteRuleDialogComponent } from './dialogs/delete-rule-dialog.component';
 import { EditRuleDialogComponent } from './dialogs/edit-rule-dialog.component';
-import {AppEntityServicesService} from '../../core/entity/app-entity-services.service';
+import {EntityDataContextService} from '../../core/entity/entity-data-context.service';
 
 @Component({
   selector: 'app-rule-list',
@@ -44,7 +44,7 @@ export class RuleListComponent implements OnInit {
     private categoriesService: CategoriesService,
     public dialog: MatDialog,
     private accountsService: AccountsService,
-    private dataContext: AppEntityServicesService) { }
+    private dataContext: EntityDataContextService) { }
 
   ngOnInit() {
     this.categoriesService.getList().pipe(map(x => new Map(x.map(i => [i.id, i] as [number, Category])))).subscribe(data => this.categories = data);

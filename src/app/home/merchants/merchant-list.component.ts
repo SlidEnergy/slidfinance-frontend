@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Mcc, Merchant} from '../../api';
-import {AppEntityServicesService} from '../../core/entity/app-entity-services.service';
+import {EntityDataContextService} from '../../core/entity/entity-data-context.service';
 
 @Component({
   selector: 'app-merchant-list',
@@ -12,7 +12,7 @@ export class MerchantListComponent implements OnInit {
 
   mcc: Mcc[];
 
-  constructor(private dataContext: AppEntityServicesService) {
+  constructor(private dataContext: EntityDataContextService) {
   }
 
   ngOnInit() {

@@ -10,7 +10,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {Store} from '@ngrx/store';
 import {AppState} from 'src/app/core/store/app-state';
 import {TransactionListDialogComponent} from './transaction-list-dialog.component';
-import {AppEntityServicesService} from '../../core/entity/app-entity-services.service';
+import {EntityDataContextService} from '../../core/entity/entity-data-context.service';
 import {Dictionary} from '@ngrx/entity';
 
 @Component({
@@ -46,7 +46,7 @@ export class CategoryStatisticComponent implements OnInit {
         private store: Store<AppState>,
         private dialog: MatDialog,
         private transactionsService: TransactionsService,
-        private dataContext: AppEntityServicesService
+        private dataContext: EntityDataContextService
     ) {
     }
 

@@ -13,7 +13,7 @@ import {
   TariffsService
 } from '../../../../api';
 import {Observable, of} from 'rxjs';
-import {AppEntityServicesService} from '../../../../core/entity/app-entity-services.service';
+import {EntityDataContextService} from '../../../../core/entity/entity-data-context.service';
 
 @Component({
   selector: 'app-tariff',
@@ -29,7 +29,7 @@ export class TariffComponent implements OnInit, OnChanges {
   constructor(private dialog: MatDialog,
               private router: Router,
               private snackBar: MatSnackBar,
-              private dataContext: AppEntityServicesService,
+              private dataContext: EntityDataContextService,
               private accountsService: AccountsService,
               private tariffsService: TariffsService,
               private categoriesService: CashbackCategoriesService

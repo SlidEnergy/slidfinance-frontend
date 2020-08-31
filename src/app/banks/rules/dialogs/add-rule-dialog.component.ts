@@ -3,7 +3,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
 import {Rule, Category, CategoriesService, AccountsService, BankAccount, Mcc} from 'src/app/api';
 import {map} from 'rxjs/operators';
-import {AppEntityServicesService} from '../../../core/entity/app-entity-services.service';
+import {EntityDataContextService} from '../../../core/entity/entity-data-context.service';
 
 @Component({
   selector: 'app-add-rule-dialog',
@@ -20,7 +20,7 @@ export class AddRuleDialogComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: Rule,
               private categoriesService: CategoriesService,
               private accountsService: AccountsService,
-              private dataContext: AppEntityServicesService) {
+              private dataContext: EntityDataContextService) {
   }
 
   ngOnInit() {

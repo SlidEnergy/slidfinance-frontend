@@ -7,7 +7,7 @@ import {Category, GeneratedRule, CategoriesService, AccountsService, BankAccount
 import {map, filter, flatMap} from 'rxjs/operators';
 import {Observable, pipe} from 'rxjs';
 import {AddRuleDialogComponent} from './dialogs/add-rule-dialog.component';
-import {AppEntityServicesService} from '../../core/entity/app-entity-services.service';
+import {EntityDataContextService} from '../../core/entity/entity-data-context.service';
 
 @Component({
   selector: 'app-generated-rule-list',
@@ -43,7 +43,7 @@ export class GeneratedRuleListComponent implements OnInit {
     private categoriesService: CategoriesService,
     public dialog: MatDialog,
     private accountsService: AccountsService,
-    private dataContext: AppEntityServicesService) {
+    private dataContext: EntityDataContextService) {
   }
 
   ngOnInit() {

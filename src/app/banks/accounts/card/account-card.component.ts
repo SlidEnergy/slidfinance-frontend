@@ -6,7 +6,7 @@ import {map, filter, switchMap, tap, share, shareReplay} from 'rxjs/operators';
 import {ActivatedRoute, Router} from '@angular/router';
 import {EditAccountDialogComponent} from "../dialogs/edit-account-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
-import {AppEntityServicesService} from '../../../core/entity/app-entity-services.service';
+import {EntityDataContextService} from '../../../core/entity/entity-data-context.service';
 
 @Component({
   selector: 'app-account-card',
@@ -29,7 +29,7 @@ export class AccountCardComponent implements OnInit {
     private transactionsService: TransactionsService,
     private snackBar: MatSnackBar,
     private route: ActivatedRoute,
-    private dataContext: AppEntityServicesService,
+    private dataContext: EntityDataContextService,
     private accountsService: AccountsService,
     private router: Router,
     private dialog: MatDialog,

@@ -24,7 +24,7 @@ import {
 @Injectable({
     providedIn: 'root'
 })
-export class AppEntityServicesService extends EntityServicesBase {
+export class EntityDataContextService extends EntityServicesBase {
     public readonly mcc = new LazyEntityCollectionService<Mcc>(MCC_ENTITY_NAME, this.elementsFactory, this.lazyLoaderFactory);
     public readonly banks = new LazyEntityCollectionService<Bank>(BANK_ENTITY_NAME, this.elementsFactory, this.lazyLoaderFactory);
     public readonly products = new LazyEntityCollectionService<Product>(PRODUCT_ENTITY_NAME, this.elementsFactory, this.lazyLoaderFactory);
