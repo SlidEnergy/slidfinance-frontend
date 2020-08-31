@@ -5,10 +5,10 @@ import {FormControl, Validators} from '@angular/forms';
 
 @Component({
     selector: 'app-tariff-add-cashback-category-dialog',
-    templateUrl: './tariff-add-cashback-category-dialog.component.html',
-    styleUrls: ['./tariff-add-cashback-category-dialog.component.scss']
+    templateUrl: './add-cashback-category-dialog.component.html',
+    styleUrls: ['./add-cashback-category-dialog.component.scss']
 })
-export class TariffAddCashbackCategoryDialogComponent implements OnInit {
+export class AddCashbackCategoryDialogComponent implements OnInit {
     type = CashbackCategoryType;
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: CashbackCategory, private banksService: BanksService) {

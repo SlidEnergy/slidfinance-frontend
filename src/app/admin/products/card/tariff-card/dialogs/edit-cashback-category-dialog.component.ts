@@ -4,10 +4,10 @@ import {Bank, CashbackCategory} from 'src/app/api';
 
 @Component({
   selector: 'app-tariff-edit-cashback-category-dialog',
-  templateUrl: './tariff-edit-cashback-category-dialog.component.html',
-  styleUrls: ['./tariff-edit-cashback-category-dialog.component.scss']
+  templateUrl: './edit-cashback-category-dialog.component.html',
+  styleUrls: ['./edit-cashback-category-dialog.component.scss']
 })
-export class TariffEditCashbackCategoryDialogComponent implements OnInit {
+export class EditCashbackCategoryDialogComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: CashbackCategory) { }
 
   ngOnInit() {

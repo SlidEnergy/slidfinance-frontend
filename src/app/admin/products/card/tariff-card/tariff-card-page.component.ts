@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {CashbackCategoriesService, CashbackCategory} from '../../../api';
-import {AppEntityServicesService} from '../../../core/store/entity/app-entity-services.service';
-import {filter, map, shareReplay, switchMap} from 'rxjs/operators';
+import {CashbackCategoriesService, CashbackCategory} from 'src/app/api';
 import {Observable} from 'rxjs';
+import {filter, map, shareReplay, switchMap} from 'rxjs/operators';
 import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
@@ -22,7 +21,7 @@ export class TariffCardPageComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private cashbackCategoriesService: CashbackCategoriesService
+        private cashbackCategoriesService: CashbackCategoriesService,
     ) {
     }
 

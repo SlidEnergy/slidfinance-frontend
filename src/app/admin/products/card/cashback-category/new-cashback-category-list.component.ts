@@ -3,16 +3,15 @@ import {MatDialog, MatSnackBar, MatSort, MatTableDataSource} from '@angular/mate
 import {CashbackCategoriesService, CashbackCategory} from '../../../../api';
 import {Router} from '@angular/router';
 import {filter, switchMap, switchMapTo} from 'rxjs/operators';
-import {MessageDialogComponent} from '../../../../shared/message-dialog/message-dialog.component';
-import {AddCashbackCategoryDialogComponent} from './dialogs/add-cashback-category-dialog.component';
-import {EditCashbackCategoryDialogComponent} from './dialogs/edit-cashback-category-dialog.component';
+import {NewAddCashbackCategoryDialogComponent} from './dialogs/new-add-cashback-category-dialog.component';
+import {NewEditCashbackCategoryDialogComponent} from './dialogs/new-edit-cashback-category-dialog.component';
 
 @Component({
   selector: 'app-cashback-category-list',
-  templateUrl: './cashback-category-list.component.html',
-  styleUrls: ['./cashback-category-list.component.scss']
+  templateUrl: './new-cashback-category-list.component.html',
+  styleUrls: ['./new-cashback-category-list.component.scss']
 })
-export class CashbackCategoryListComponent implements OnInit {
+export class NewCashbackCategoryListComponent implements OnInit {
     @ViewChild(MatSort, {static: true}) sort: MatSort;
 
     // список транзакций пользователя
@@ -56,7 +55,7 @@ export class CashbackCategoryListComponent implements OnInit {
     }
 
     addNew() {
-        const dialogRef = this.dialog.open(AddCashbackCategoryDialogComponent, {
+        const dialogRef = this.dialog.open(NewAddCashbackCategoryDialogComponent, {
             data: { tariffId: this.cardEntityId}
         });
 
@@ -75,7 +74,7 @@ export class CashbackCategoryListComponent implements OnInit {
     }
 
     editItem(entity: CashbackCategory) {
-        const dialogRef = this.dialog.open(EditCashbackCategoryDialogComponent, {
+        const dialogRef = this.dialog.open(NewEditCashbackCategoryDialogComponent, {
             data: {...entity}
         });
 

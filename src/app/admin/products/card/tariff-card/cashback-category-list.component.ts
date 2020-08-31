@@ -11,15 +11,15 @@ import {filter, switchMap, switchMapTo} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {MessageDialogComponent} from 'src/app/shared/message-dialog/message-dialog.component';
 import {MatSnackBar} from '@angular/material';
-import {TariffEditCashbackCategoryDialogComponent} from './dialogs/tariff-edit-cashback-category-dialog.component';
-import {TariffAddCashbackCategoryDialogComponent} from './dialogs/tariff-add-cashback-category-dialog.component';
+import {EditCashbackCategoryDialogComponent} from './dialogs/edit-cashback-category-dialog.component';
+import {AddCashbackCategoryDialogComponent} from './dialogs/add-cashback-category-dialog.component';
 
 @Component({
   selector: 'app-tariff-cashback-category-list',
-  templateUrl: './tariff-cashback-category-list.component.html',
-  styleUrls: ['./tariff-cashback-category-list.component.scss']
+  templateUrl: './cashback-category-list.component.html',
+  styleUrls: ['./cashback-category-list.component.scss']
 })
-export class TariffCashbackCategoryListComponent implements OnInit {
+export class CashbackCategoryListComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   dataSource = new MatTableDataSource<CashbackCategory>();
@@ -62,7 +62,7 @@ export class TariffCashbackCategoryListComponent implements OnInit {
   }
 
   addNew() {
-    const dialogRef = this.dialog.open(TariffAddCashbackCategoryDialogComponent, {
+    const dialogRef = this.dialog.open(AddCashbackCategoryDialogComponent, {
       data: { tariffId: this.cardEntityId, type: CashbackCategoryType.IncreasedCashback}
     });
 
@@ -81,7 +81,7 @@ export class TariffCashbackCategoryListComponent implements OnInit {
   }
 
   editItem(item: CashbackCategory) {
-    const dialogRef = this.dialog.open(TariffEditCashbackCategoryDialogComponent, {
+    const dialogRef = this.dialog.open(EditCashbackCategoryDialogComponent, {
       data: {...item}
     });
 
