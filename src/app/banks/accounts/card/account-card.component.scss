@@ -1,3 +1,13 @@
+@import "../../../styles/_variables";
+
 h3 {
   display: inline-block;
+}
+
+.card-info {
+  padding: $padding-rem;
+}
+
+app-account-settings {
+  padding: $padding-rem;
 }

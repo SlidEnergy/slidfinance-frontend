@@ -1,23 +1,25 @@
 <div *ngIf="account | async, let acc">
-  <h3>{{acc.title}}</h3>
-  <button mat-button color="primary"
-          (click)="editItem(acc)">Изменить
-  </button>
+    <div class="card-info">
+        <h3>{{acc.title}}</h3>
+        <button mat-button color="primary"
+                (click)="editItem(acc)">Изменить
+        </button>
 
-  <p>Баланс: {{(acc.balance - acc.creditLimit)  | currency : 'RUB' : 'symbol' : '1.2-2' : 'ru'}}</p>
-  <button mat-button color="primary"
-          (click)="addTransaction(acc)">Добавить операцию
-  </button>
-  <mat-tab-group>
-    <mat-tab label="Операции">
-      <app-transactions-list [transactions]="transactions | async" [columns]="transactionColumns"
-      ></app-transactions-list>
-    </mat-tab>
-    <mat-tab label="Тариф">
-      <app-tariff [account]="acc"></app-tariff>
-    </mat-tab>
-    <mat-tab label="Настройки">
-      <app-account-settings [account]="acc"></app-account-settings>
-    </mat-tab>
-  </mat-tab-group>
+        <p>Баланс: {{(acc.balance - acc.creditLimit)  | currency : 'RUB' : 'symbol' : '1.2-2' : 'ru'}}</p>
+        <button mat-button color="primary"
+                (click)="addTransaction(acc)">Добавить операцию
+        </button>
+    </div>
+    <mat-tab-group>
+        <mat-tab label="Операции">
+            <app-transactions-list [transactions]="transactions | async" [columns]="transactionColumns"
+            ></app-transactions-list>
+        </mat-tab>
+        <mat-tab label="Тариф">
+            <app-tariff [account]="acc"></app-tariff>
+        </mat-tab>
+        <mat-tab label="Настройки">
+            <app-account-settings [account]="acc"></app-account-settings>
+        </mat-tab>
+    </mat-tab-group>
 </div>
