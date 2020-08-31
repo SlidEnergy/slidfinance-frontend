@@ -11,8 +11,8 @@
  */
 
 
-export interface MccCategory { 
-    id?: number;
-    title?: string | null;
+export class MccCategory { 
+  id: number;
+  title: string | null;
 }
 

@@ -11,8 +11,8 @@
  */
 
 
-export interface TokensCortage { 
-    token?: string | null;
-    refreshToken?: string | null;
+export class TokensCortage { 
+  token: string | null;
+  refreshToken: string | null;
 }
 

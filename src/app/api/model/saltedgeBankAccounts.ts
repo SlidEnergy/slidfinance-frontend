@@ -13,8 +13,8 @@ import { SeAccount } from './seAccount';
 import { SeConnection } from './seConnection';
 
 
-export interface SaltedgeBankAccounts { 
-    connection?: SeConnection | null;
-    accounts?: Array<SeAccount> | null;
+export class SaltedgeBankAccounts { 
+  connection: SeConnection | null;
+  accounts: Array<SeAccount> | null;
 }
 

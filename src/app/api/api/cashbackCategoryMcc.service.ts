@@ -51,14 +51,14 @@ export class CashbackCategoryMccService {
 
     /**
      * @param categoryId 
-     * @param cashbackCategoryMcc 
+     * @param CashbackCategoryMcc 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public add(categoryId: string, cashbackCategoryMcc?: CashbackCategoryMcc, observe?: 'body', reportProgress?: boolean): Observable<CashbackCategoryMcc>;
-    public add(categoryId: string, cashbackCategoryMcc?: CashbackCategoryMcc, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<CashbackCategoryMcc>>;
-    public add(categoryId: string, cashbackCategoryMcc?: CashbackCategoryMcc, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<CashbackCategoryMcc>>;
-    public add(categoryId: string, cashbackCategoryMcc?: CashbackCategoryMcc, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public add(categoryId: number, CashbackCategoryMcc?: CashbackCategoryMcc, observe?: 'body', reportProgress?: boolean): Observable<CashbackCategoryMcc>;
+    public add(categoryId: number, CashbackCategoryMcc?: CashbackCategoryMcc, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<CashbackCategoryMcc>>;
+    public add(categoryId: number, CashbackCategoryMcc?: CashbackCategoryMcc, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<CashbackCategoryMcc>>;
+    public add(categoryId: number, CashbackCategoryMcc?: CashbackCategoryMcc, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (categoryId === null || categoryId === undefined) {
             throw new Error('Required parameter categoryId was null or undefined when calling add.');
         }
@@ -103,7 +103,7 @@ export class CashbackCategoryMccService {
         }
 
         return this.httpClient.post<CashbackCategoryMcc>(`${this.configuration.basePath}/api/v1/cashback/categories/${encodeURIComponent(String(categoryId))}/mcc`,
-            cashbackCategoryMcc,
+            CashbackCategoryMcc,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

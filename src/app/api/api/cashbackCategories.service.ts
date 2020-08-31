@@ -97,14 +97,14 @@ export class CashbackCategoriesService {
     }
 
     /**
-     * @param cashbackCategory 
+     * @param CashbackCategory 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public add(cashbackCategory?: CashbackCategory, observe?: 'body', reportProgress?: boolean): Observable<CashbackCategory>;
-    public add(cashbackCategory?: CashbackCategory, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<CashbackCategory>>;
-    public add(cashbackCategory?: CashbackCategory, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<CashbackCategory>>;
-    public add(cashbackCategory?: CashbackCategory, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public add(CashbackCategory?: CashbackCategory, observe?: 'body', reportProgress?: boolean): Observable<CashbackCategory>;
+    public add(CashbackCategory?: CashbackCategory, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<CashbackCategory>>;
+    public add(CashbackCategory?: CashbackCategory, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<CashbackCategory>>;
+    public add(CashbackCategory?: CashbackCategory, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -146,7 +146,7 @@ export class CashbackCategoriesService {
         }
 
         return this.httpClient.post<CashbackCategory>(`${this.configuration.basePath}/api/v1/CashbackCategories`,
-            cashbackCategory,
+            CashbackCategory,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -211,14 +211,14 @@ export class CashbackCategoriesService {
 
     /**
      * @param id 
-     * @param cashbackCategory 
+     * @param CashbackCategory 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public update(id: number, cashbackCategory?: CashbackCategory, observe?: 'body', reportProgress?: boolean): Observable<CashbackCategory>;
-    public update(id: number, cashbackCategory?: CashbackCategory, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<CashbackCategory>>;
-    public update(id: number, cashbackCategory?: CashbackCategory, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<CashbackCategory>>;
-    public update(id: number, cashbackCategory?: CashbackCategory, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public update(id: number, CashbackCategory?: CashbackCategory, observe?: 'body', reportProgress?: boolean): Observable<CashbackCategory>;
+    public update(id: number, CashbackCategory?: CashbackCategory, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<CashbackCategory>>;
+    public update(id: number, CashbackCategory?: CashbackCategory, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<CashbackCategory>>;
+    public update(id: number, CashbackCategory?: CashbackCategory, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling update.');
         }
@@ -263,7 +263,7 @@ export class CashbackCategoriesService {
         }
 
         return this.httpClient.put<CashbackCategory>(`${this.configuration.basePath}/api/v1/CashbackCategories/${encodeURIComponent(String(id))}`,
-            cashbackCategory,
+            CashbackCategory,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

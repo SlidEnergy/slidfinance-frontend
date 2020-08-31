@@ -11,11 +11,11 @@
  */
 
 
-export interface ImportTransaction { 
-    dateTime?: Date;
-    amount?: number;
-    description?: string | null;
-    mcc?: number | null;
-    category?: string | null;
+export class ImportTransaction { 
+  dateTime: Date;
+  amount: number;
+  description: string | null;
+  mcc: number | null;
+  category: string | null;
 }
 

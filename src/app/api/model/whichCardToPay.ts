@@ -11,11 +11,11 @@
  */
 
 
-export interface WhichCardToPay { 
-    searchPart?: string | null;
-    bankTitle?: string | null;
-    accountTitle?: string | null;
-    categoryTitle?: string | null;
-    percent?: number;
+export class WhichCardToPay { 
+  searchPart: string | null;
+  bankTitle: string | null;
+  accountTitle: string | null;
+  categoryTitle: string | null;
+  percent: number;
 }
 

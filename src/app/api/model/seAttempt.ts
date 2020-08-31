@@ -12,36 +12,36 @@
 import { SeStage } from './seStage';
 
 
-export interface SeAttempt { 
-    apiMode?: string | null;
-    apiVersion?: string | null;
-    automaticFetch?: boolean | null;
-    userPresent?: boolean | null;
-    categorization?: string | null;
-    createdAt?: Date | null;
-    customerLastLoggedAt?: Date | null;
-    customFields?: object | null;
-    dailyRefresh?: boolean | null;
-    deviceType?: string | null;
-    remoteIp?: string | null;
-    excludeAccounts?: Array<string> | null;
-    failAt?: Date | null;
-    failErrorClass?: string | null;
-    failMessage?: string | null;
-    fetchScopes?: Array<string> | null;
-    finished?: boolean | null;
-    finishedRecent?: boolean | null;
-    fromDate?: Date | null;
-    id?: string | null;
-    interactive?: boolean | null;
-    partial?: boolean | null;
-    storeCredentials?: boolean | null;
-    successAt?: Date | null;
-    toDate?: Date | null;
-    updatedAt?: Date | null;
-    showConsentConfirmation?: boolean | null;
-    includeNatures?: Array<string> | null;
-    lastStage?: SeStage | null;
-    stages?: Array<SeStage> | null;
+export class SeAttempt { 
+  api_mode: string | null;
+  api_version: string | null;
+  automatic_fetch: boolean | null;
+  user_present: boolean | null;
+  categorization: string | null;
+  created_at: Date | null;
+  customer_last_logged_at: Date | null;
+  custom_fields: object | null;
+  daily_refresh: boolean | null;
+  device_type: string | null;
+  remote_ip: string | null;
+  exclude_accounts: Array<string> | null;
+  fail_at: Date | null;
+  fail_error_class: string | null;
+  fail_message: string | null;
+  fetch_scopes: Array<string> | null;
+  finished: boolean | null;
+  finished_recent: boolean | null;
+  from_date: Date | null;
+  id: string | null;
+  interactive: boolean | null;
+  partial: boolean | null;
+  store_credentials: boolean | null;
+  success_at: Date | null;
+  to_date: Date | null;
+  updated_at: Date | null;
+  show_consent_confirmation: boolean | null;
+  include_natures: Array<string> | null;
+  last_stage: SeStage | null;
+  stages: Array<SeStage> | null;
 }
 

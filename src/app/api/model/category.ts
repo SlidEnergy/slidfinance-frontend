@@ -11,9 +11,9 @@
  */
 
 
-export interface Category { 
-    id?: number;
-    order?: number;
-    title?: string | null;
+export class Category { 
+  id: number;
+  order: number;
+  title: string | null;
 }
 

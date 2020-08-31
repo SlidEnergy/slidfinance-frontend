@@ -84,14 +84,14 @@ export class MerchantsService {
 
     /**
      * @param id 
-     * @param merchant 
+     * @param Merchant 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public update(id: number, merchant?: Merchant, observe?: 'body', reportProgress?: boolean): Observable<Merchant>;
-    public update(id: number, merchant?: Merchant, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Merchant>>;
-    public update(id: number, merchant?: Merchant, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Merchant>>;
-    public update(id: number, merchant?: Merchant, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public update(id: number, Merchant?: Merchant, observe?: 'body', reportProgress?: boolean): Observable<Merchant>;
+    public update(id: number, Merchant?: Merchant, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Merchant>>;
+    public update(id: number, Merchant?: Merchant, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Merchant>>;
+    public update(id: number, Merchant?: Merchant, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling update.');
         }
@@ -123,7 +123,7 @@ export class MerchantsService {
         }
 
         return this.httpClient.put<Merchant>(`${this.configuration.basePath}/api/v1/Merchants/${encodeURIComponent(String(id))}`,
-            merchant,
+            Merchant,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

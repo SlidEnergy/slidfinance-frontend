@@ -50,14 +50,14 @@ export class TelegramService {
 
 
     /**
-     * @param telegramUser 
+     * @param TelegramUser 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public connect(telegramUser?: TelegramUser, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public connect(telegramUser?: TelegramUser, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public connect(telegramUser?: TelegramUser, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public connect(telegramUser?: TelegramUser, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public connect(TelegramUser?: TelegramUser, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public connect(TelegramUser?: TelegramUser, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public connect(TelegramUser?: TelegramUser, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public connect(TelegramUser?: TelegramUser, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -96,7 +96,7 @@ export class TelegramService {
         }
 
         return this.httpClient.post<any>(`${this.configuration.basePath}/api/v1/Telegram`,
-            telegramUser,
+            TelegramUser,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

@@ -11,8 +11,8 @@
  */
 
 
-export interface SaltedgeAccount { 
-    id?: number;
-    customerId?: string | null;
+export class SaltedgeAccount { 
+  id: number;
+  customerId: string | null;
 }
 

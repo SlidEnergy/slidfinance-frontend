@@ -12,14 +12,14 @@
 import { MccCategory } from './mccCategory';
 
 
-export interface Mcc { 
-    id?: number;
-    code?: string | null;
-    title?: string | null;
-    ruTitle?: string | null;
-    description?: string | null;
-    ruDescription?: string | null;
-    category?: MccCategory | null;
-    isSystem?: boolean;
+export class Mcc { 
+  id: number;
+  code: string | null;
+  title: string | null;
+  ruTitle: string | null;
+  description: string | null;
+  ruDescription: string | null;
+  category: MccCategory | null;
+  isSystem: boolean;
 }
 

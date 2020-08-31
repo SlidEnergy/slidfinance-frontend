@@ -102,14 +102,14 @@ export class TransactionsService {
     }
 
     /**
-     * @param transaction 
+     * @param Transaction 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public add(transaction?: Transaction, observe?: 'body', reportProgress?: boolean): Observable<Transaction>;
-    public add(transaction?: Transaction, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Transaction>>;
-    public add(transaction?: Transaction, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Transaction>>;
-    public add(transaction?: Transaction, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public add(Transaction?: Transaction, observe?: 'body', reportProgress?: boolean): Observable<Transaction>;
+    public add(Transaction?: Transaction, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Transaction>>;
+    public add(Transaction?: Transaction, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Transaction>>;
+    public add(Transaction?: Transaction, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -151,7 +151,7 @@ export class TransactionsService {
         }
 
         return this.httpClient.post<Transaction>(`${this.configuration.basePath}/api/v1/Transactions`,
-            transaction,
+            Transaction,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -228,14 +228,14 @@ export class TransactionsService {
 
     /**
      * @param id 
-     * @param operation 
+     * @param Operation 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public patch(id: number, operation?: Array<Operation>, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public patch(id: number, operation?: Array<Operation>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public patch(id: number, operation?: Array<Operation>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public patch(id: number, operation?: Array<Operation>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public patch(id: number, Operation?: Array<Operation>, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public patch(id: number, Operation?: Array<Operation>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public patch(id: number, Operation?: Array<Operation>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public patch(id: number, Operation?: Array<Operation>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling patch.');
         }
@@ -280,7 +280,7 @@ export class TransactionsService {
         }
 
         return this.httpClient.patch<any>(`${this.configuration.basePath}/api/v1/Transactions/${encodeURIComponent(String(id))}`,
-            operation,
+            Operation,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

@@ -12,15 +12,15 @@
 import { SeAccountExtra } from './seAccountExtra';
 
 
-export interface SeAccount { 
-    id?: string | null;
-    name?: string | null;
-    nature?: string | null;
-    balance?: number | null;
-    currencyCode?: string | null;
-    extra?: SeAccountExtra | null;
-    connectionId?: string | null;
-    createdAt?: Date | null;
-    updatedAt?: Date | null;
+export class SeAccount { 
+  id: string | null;
+  name: string | null;
+  nature: string | null;
+  balance: number | null;
+  currency_code: string | null;
+  extra: SeAccountExtra | null;
+  connection_id: string | null;
+  created_at: Date | null;
+  updated_at: Date | null;
 }
 

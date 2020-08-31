@@ -11,12 +11,12 @@
  */
 
 
-export interface TelegramUser { 
-    id?: number;
-    username?: string | null;
-    firstName?: string | null;
-    lastName?: string | null;
-    authDate?: number;
-    hash?: string | null;
+export class TelegramUser { 
+  id: number;
+  username: string | null;
+  first_name: string | null;
+  last_name: string | null;
+  auth_date: number;
+  hash: string | null;
 }
 

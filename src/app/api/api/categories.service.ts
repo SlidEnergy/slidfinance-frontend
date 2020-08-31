@@ -104,14 +104,14 @@ export class CategoriesService {
     }
 
     /**
-     * @param category 
+     * @param Category 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public add(category?: Category, observe?: 'body', reportProgress?: boolean): Observable<Category>;
-    public add(category?: Category, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Category>>;
-    public add(category?: Category, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Category>>;
-    public add(category?: Category, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public add(Category?: Category, observe?: 'body', reportProgress?: boolean): Observable<Category>;
+    public add(Category?: Category, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Category>>;
+    public add(Category?: Category, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Category>>;
+    public add(Category?: Category, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -153,7 +153,7 @@ export class CategoriesService {
         }
 
         return this.httpClient.post<Category>(`${this.configuration.basePath}/api/v1/Categories`,
-            category,
+            Category,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -211,14 +211,14 @@ export class CategoriesService {
 
     /**
      * @param id 
-     * @param category 
+     * @param Category 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public update(id: number, category?: Category, observe?: 'body', reportProgress?: boolean): Observable<Category>;
-    public update(id: number, category?: Category, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Category>>;
-    public update(id: number, category?: Category, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Category>>;
-    public update(id: number, category?: Category, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public update(id: number, Category?: Category, observe?: 'body', reportProgress?: boolean): Observable<Category>;
+    public update(id: number, Category?: Category, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Category>>;
+    public update(id: number, Category?: Category, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Category>>;
+    public update(id: number, Category?: Category, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling update.');
         }
@@ -263,7 +263,7 @@ export class CategoriesService {
         }
 
         return this.httpClient.put<Category>(`${this.configuration.basePath}/api/v1/Categories/${encodeURIComponent(String(id))}`,
-            category,
+            Category,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

@@ -146,14 +146,14 @@ export class UsersService {
     }
 
     /**
-     * @param loginBindingModel 
+     * @param LoginBindingModel 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getToken(loginBindingModel?: LoginBindingModel, observe?: 'body', reportProgress?: boolean): Observable<TokenInfo>;
-    public getToken(loginBindingModel?: LoginBindingModel, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<TokenInfo>>;
-    public getToken(loginBindingModel?: LoginBindingModel, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<TokenInfo>>;
-    public getToken(loginBindingModel?: LoginBindingModel, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getToken(LoginBindingModel?: LoginBindingModel, observe?: 'body', reportProgress?: boolean): Observable<TokenInfo>;
+    public getToken(LoginBindingModel?: LoginBindingModel, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<TokenInfo>>;
+    public getToken(LoginBindingModel?: LoginBindingModel, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<TokenInfo>>;
+    public getToken(LoginBindingModel?: LoginBindingModel, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -182,7 +182,7 @@ export class UsersService {
         }
 
         return this.httpClient.post<TokenInfo>(`${this.configuration.basePath}/api/v1/Users/token`,
-            loginBindingModel,
+            LoginBindingModel,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -193,14 +193,14 @@ export class UsersService {
     }
 
     /**
-     * @param registerBindingModel 
+     * @param RegisterBindingModel 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public register(registerBindingModel?: RegisterBindingModel, observe?: 'body', reportProgress?: boolean): Observable<User>;
-    public register(registerBindingModel?: RegisterBindingModel, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<User>>;
-    public register(registerBindingModel?: RegisterBindingModel, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<User>>;
-    public register(registerBindingModel?: RegisterBindingModel, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public register(RegisterBindingModel?: RegisterBindingModel, observe?: 'body', reportProgress?: boolean): Observable<User>;
+    public register(RegisterBindingModel?: RegisterBindingModel, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<User>>;
+    public register(RegisterBindingModel?: RegisterBindingModel, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<User>>;
+    public register(RegisterBindingModel?: RegisterBindingModel, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -229,7 +229,7 @@ export class UsersService {
         }
 
         return this.httpClient.post<User>(`${this.configuration.basePath}/api/v1/Users/register`,
-            registerBindingModel,
+            RegisterBindingModel,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

@@ -99,14 +99,14 @@ export class ProductsService {
     }
 
     /**
-     * @param product 
+     * @param Product 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public add(product?: Product, observe?: 'body', reportProgress?: boolean): Observable<Product>;
-    public add(product?: Product, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Product>>;
-    public add(product?: Product, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Product>>;
-    public add(product?: Product, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public add(Product?: Product, observe?: 'body', reportProgress?: boolean): Observable<Product>;
+    public add(Product?: Product, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Product>>;
+    public add(Product?: Product, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Product>>;
+    public add(Product?: Product, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -148,7 +148,7 @@ export class ProductsService {
         }
 
         return this.httpClient.post<Product>(`${this.configuration.basePath}/api/v1/Products`,
-            product,
+            Product,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -206,14 +206,14 @@ export class ProductsService {
 
     /**
      * @param id 
-     * @param operation 
+     * @param Operation 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public patchProduct(id: number, operation?: Array<Operation>, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public patchProduct(id: number, operation?: Array<Operation>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public patchProduct(id: number, operation?: Array<Operation>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public patchProduct(id: number, operation?: Array<Operation>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public patchProduct(id: number, Operation?: Array<Operation>, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public patchProduct(id: number, Operation?: Array<Operation>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public patchProduct(id: number, Operation?: Array<Operation>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public patchProduct(id: number, Operation?: Array<Operation>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling patchProduct.');
         }
@@ -258,7 +258,7 @@ export class ProductsService {
         }
 
         return this.httpClient.patch<any>(`${this.configuration.basePath}/api/v1/Products/${encodeURIComponent(String(id))}`,
-            operation,
+            Operation,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -270,14 +270,14 @@ export class ProductsService {
 
     /**
      * @param id 
-     * @param product 
+     * @param Product 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public update(id: number, product?: Product, observe?: 'body', reportProgress?: boolean): Observable<Product>;
-    public update(id: number, product?: Product, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Product>>;
-    public update(id: number, product?: Product, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Product>>;
-    public update(id: number, product?: Product, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public update(id: number, Product?: Product, observe?: 'body', reportProgress?: boolean): Observable<Product>;
+    public update(id: number, Product?: Product, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Product>>;
+    public update(id: number, Product?: Product, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Product>>;
+    public update(id: number, Product?: Product, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling update.');
         }
@@ -322,7 +322,7 @@ export class ProductsService {
         }
 
         return this.httpClient.put<Product>(`${this.configuration.basePath}/api/v1/Products/${encodeURIComponent(String(id))}`,
-            product,
+            Product,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

@@ -11,13 +11,13 @@
  */
 
 
-export interface Rule { 
-    id?: number;
-    order?: string | null;
-    accountId?: number | null;
-    categoryId?: number | null;
-    description?: string | null;
-    mccId?: number | null;
-    bankCategory?: string | null;
+export class Rule { 
+  id: number;
+  order: string | null;
+  accountId: number | null;
+  categoryId: number | null;
+  description: string | null;
+  mccId: number | null;
+  bankCategory: string | null;
 }
 

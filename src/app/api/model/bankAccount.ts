@@ -12,17 +12,17 @@
 import { ProductType } from './productType';
 
 
-export interface BankAccount { 
-    id?: number;
-    code?: string | null;
-    balance?: number;
-    creditLimit?: number;
-    title?: string | null;
-    bankId?: number | null;
-    selectedTariffId?: number | null;
-    productId?: number | null;
-    type?: ProductType;
-    opened?: Date | null;
-    saltedgeBankAccountId?: string | null;
+export class BankAccount { 
+  id: number;
+  code: string | null;
+  balance: number;
+  creditLimit: number;
+  title: string | null;
+  bankId: number | null;
+  selectedTariffId: number | null;
+  productId: number | null;
+  type: ProductType;
+  opened: Date | null;
+  saltedgeBankAccountId: string | null;
 }
 

@@ -53,14 +53,14 @@ export class ImportService {
 
 
     /**
-     * @param patchAccountDataBindingModel 
+     * @param PatchAccountDataBindingModel 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public _import(patchAccountDataBindingModel?: PatchAccountDataBindingModel, observe?: 'body', reportProgress?: boolean): Observable<number>;
-    public _import(patchAccountDataBindingModel?: PatchAccountDataBindingModel, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
-    public _import(patchAccountDataBindingModel?: PatchAccountDataBindingModel, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
-    public _import(patchAccountDataBindingModel?: PatchAccountDataBindingModel, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public _import(PatchAccountDataBindingModel?: PatchAccountDataBindingModel, observe?: 'body', reportProgress?: boolean): Observable<number>;
+    public _import(PatchAccountDataBindingModel?: PatchAccountDataBindingModel, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
+    public _import(PatchAccountDataBindingModel?: PatchAccountDataBindingModel, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
+    public _import(PatchAccountDataBindingModel?: PatchAccountDataBindingModel, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -102,7 +102,7 @@ export class ImportService {
         }
 
         return this.httpClient.post<number>(`${this.configuration.basePath}/api/v1/Import`,
-            patchAccountDataBindingModel,
+            PatchAccountDataBindingModel,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -160,14 +160,14 @@ export class ImportService {
     }
 
     /**
-     * @param tokensCortage 
+     * @param TokensCortage 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public refresh(tokensCortage?: TokensCortage, observe?: 'body', reportProgress?: boolean): Observable<TokenInfo>;
-    public refresh(tokensCortage?: TokensCortage, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<TokenInfo>>;
-    public refresh(tokensCortage?: TokensCortage, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<TokenInfo>>;
-    public refresh(tokensCortage?: TokensCortage, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public refresh(TokensCortage?: TokensCortage, observe?: 'body', reportProgress?: boolean): Observable<TokenInfo>;
+    public refresh(TokensCortage?: TokensCortage, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<TokenInfo>>;
+    public refresh(TokensCortage?: TokensCortage, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<TokenInfo>>;
+    public refresh(TokensCortage?: TokensCortage, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -196,7 +196,7 @@ export class ImportService {
         }
 
         return this.httpClient.post<TokenInfo>(`${this.configuration.basePath}/api/v1/Import/token`,
-            tokensCortage,
+            TokensCortage,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "generate-api": "openapi-generator generate -i http://localhost:5000/swagger/v1/swagger.json -g typescript-angular -o ./src/app/api --remove-operation-id-prefix"
+    "generate-api": "openapi-generator generate -i http://localhost:5000/swagger/v1/swagger.json -g typescript-angular -o ./src/app/api --remove-operation-id-prefix --type-mappings Date=Date -t swagger/template  -c swagger/swagger-config.json"
   },
   "engines": {
     "node": "10.14.1",

@@ -51,14 +51,14 @@ export class SaltedgeService {
 
 
     /**
-     * @param saltedgeAccount 
+     * @param SaltedgeAccount 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public addCustomer(saltedgeAccount?: SaltedgeAccount, observe?: 'body', reportProgress?: boolean): Observable<SaltedgeAccount>;
-    public addCustomer(saltedgeAccount?: SaltedgeAccount, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<SaltedgeAccount>>;
-    public addCustomer(saltedgeAccount?: SaltedgeAccount, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<SaltedgeAccount>>;
-    public addCustomer(saltedgeAccount?: SaltedgeAccount, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public addCustomer(SaltedgeAccount?: SaltedgeAccount, observe?: 'body', reportProgress?: boolean): Observable<SaltedgeAccount>;
+    public addCustomer(SaltedgeAccount?: SaltedgeAccount, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<SaltedgeAccount>>;
+    public addCustomer(SaltedgeAccount?: SaltedgeAccount, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<SaltedgeAccount>>;
+    public addCustomer(SaltedgeAccount?: SaltedgeAccount, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -87,7 +87,7 @@ export class SaltedgeService {
         }
 
         return this.httpClient.post<SaltedgeAccount>(`${this.configuration.basePath}/api/v1/Saltedge`,
-            saltedgeAccount,
+            SaltedgeAccount,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

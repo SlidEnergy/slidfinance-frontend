@@ -11,9 +11,9 @@
  */
 
 
-export interface TokenInfo { 
-    token?: string | null;
-    refreshToken?: string | null;
-    email?: string | null;
+export class TokenInfo { 
+  token: string | null;
+  refreshToken: string | null;
+  email: string | null;
 }
 

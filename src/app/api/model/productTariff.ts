@@ -12,10 +12,10 @@
 import { ProductType } from './productType';
 
 
-export interface ProductTariff { 
-    id?: number;
-    title?: string | null;
-    productId?: number;
-    type?: ProductType;
+export class ProductTariff { 
+  id: number;
+  title: string | null;
+  productId: number;
+  type: ProductType;
 }
 

@@ -102,14 +102,14 @@ export class RulesService {
     }
 
     /**
-     * @param rule 
+     * @param Rule 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public add(rule?: Rule, observe?: 'body', reportProgress?: boolean): Observable<Rule>;
-    public add(rule?: Rule, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Rule>>;
-    public add(rule?: Rule, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Rule>>;
-    public add(rule?: Rule, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public add(Rule?: Rule, observe?: 'body', reportProgress?: boolean): Observable<Rule>;
+    public add(Rule?: Rule, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Rule>>;
+    public add(Rule?: Rule, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Rule>>;
+    public add(Rule?: Rule, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -151,7 +151,7 @@ export class RulesService {
         }
 
         return this.httpClient.post<Rule>(`${this.configuration.basePath}/api/v1/Rules`,
-            rule,
+            Rule,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -255,14 +255,14 @@ export class RulesService {
 
     /**
      * @param id 
-     * @param rule 
+     * @param Rule 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public update(id: number, rule?: Rule, observe?: 'body', reportProgress?: boolean): Observable<Rule>;
-    public update(id: number, rule?: Rule, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Rule>>;
-    public update(id: number, rule?: Rule, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Rule>>;
-    public update(id: number, rule?: Rule, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public update(id: number, Rule?: Rule, observe?: 'body', reportProgress?: boolean): Observable<Rule>;
+    public update(id: number, Rule?: Rule, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Rule>>;
+    public update(id: number, Rule?: Rule, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Rule>>;
+    public update(id: number, Rule?: Rule, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling update.');
         }
@@ -307,7 +307,7 @@ export class RulesService {
         }
 
         return this.httpClient.put<Rule>(`${this.configuration.basePath}/api/v1/Rules/${encodeURIComponent(String(id))}`,
-            rule,
+            Rule,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

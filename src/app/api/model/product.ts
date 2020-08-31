@@ -12,13 +12,13 @@
 import { ProductType } from './productType';
 
 
-export interface Product { 
-    id?: number;
-    title?: string | null;
-    bankId?: number | null;
-    type?: ProductType;
-    image?: string | null;
-    isPublic?: boolean;
-    approved?: boolean;
+export class Product { 
+  id: number;
+  title: string | null;
+  bankId: number | null;
+  type: ProductType;
+  image: string | null;
+  isPublic: boolean;
+  approved: boolean;
 }
 

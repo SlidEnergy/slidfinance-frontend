@@ -11,8 +11,8 @@
  */
 
 
-export interface LoginBindingModel { 
-    email: string;
-    password: string;
+export class LoginBindingModel { 
+  email: string;
+  password: string;
 }
 

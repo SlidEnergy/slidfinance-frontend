@@ -99,14 +99,14 @@ export class AccountsService {
     }
 
     /**
-     * @param bankAccount 
+     * @param BankAccount 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public add(bankAccount?: BankAccount, observe?: 'body', reportProgress?: boolean): Observable<BankAccount>;
-    public add(bankAccount?: BankAccount, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<BankAccount>>;
-    public add(bankAccount?: BankAccount, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<BankAccount>>;
-    public add(bankAccount?: BankAccount, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public add(BankAccount?: BankAccount, observe?: 'body', reportProgress?: boolean): Observable<BankAccount>;
+    public add(BankAccount?: BankAccount, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<BankAccount>>;
+    public add(BankAccount?: BankAccount, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<BankAccount>>;
+    public add(BankAccount?: BankAccount, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -148,7 +148,7 @@ export class AccountsService {
         }
 
         return this.httpClient.post<BankAccount>(`${this.configuration.basePath}/api/v1/Accounts`,
-            bankAccount,
+            BankAccount,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -213,14 +213,14 @@ export class AccountsService {
 
     /**
      * @param id 
-     * @param operation 
+     * @param Operation 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public patchAccount(id: number, operation?: Array<Operation>, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public patchAccount(id: number, operation?: Array<Operation>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public patchAccount(id: number, operation?: Array<Operation>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public patchAccount(id: number, operation?: Array<Operation>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public patchAccount(id: number, Operation?: Array<Operation>, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public patchAccount(id: number, Operation?: Array<Operation>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public patchAccount(id: number, Operation?: Array<Operation>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public patchAccount(id: number, Operation?: Array<Operation>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling patchAccount.');
         }
@@ -265,7 +265,7 @@ export class AccountsService {
         }
 
         return this.httpClient.patch<any>(`${this.configuration.basePath}/api/v1/Accounts/${encodeURIComponent(String(id))}`,
-            operation,
+            Operation,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -277,14 +277,14 @@ export class AccountsService {
 
     /**
      * @param id 
-     * @param bankAccount 
+     * @param BankAccount 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public update(id: number, bankAccount?: BankAccount, observe?: 'body', reportProgress?: boolean): Observable<BankAccount>;
-    public update(id: number, bankAccount?: BankAccount, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<BankAccount>>;
-    public update(id: number, bankAccount?: BankAccount, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<BankAccount>>;
-    public update(id: number, bankAccount?: BankAccount, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public update(id: number, BankAccount?: BankAccount, observe?: 'body', reportProgress?: boolean): Observable<BankAccount>;
+    public update(id: number, BankAccount?: BankAccount, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<BankAccount>>;
+    public update(id: number, BankAccount?: BankAccount, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<BankAccount>>;
+    public update(id: number, BankAccount?: BankAccount, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling update.');
         }
@@ -329,7 +329,7 @@ export class AccountsService {
         }
 
         return this.httpClient.put<BankAccount>(`${this.configuration.basePath}/api/v1/Accounts/${encodeURIComponent(String(id))}`,
-            bankAccount,
+            BankAccount,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

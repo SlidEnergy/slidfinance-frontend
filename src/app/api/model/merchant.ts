@@ -11,15 +11,15 @@
  */
 
 
-export interface Merchant { 
-    id?: number;
-    address?: string | null;
-    mccId?: number;
-    name: string;
-    displayName?: string | null;
-    created: Date;
-    updated?: Date;
-    createdById?: string | null;
-    isPublic?: boolean;
+export class Merchant { 
+  id: number;
+  address: string | null;
+  mccId: number;
+  name: string;
+  displayName: string | null;
+  created: Date;
+  updated: Date;
+  createdById: string | null;
+  isPublic: boolean;
 }
 

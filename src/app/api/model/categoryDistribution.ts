@@ -11,8 +11,8 @@
  */
 
 
-export interface CategoryDistribution { 
-    categoryId?: number;
-    count?: number;
+export class CategoryDistribution { 
+  categoryId: number;
+  count: number;
 }
 

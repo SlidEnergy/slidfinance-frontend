@@ -11,16 +11,16 @@
  */
 
 
-export interface Transaction { 
-    id?: number;
-    accountId?: number;
-    dateTime?: Date;
-    amount?: number;
-    categoryId?: number | null;
-    description?: string | null;
-    userDescription?: string | null;
-    mcc?: number | null;
-    bankCategory?: string | null;
-    approved?: boolean;
+export class Transaction { 
+  id: number;
+  accountId: number;
+  dateTime: Date;
+  amount: number;
+  categoryId: number | null;
+  description: string | null;
+  userDescription: string | null;
+  mcc: number | null;
+  bankCategory: string | null;
+  approved: boolean;
 }
 

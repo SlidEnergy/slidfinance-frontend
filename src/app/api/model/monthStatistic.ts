@@ -11,8 +11,8 @@
  */
 
 
-export interface MonthStatistic { 
-    month?: Date;
-    amount?: number;
+export class MonthStatistic { 
+  month: Date;
+  amount: number;
 }
 

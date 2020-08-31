@@ -11,12 +11,12 @@
  */
 
 
-export interface SeStage { 
-    createdAt?: Date | null;
-    id?: string | null;
-    interactiveFieldsName?: Array<string> | null;
-    interactiveHtml?: string | null;
-    name?: string | null;
-    updatedAt?: Date | null;
+export class SeStage { 
+  created_at: Date | null;
+  id: string | null;
+  interactive_fields_name: Array<string> | null;
+  interactive_html: string | null;
+  name: string | null;
+  updated_at: Date | null;
 }
 

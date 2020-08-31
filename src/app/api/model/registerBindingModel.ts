@@ -11,9 +11,9 @@
  */
 
 
-export interface RegisterBindingModel { 
-    email: string;
-    password: string;
-    confirmPassword?: string | null;
+export class RegisterBindingModel { 
+  email: string;
+  password: string;
+  confirmPassword: string | null;
 }
 

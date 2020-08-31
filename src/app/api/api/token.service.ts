@@ -51,14 +51,14 @@ export class TokenService {
 
 
     /**
-     * @param tokensCortage 
+     * @param TokensCortage 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public refresh(tokensCortage?: TokensCortage, observe?: 'body', reportProgress?: boolean): Observable<TokenInfo>;
-    public refresh(tokensCortage?: TokensCortage, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<TokenInfo>>;
-    public refresh(tokensCortage?: TokensCortage, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<TokenInfo>>;
-    public refresh(tokensCortage?: TokensCortage, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public refresh(TokensCortage?: TokensCortage, observe?: 'body', reportProgress?: boolean): Observable<TokenInfo>;
+    public refresh(TokensCortage?: TokensCortage, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<TokenInfo>>;
+    public refresh(TokensCortage?: TokensCortage, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<TokenInfo>>;
+    public refresh(TokensCortage?: TokensCortage, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -87,7 +87,7 @@ export class TokenService {
         }
 
         return this.httpClient.post<TokenInfo>(`${this.configuration.basePath}/api/v1/Token/refresh`,
-            tokensCortage,
+            TokensCortage,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

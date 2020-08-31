@@ -12,12 +12,12 @@
 import { CashbackCategoryType } from './cashbackCategoryType';
 
 
-export interface CashbackCategory { 
-    id?: number;
-    title?: string | null;
-    description?: string | null;
-    tariffId?: number;
-    cashbackLimit?: number;
-    type?: CashbackCategoryType;
+export class CashbackCategory { 
+  id: number;
+  title: string | null;
+  description: string | null;
+  tariffId: number;
+  cashbackLimit: number;
+  type: CashbackCategoryType;
 }
 

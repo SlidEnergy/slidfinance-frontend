@@ -99,14 +99,14 @@ export class TariffsService {
     }
 
     /**
-     * @param productTariff 
+     * @param ProductTariff 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public add(productTariff?: ProductTariff, observe?: 'body', reportProgress?: boolean): Observable<ProductTariff>;
-    public add(productTariff?: ProductTariff, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ProductTariff>>;
-    public add(productTariff?: ProductTariff, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ProductTariff>>;
-    public add(productTariff?: ProductTariff, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public add(ProductTariff?: ProductTariff, observe?: 'body', reportProgress?: boolean): Observable<ProductTariff>;
+    public add(ProductTariff?: ProductTariff, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ProductTariff>>;
+    public add(ProductTariff?: ProductTariff, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ProductTariff>>;
+    public add(ProductTariff?: ProductTariff, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -148,7 +148,7 @@ export class TariffsService {
         }
 
         return this.httpClient.post<ProductTariff>(`${this.configuration.basePath}/api/v1/Tariffs`,
-            productTariff,
+            ProductTariff,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -213,14 +213,14 @@ export class TariffsService {
 
     /**
      * @param id 
-     * @param operation 
+     * @param Operation 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public patch(id: number, operation?: Array<Operation>, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public patch(id: number, operation?: Array<Operation>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public patch(id: number, operation?: Array<Operation>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public patch(id: number, operation?: Array<Operation>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public patch(id: number, Operation?: Array<Operation>, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public patch(id: number, Operation?: Array<Operation>, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public patch(id: number, Operation?: Array<Operation>, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public patch(id: number, Operation?: Array<Operation>, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling patch.');
         }
@@ -265,7 +265,7 @@ export class TariffsService {
         }
 
         return this.httpClient.patch<any>(`${this.configuration.basePath}/api/v1/Tariffs/${encodeURIComponent(String(id))}`,
-            operation,
+            Operation,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -277,14 +277,14 @@ export class TariffsService {
 
     /**
      * @param id 
-     * @param productTariff 
+     * @param ProductTariff 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public update(id: number, productTariff?: ProductTariff, observe?: 'body', reportProgress?: boolean): Observable<ProductTariff>;
-    public update(id: number, productTariff?: ProductTariff, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ProductTariff>>;
-    public update(id: number, productTariff?: ProductTariff, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ProductTariff>>;
-    public update(id: number, productTariff?: ProductTariff, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public update(id: number, ProductTariff?: ProductTariff, observe?: 'body', reportProgress?: boolean): Observable<ProductTariff>;
+    public update(id: number, ProductTariff?: ProductTariff, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ProductTariff>>;
+    public update(id: number, ProductTariff?: ProductTariff, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ProductTariff>>;
+    public update(id: number, ProductTariff?: ProductTariff, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling update.');
         }
@@ -329,7 +329,7 @@ export class TariffsService {
         }
 
         return this.httpClient.put<ProductTariff>(`${this.configuration.basePath}/api/v1/Tariffs/${encodeURIComponent(String(id))}`,
-            productTariff,
+            ProductTariff,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

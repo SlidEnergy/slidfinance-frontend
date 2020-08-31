@@ -97,14 +97,14 @@ export class BanksService {
     }
 
     /**
-     * @param bank 
+     * @param Bank 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public add(bank?: Bank, observe?: 'body', reportProgress?: boolean): Observable<Bank>;
-    public add(bank?: Bank, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Bank>>;
-    public add(bank?: Bank, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Bank>>;
-    public add(bank?: Bank, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public add(Bank?: Bank, observe?: 'body', reportProgress?: boolean): Observable<Bank>;
+    public add(Bank?: Bank, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Bank>>;
+    public add(Bank?: Bank, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Bank>>;
+    public add(Bank?: Bank, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -146,7 +146,7 @@ export class BanksService {
         }
 
         return this.httpClient.post<Bank>(`${this.configuration.basePath}/api/v1/Banks`,
-            bank,
+            Bank,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -204,14 +204,14 @@ export class BanksService {
 
     /**
      * @param id 
-     * @param bank 
+     * @param Bank 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public update(id: number, bank?: Bank, observe?: 'body', reportProgress?: boolean): Observable<Bank>;
-    public update(id: number, bank?: Bank, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Bank>>;
-    public update(id: number, bank?: Bank, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Bank>>;
-    public update(id: number, bank?: Bank, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public update(id: number, Bank?: Bank, observe?: 'body', reportProgress?: boolean): Observable<Bank>;
+    public update(id: number, Bank?: Bank, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Bank>>;
+    public update(id: number, Bank?: Bank, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Bank>>;
+    public update(id: number, Bank?: Bank, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling update.');
         }
@@ -256,7 +256,7 @@ export class BanksService {
         }
 
         return this.httpClient.put<Bank>(`${this.configuration.basePath}/api/v1/Banks/${encodeURIComponent(String(id))}`,
-            bank,
+            Bank,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

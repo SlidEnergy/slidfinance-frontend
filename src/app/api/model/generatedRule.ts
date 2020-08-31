@@ -12,12 +12,12 @@
 import { CategoryDistribution } from './categoryDistribution';
 
 
-export interface GeneratedRule { 
-    accountId?: number | null;
-    description?: string | null;
-    mccId?: number | null;
-    bankCategory?: string | null;
-    categories?: Array<CategoryDistribution> | null;
-    count?: number;
+export class GeneratedRule { 
+  accountId: number | null;
+  description: string | null;
+  mccId: number | null;
+  bankCategory: string | null;
+  categories: Array<CategoryDistribution> | null;
+  count: number;
 }
 

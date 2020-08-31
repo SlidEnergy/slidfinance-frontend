@@ -12,9 +12,9 @@
 import { MonthStatistic } from './monthStatistic';
 
 
-export interface CategoryStatistic { 
-    categoryId?: number;
-    averageAmount?: number;
-    months?: Array<MonthStatistic> | null;
+export class CategoryStatistic { 
+  categoryId: number;
+  averageAmount: number;
+  months: Array<MonthStatistic> | null;
 }
 

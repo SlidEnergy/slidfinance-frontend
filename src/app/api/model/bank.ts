@@ -11,8 +11,8 @@
  */
 
 
-export interface Bank { 
-    id?: number;
-    title: string;
+export class Bank { 
+  id: number;
+  title: string;
 }
 

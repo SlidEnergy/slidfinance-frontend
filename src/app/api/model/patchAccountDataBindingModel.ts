@@ -12,10 +12,10 @@
 import { ImportTransaction } from './importTransaction';
 
 
-export interface PatchAccountDataBindingModel { 
-    code?: string | null;
-    accountId?: number | null;
-    balance?: number | null;
-    transactions?: Array<ImportTransaction> | null;
+export class PatchAccountDataBindingModel { 
+  code: string | null;
+  accountId: number | null;
+  balance: number | null;
+  transactions: Array<ImportTransaction> | null;
 }
 

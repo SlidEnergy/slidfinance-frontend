@@ -12,22 +12,22 @@
 import { SeAttempt } from './seAttempt';
 
 
-export interface SeConnection { 
-    countryCode?: string | null;
-    createdAt?: Date | null;
-    customerId?: string | null;
-    dailyRefresh?: boolean | null;
-    id?: string | null;
-    showConsentConfirmation?: boolean | null;
-    lastConsentId?: string | null;
-    lastAttempt?: SeAttempt | null;
-    lastSuccessAt?: Date | null;
-    nextRefreshPossibleAt?: Date | null;
-    providerId?: string | null;
-    providerCode?: string | null;
-    providerName?: string | null;
-    status?: string | null;
-    storeCredentials?: boolean | null;
-    updatedAt?: Date | null;
+export class SeConnection { 
+  country_code: string | null;
+  created_at: Date | null;
+  customer_id: string | null;
+  daily_refresh: boolean | null;
+  id: string | null;
+  show_consent_confirmation: boolean | null;
+  last_consent_id: string | null;
+  last_attempt: SeAttempt | null;
+  last_success_at: Date | null;
+  next_refresh_possible_at: Date | null;
+  provider_id: string | null;
+  provider_code: string | null;
+  provider_name: string | null;
+  status: string | null;
+  store_credentials: boolean | null;
+  updated_at: Date | null;
 }
 

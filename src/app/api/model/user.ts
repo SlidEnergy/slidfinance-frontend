@@ -11,9 +11,9 @@
  */
 
 
-export interface User { 
-    id?: string | null;
-    email?: string | null;
-    isAdmin?: boolean;
+export class User { 
+  id: string | null;
+  email: string | null;
+  isAdmin: boolean;
 }
 

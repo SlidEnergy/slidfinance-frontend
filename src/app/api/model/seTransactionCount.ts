@@ -11,8 +11,8 @@
  */
 
 
-export interface SeTransactionCount { 
-    posted?: number;
-    pending?: number;
+export class SeTransactionCount { 
+  posted: number;
+  pending: number;
 }
 

@@ -11,9 +11,9 @@
  */
 
 
-export interface CashbackCategoryMcc { 
-    id?: number;
-    categoryId?: number;
-    mccCode?: number;
+export class CashbackCategoryMcc { 
+  id: number;
+  categoryId: number;
+  mccCode: number;
 }
 
