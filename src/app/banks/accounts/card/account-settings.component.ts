@@ -8,6 +8,7 @@ import {SaltedgeBankAccountRecord} from './SaltedgeBankAccountRecord';
 import {Observable} from 'rxjs';
 import {EntityDataContextService} from '../../../core/entity/entity-data-context.service';
 import {AccountsService, BankAccount, SaltedgeService} from '../../../api';
+import {MatSelectChange} from '@angular/material/select';
 
 @Component({
     selector: 'app-account-settings',
@@ -22,7 +23,8 @@ export class AccountSettingsComponent implements OnInit {
                 private accountsService: AccountsService,
                 private snackBar: MatSnackBar,
                 private router: Router,
-                private saltedgeService: SaltedgeService
+                private saltedgeService: SaltedgeService,
+                private entityDataContext: EntityDataContextService
     ) {
     }
 
@@ -65,14 +67,8 @@ export class AccountSettingsComponent implements OnInit {
         );
     }
 
-    saltedgeAccount_selectionChange() {
-        if (this.account.saltedgeBankAccountId) {
-            this.saveChanges();
-        }
-    }
-
-    saveChanges() {
-        this.accountsService.update(this.account.id, this.account).subscribe(
+    saltedgeAccount_selectionChange(change: MatSelectChange) {
+        this.entityDataContext.accounts.upsert({...this.account, saltedgeBankAccountId: change.value}).subscribe(
             value => this.snackBar.open('Изменения сохранены', undefined, {duration: 5000, panelClass: ['background-green']}),
             error => this.snackBar.open('Не удалось сохранить изменения', undefined, {duration: 5000, panelClass: ['background-red']})
         );

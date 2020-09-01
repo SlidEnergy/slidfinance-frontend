@@ -47,7 +47,12 @@ export class EntityDataContextService extends EntityServicesBase {
         this.createAndRegisterDataService(Mcc, {getAll: () => mccApi.getList()});
         this.createAndRegisterDataService(Bank, {getAll: () => banksApi.getList()});
         this.createAndRegisterDataService(Product, {getAll: () => productsApi.getList()});
-        this.createAndRegisterDataService(BankAccount, {getAll: () => accountsApi.getList()});
+
+        this.createAndRegisterDataService(BankAccount, {
+            getAll: () => accountsApi.getList(),
+            upsert: (entity) => accountsApi.update(entity.id, entity)
+        });
+
         this.createAndRegisterDataService(Category, {getAll: () => categoriesApi.getList()});
     }
 

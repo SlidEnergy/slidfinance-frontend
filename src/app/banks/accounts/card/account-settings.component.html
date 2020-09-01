@@ -4,8 +4,9 @@
         (click)="deleteItem()">Удалить
 </button>
 <p>Код: {{account.code}}</p>
-<mat-select [(value)]="account.saltedgeBankAccountId"
-            (selectionChange)="saltedgeAccount_selectionChange()"
+<p>SaltEdge аккаунт для импорта данных:</p>
+<mat-select [value]="account.saltedgeBankAccountId"
+            (selectionChange)="saltedgeAccount_selectionChange($event)"
             placeholder="Аккаунт в SaltEdge">
     <mat-option *ngFor="let saltedgeAccount of saltedgeAccounts | async"
                 [value]="saltedgeAccount.accountId">

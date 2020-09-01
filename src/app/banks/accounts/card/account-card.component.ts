@@ -29,7 +29,7 @@ export class AccountCardComponent implements OnInit {
     private transactionsService: TransactionsService,
     private snackBar: MatSnackBar,
     private route: ActivatedRoute,
-    private dataContext: EntityDataContextService,
+    private entityDataContext: EntityDataContextService,
     private accountsService: AccountsService,
     private router: Router,
     private dialog: MatDialog,
@@ -42,7 +42,7 @@ export class AccountCardComponent implements OnInit {
     );
 
     this.account = this.cardEntityId.pipe(
-      switchMap(id => this.dataContext.accounts.getByIdLazy(id))
+      switchMap(id => this.entityDataContext.accounts.getByIdLazy(id))
     )
   }
 
