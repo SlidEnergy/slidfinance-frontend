@@ -25,18 +25,6 @@
             </mat-form-field>
         </div>
         <div class="form">
-            <mat-form-field color="accent" required="">
-                <mat-select [(value)]="data.saltedgeBankAccountId"
-                            placeholder="Аккаунт в SaltEdge">
-                    <mat-option *ngFor="let account of saltedgeAccounts | async"
-                                [value]="account.accountId">
-                        {{account.providerName}}
-                    </mat-option>
-                </mat-select>
-                <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-            </mat-form-field>
-        </div>
-        <div class="form">
             <mat-form-field color="accent">
                 <input type="number"
                        matInput
