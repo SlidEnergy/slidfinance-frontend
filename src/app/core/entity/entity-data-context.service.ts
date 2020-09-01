@@ -14,7 +14,7 @@ import {
     Mcc,
     MccService,
     Product,
-    ProductsService
+    ProductsService, SaltedgeBankAccounts, SaltedgeService
 } from '../../api';
 import {getEntityDescriptorByModel} from './entity-metadata';
 import {CustomEntityDataServiceOptions} from './custom-entity-data-service-options';
@@ -28,6 +28,7 @@ export class EntityDataContextService extends EntityServicesBase {
     public readonly products = this.createAndRegisterCollectionService(Product);
     public readonly accounts = this.createAndRegisterCollectionService(BankAccount);
     public readonly categories = this.createAndRegisterCollectionService(Category);
+    public readonly saltedgeBankAccounts = this.createAndRegisterCollectionService(SaltedgeBankAccounts);
 
     constructor(entityServicesElements: EntityServicesElements,
                 private elementsFactory: EntityCollectionServiceElementsFactory,
@@ -38,6 +39,7 @@ export class EntityDataContextService extends EntityServicesBase {
                 productsApi: ProductsService,
                 accountsApi: AccountsService,
                 categoriesApi: CategoriesService,
+                saltedgeApi: SaltedgeService
     ) {
         super(entityServicesElements);
 
@@ -46,8 +48,8 @@ export class EntityDataContextService extends EntityServicesBase {
         this.createAndRegisterDataService(Product, {getAll: () => productsApi.getList()});
         this.createAndRegisterDataService(BankAccount, {getAll: () => accountsApi.getList()});
         this.createAndRegisterDataService(Category, {getAll: () => categoriesApi.getList()});
+        this.createAndRegisterDataService(SaltedgeBankAccounts, {getAll: () => saltedgeApi.getList()});
     }
-
 
     private createAndRegisterCollectionService<T>(model: Type<T>) {
         const descriptor = getEntityDescriptorByModel(model);

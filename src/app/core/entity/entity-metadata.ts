@@ -1,6 +1,6 @@
 import {EntityMetadataMap} from '@ngrx/data';
 import {Type} from '@angular/core';
-import {Mcc} from '../../api';
+import {Mcc, SaltedgeBankAccounts} from '../../api';
 import {Product} from '../../api';
 import {Category} from '../../api';
 import {Bank} from '../../api';
@@ -36,6 +36,11 @@ export const entities: EntityDescriptor[] = [
         model: Category,
         pluralName: "categories"
     },
+    {
+        name: "saltedgeBankAccounts",
+        model: SaltedgeBankAccounts,
+        pluralName: "saltedgeBankAccounts"
+    }
 ];
 
 (function checkUnique() {
