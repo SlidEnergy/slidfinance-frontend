@@ -14,21 +14,23 @@ import {
     Mcc,
     MccService,
     Product,
-    ProductsService, SaltedgeBankAccounts, SaltedgeService
+    ProductsService,
+    SaltedgeBankAccounts,
+    SaltedgeService
 } from '../../api';
 import {getEntityDescriptorByModel} from './entity-metadata';
 import {CustomEntityDataServiceOptions} from './custom-entity-data-service-options';
+import {map} from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
 })
 export class EntityDataContextService extends EntityServicesBase {
-    public readonly mcc =this.createAndRegisterCollectionService(Mcc);
+    public readonly mcc = this.createAndRegisterCollectionService(Mcc);
     public readonly banks = this.createAndRegisterCollectionService(Bank);
     public readonly products = this.createAndRegisterCollectionService(Product);
     public readonly accounts = this.createAndRegisterCollectionService(BankAccount);
     public readonly categories = this.createAndRegisterCollectionService(Category);
-    public readonly saltedgeBankAccounts = this.createAndRegisterCollectionService(SaltedgeBankAccounts);
 
     constructor(entityServicesElements: EntityServicesElements,
                 private elementsFactory: EntityCollectionServiceElementsFactory,
@@ -39,16 +41,14 @@ export class EntityDataContextService extends EntityServicesBase {
                 productsApi: ProductsService,
                 accountsApi: AccountsService,
                 categoriesApi: CategoriesService,
-                saltedgeApi: SaltedgeService
     ) {
         super(entityServicesElements);
 
         this.createAndRegisterDataService(Mcc, {getAll: () => mccApi.getList()});
-        this.createAndRegisterDataService(Bank,{getAll: () => banksApi.getList()});
+        this.createAndRegisterDataService(Bank, {getAll: () => banksApi.getList()});
         this.createAndRegisterDataService(Product, {getAll: () => productsApi.getList()});
         this.createAndRegisterDataService(BankAccount, {getAll: () => accountsApi.getList()});
         this.createAndRegisterDataService(Category, {getAll: () => categoriesApi.getList()});
-        this.createAndRegisterDataService(SaltedgeBankAccounts, {getAll: () => saltedgeApi.getList()});
     }
 
     private createAndRegisterCollectionService<T>(model: Type<T>) {

@@ -7,7 +7,7 @@ import {Router} from '@angular/router';
 import {SaltedgeBankAccountRecord} from './SaltedgeBankAccountRecord';
 import {Observable} from 'rxjs';
 import {EntityDataContextService} from '../../../core/entity/entity-data-context.service';
-import {AccountsService, BankAccount} from '../../../api';
+import {AccountsService, BankAccount, SaltedgeService} from '../../../api';
 
 @Component({
     selector: 'app-account-settings',
@@ -22,12 +22,12 @@ export class AccountSettingsComponent implements OnInit {
                 private accountsService: AccountsService,
                 private snackBar: MatSnackBar,
                 private router: Router,
-                private entityDataContext: EntityDataContextService
+                private saltedgeService: SaltedgeService
     ) {
     }
 
     ngOnInit() {
-        this.saltedgeAccounts = this.entityDataContext.saltedgeBankAccounts.getListLazy().pipe(
+        this.saltedgeAccounts = this.saltedgeService.getList().pipe(
             map(result => {
                 const accounts: SaltedgeBankAccountRecord[] = [];
                 for (const record of result) {

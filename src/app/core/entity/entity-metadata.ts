@@ -36,11 +36,6 @@ export const entities: EntityDescriptor[] = [
         model: Category,
         pluralName: "categories"
     },
-    {
-        name: "saltedgeBankAccounts",
-        model: SaltedgeBankAccounts,
-        pluralName: "saltedgeBankAccounts"
-    }
 ];
 
 (function checkUnique() {
