@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, ElementRef, Inject, OnInit} from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 import {ImportService, TelegramService} from '../api';
-import {MatSnackBar} from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-settings-page',

@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CashbackCategory, CashbackCategoryMccService, Mcc} from '../../../../../api';
-import {MatSnackBar} from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {combineLatest, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {EntityDataContextService} from '../../../../../core/entity/entity-data-context.service';

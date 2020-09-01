@@ -10,7 +10,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {filter, switchMap, switchMapTo} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {MessageDialogComponent} from 'src/app/shared/message-dialog/message-dialog.component';
-import {MatSnackBar} from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {EditCashbackCategoryDialogComponent} from './dialogs/edit-cashback-category-dialog.component';
 import {AddCashbackCategoryDialogComponent} from './dialogs/add-cashback-category-dialog.component';
 
