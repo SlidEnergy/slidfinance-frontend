@@ -3,10 +3,8 @@ import {Update} from "@ngrx/entity";
 import {EntityCollectionDataService, QueryParams} from "@ngrx/data";
 
 export class CustomEntityDataService<T> implements EntityCollectionDataService<T>{
-    name: string;
-
-    // TestBed bug requires `@Optional` even though http is always provided.
     constructor(
+        public name: string,
         private options: {
             getAll?: () => Observable<T[]>,
             getById?: (id: any) => Observable<T>

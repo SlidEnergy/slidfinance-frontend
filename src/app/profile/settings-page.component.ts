@@ -36,7 +36,7 @@ export class SettingsPageComponent implements OnInit, AfterViewInit {
     window['onTelegramAuth'] = (user) => this.onTelegramAuth(user);
   }
 
-  onTelegramAuth(user: { first_name: string, last_name: string, id: number, username: string }) {
+  onTelegramAuth(user: { first_name: string, last_name: string, id: number, username: string, auth_date: number, hash: string | null }) {
     this.telegramService.connect(user).subscribe(
       value => this.snackBar.open('Ваш аккант Телеграмма успешно привязан', undefined, { duration: 5000, panelClass: ['background-green'] }),
       error => this.snackBar.open('Не удалось привязать ваш аккаунт Телеграма', undefined, { duration: 5000, panelClass: ['background-red'] })

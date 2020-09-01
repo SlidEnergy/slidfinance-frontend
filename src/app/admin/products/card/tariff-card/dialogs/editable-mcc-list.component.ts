@@ -40,7 +40,7 @@ export class EditableMccListComponent implements OnInit {
 
     const mccCodes = this.newMccCodes.split(', ');
 
-    combineLatest(mccCodes.map(code => this.cashbackMcc.add(this.category.id.toString(), { categoryId: this.category.id, mccCode: +code})))
+    combineLatest(mccCodes.map(code => this.cashbackMcc.add(this.category.id, { id: this.category.id, categoryId: this.category.id, mccCode: +code})))
       .subscribe(
         value => {
           this.snackBar.open('МСС добавлены', undefined, {duration: 5000, panelClass: ['background-green']});

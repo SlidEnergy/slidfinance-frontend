@@ -17,6 +17,20 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@core/*": [
+        "app/core/*"
+      ],
+      "@api": [
+        "app/core/api/index.ts"
+      ],
+      "@shared": [
+        "app/shared/shared.module"
+      ],
+      "@shared/*": [
+        "app/shared/*"
+      ]
+    }
   }
 }

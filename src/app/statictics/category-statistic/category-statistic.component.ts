@@ -26,7 +26,7 @@ export class CategoryStatisticComponent implements OnInit {
     categoryStatistic: CategoryStatistic[];
     categories: Dictionary<Category>;
 
-    dataSource = new MatTableDataSource<Transaction>();
+    dataSource = new MatTableDataSource<CategoryStatistic>();
 
     @Input('categoryStatistic') set categoryStatisticInput(value: CategoryStatistic[]) {
         if (value) {

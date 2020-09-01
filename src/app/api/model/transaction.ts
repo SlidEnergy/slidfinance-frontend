@@ -12,7 +12,7 @@
 
 
 export class Transaction { 
-  id: number;
+  id: number | null;
   accountId: number;
   dateTime: Date;
   amount: number;
