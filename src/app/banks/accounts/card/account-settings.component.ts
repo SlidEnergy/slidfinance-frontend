@@ -4,7 +4,7 @@ import {filter, map, switchMapTo} from 'rxjs/operators';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Router} from '@angular/router';
-import {SaltedgeBankAccountRecord} from '../dialogs/SaltedgeBankAccountRecord';
+import {SaltedgeBankAccountRecord} from './SaltedgeBankAccountRecord';
 import {Observable} from 'rxjs';
 import {EntityDataContextService} from '../../../core/entity/entity-data-context.service';
 import {AccountsService, BankAccount} from '../../../api';

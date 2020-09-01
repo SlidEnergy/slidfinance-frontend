@@ -9,6 +9,6 @@
             placeholder="Аккаунт в SaltEdge">
     <mat-option *ngFor="let saltedgeAccount of saltedgeAccounts | async"
                 [value]="saltedgeAccount.accountId">
-        {{saltedgeAccount.providerName}}
+        {{saltedgeAccount.providerName + " - " + saltedgeAccount.accountName}}
     </mat-option>
 </mat-select>
