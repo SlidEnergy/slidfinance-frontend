@@ -35,7 +35,8 @@ export class AccountSettingsComponent implements OnInit {
                         accounts.push({
                             accountId: account.id,
                             accountName: account.name,
-                            providerName: record.connection.provider_name
+                            providerName: record.connection.provider_name,
+                            balance: account.balance
                         });
                     }
                 }
