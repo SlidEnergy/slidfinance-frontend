@@ -1,5 +1,5 @@
 import {NgModule, Optional, SkipSelf} from '@angular/core';
-import {StoreRouterConnectingModule} from '@ngrx/router-store';
+import {StoreRouterConnectingModule, DefaultRouterStateSerializer} from '@ngrx/router-store';
 import {coreReducer} from './core.store';
 import {EffectsModule} from '@ngrx/effects';
 import {CoreEffects} from './core.effects';
@@ -14,7 +14,7 @@ const entityConfig = createEntityConfig();
 @NgModule({
     declarations: [],
     imports: [
-        StoreRouterConnectingModule.forRoot(),
+        StoreRouterConnectingModule.forRoot({ serializer: DefaultRouterStateSerializer }),
         NgrxStoreModule.forRoot({core: coreReducer}),
         StoreDevtoolsModule.instrument({
             maxAge: 25,
