@@ -2,7 +2,9 @@
 <button mat-button color="primary"
         (click)="addNew()">Добавить новый продукт
 </button>
-
+<button mat-button color="primary"
+        (click)="importAll()">Импортировать данные из Saltedge
+</button>
 <mat-action-list>
   <mat-list-item *ngFor="let account of accounts" (click)="row_click(account)">
     <div class="row-title">{{account.title}}</div>

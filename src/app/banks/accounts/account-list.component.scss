@@ -1,3 +1,5 @@
+@import "variables";
+
 table {
   width: 100%;
 }
@@ -45,4 +47,5 @@ mat-row:active {
 }
 h3 {
   display: inline-block;
+  padding: $padding-rem;
 }
