@@ -4,9 +4,10 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+import {StorageMap} from "@ngx-pwa/local-storage";
 import {Observable} from 'rxjs';
 
-import {filter, flatMap, map} from 'rxjs/operators';
+import {catchError, filter, flatMap, map} from 'rxjs/operators';
 
 import {AccountsService, BankAccount, CategoriesService, Category, Transaction, TransactionsService} from 'src/app/api';
 import {MessageDialogComponent} from 'src/app/shared/message-dialog/message-dialog.component';
@@ -40,13 +41,15 @@ export class TransactionsEditableListComponent implements OnInit {
     // Список колонок, которые нужно показать в таблице
     columnsToDisplay = ['account', 'dateTime', 'mcc', 'bankCategory', 'description', 'amount', 'userDescription', 'category', 'actions'];
     loadingVisible = true;
+    recentCategories: number[] = [];
 
     constructor(
         private categoriesService: CategoriesService,
         private transactionsService: TransactionsService,
         private snackBar: MatSnackBar,
         private accountsService: AccountsService,
-        private dialog: MatDialog
+        private dialog: MatDialog,
+        private storage: StorageMap
     ) {
     }
 
@@ -57,6 +60,10 @@ export class TransactionsEditableListComponent implements OnInit {
         this.dataSource.sortingDataAccessor = this.sortingDataAccessor.bind(this);
         this.dataSource.filterPredicate = this.filterPredicate.bind(this);
         this.dataSource.paginator = this.paginator;
+
+        this.storage.get("recentCategories", {type: "array", items: {type: "number"}})
+            .pipe(catchError(x => []))
+            .subscribe(x => this.recentCategories = x);
     }
 
     sortingDataAccessor(transaction, property) {
@@ -116,26 +123,15 @@ export class TransactionsEditableListComponent implements OnInit {
     }
 
     private memorizeRecentCategory(transaction: Transaction) {
-        let recent = this.getRecentCategories();
+        this.storage.get("recentCategories", {type: "array", items: {type: "number"}}).pipe(catchError(err => []))
+            .subscribe(recent => {
+                recent = recent.filter(x => x == transaction.categoryId);
+                recent.unshift(transaction.categoryId);
 
-        recent.unshift(transaction.categoryId);
+                recent = recent.slice(0, 3);
 
-        recent = recent.slice(0, 3);
-
-        localStorage.setItem("recentCategories", JSON.stringify(recent));
-    }
-
-    private getRecentCategories() {
-        const json = localStorage.getItem("recentCategories");
-        let recent: number[] = [];
-
-        try {
-            recent = JSON.parse(json) || [];
-        } catch {
-            recent = [];
-        }
-
-        return recent;
+                localStorage.setItem("recentCategories", JSON.stringify(recent));
+            });
     }
 
     getAccountTitle(accountId: number) {
@@ -153,7 +149,7 @@ export class TransactionsEditableListComponent implements OnInit {
 
         const categories = Array.from(this.categories.values());
 
-        categories.unshift(...this.getRecentCategories().map(x => this.categories.get(x)));
+        categories.unshift(...this.recentCategories.map(x => this.categories.get(x)));
 
         return categories;
     }
