@@ -4,12 +4,15 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-import {Observable} from 'rxjs';
+import {StorageMap} from "@ngx-pwa/local-storage";
+import {Observable, of} from 'rxjs';
 
-import {filter, flatMap, map} from 'rxjs/operators';
+import {catchError, filter, flatMap, map} from 'rxjs/operators';
 
 import {AccountsService, BankAccount, CategoriesService, Category, Transaction, TransactionsService} from 'src/app/api';
 import {MessageDialogComponent} from 'src/app/shared/message-dialog/message-dialog.component';
+
+const RECENT_CATEGORIES_KEY = "recentCategories";
 
 @Component({
     selector: 'app-transactions-editable-list',
@@ -40,13 +43,15 @@ export class TransactionsEditableListComponent implements OnInit {
     // Список колонок, которые нужно показать в таблице
     columnsToDisplay = ['account', 'dateTime', 'mcc', 'bankCategory', 'description', 'amount', 'userDescription', 'category', 'actions'];
     loadingVisible = true;
+    recentCategories: number[] = [];
 
     constructor(
         private categoriesService: CategoriesService,
         private transactionsService: TransactionsService,
         private snackBar: MatSnackBar,
         private accountsService: AccountsService,
-        private dialog: MatDialog
+        private dialog: MatDialog,
+        private storage: StorageMap
     ) {
     }
 
@@ -57,6 +62,13 @@ export class TransactionsEditableListComponent implements OnInit {
         this.dataSource.sortingDataAccessor = this.sortingDataAccessor.bind(this);
         this.dataSource.filterPredicate = this.filterPredicate.bind(this);
         this.dataSource.paginator = this.paginator;
+
+        this.storage.watch(RECENT_CATEGORIES_KEY, {type: "array", items: {type: "number"}})
+            .pipe(
+                map(x => x || []),
+                catchError(x => of(<number[]>[]))
+            )
+            .subscribe(x => this.recentCategories = x);
     }
 
     sortingDataAccessor(transaction, property) {
@@ -110,32 +122,24 @@ export class TransactionsEditableListComponent implements OnInit {
     category_Changed(transaction: Transaction) {
         this.itemCategoryChanging(transaction).pipe(filter(x => !!x))
             .subscribe((result) => {
+                this.memorizeRecentCategory(transaction);
                 this.dataSource.data = this.dataSource.data.map((value) => value.id == result.id ? result : value);
             });
-        this.memorizeRecentCategory(transaction);
     }
 
     private memorizeRecentCategory(transaction: Transaction) {
-        let recent = this.getRecentCategories();
+        this.storage.get(RECENT_CATEGORIES_KEY, {type: "array", items: {type: "number"}})
+            .pipe(
+                map(x => x || []),
+                catchError(err => of(<number[]>[])))
+            .subscribe(recent => {
+                recent = recent.filter(x => x != transaction.categoryId);
+                recent.unshift(transaction.categoryId);
 
-        recent.unshift(transaction.categoryId);
+                recent = recent.slice(0, 3);
 
-        recent = recent.slice(0, 3);
-
-        localStorage.setItem("recentCategories", JSON.stringify(recent));
-    }
-
-    private getRecentCategories() {
-        const json = localStorage.getItem("recentCategories");
-        let recent: number[] = [];
-
-        try {
-            recent = JSON.parse(json) || [];
-        } catch {
-            recent = [];
-        }
-
-        return recent;
+                this.storage.set(RECENT_CATEGORIES_KEY, recent).subscribe();
+            });
     }
 
     getAccountTitle(accountId: number) {
@@ -153,7 +157,7 @@ export class TransactionsEditableListComponent implements OnInit {
 
         const categories = Array.from(this.categories.values());
 
-        categories.unshift(...this.getRecentCategories().map(x => this.categories.get(x)));
+        categories.unshift(...(this.recentCategories?.map(x => this.categories.get(x)) || []));
 
         return categories;
     }
