@@ -41,7 +41,7 @@
     "core-js": "^3.6.5",
     "express": "^4.17.1",
     "mat-progress-buttons": "^9.1.1",
-    "moment": "^2.27.0",
+    "moment": "^2.29.2",
     "rxjs": "~6.6.2",
     "tslib": "^2.0.1",
     "zone.js": "^0.11.1"
