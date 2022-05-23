@@ -23,7 +23,7 @@ export class SettingsPageComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     const s = this.document.createElement('script');
     s.async = 'true';
-    s.src = 'https://telegram.org/js/telegram-widget.js?7';
+    s.src = 'https://telegram.org/js/telegram-widget.js?19';
     // for Russia
     // s.src = 'https://oauth.watg.ru/js/telegram-widget.js?5';
     s.setAttribute('data-telegram-login', 'SlidFinanceBot');
