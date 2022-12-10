@@ -39,7 +39,7 @@
     "@ngx-pwa/local-storage": "^10.1.0",
     "angular-split": "^4.0.0",
     "core-js": "^3.6.5",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "mat-progress-buttons": "^9.1.1",
     "moment": "^2.27.0",
     "rxjs": "~6.6.2",
